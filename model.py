@@ -21,6 +21,9 @@ class User(db.Model):
     password = db.Column(db.String(30),
                          nullable-False)
 
+    # define relationship to calendars table
+    calendar = db.relationship("Calendar", backref=db.backref("users"))
+
     def __repr__(self):
         """Returns readable info about an instance of a user object."""
 
@@ -37,6 +40,9 @@ class Calendar(db.Model):
     house_addr = db.Column(db.String(50))
 
     house_name = db.Column(db.String(50))
+
+    # define relationship to users table
+    db.relationship("User", backref=db.backref("calendars"))
 
     def __repr__(self): 
         """Returns readable info about an instance of a calendar object."""
@@ -65,6 +71,10 @@ class Event(db.Model):
     end_time = db.Column(db.DateTime,
                            nullable=False)
     approved = db.Column(db.Boolean = False)
+
+    # define relationship to calendars table
+    calendar = db.relationship("Calendar", backref=db.backref("events"))
+
 
     def __repr__(self):
          """Returns readable info about an instance of a calendar object."""
