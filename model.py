@@ -1,4 +1,4 @@
-from sql_alchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 # Instantiate a SQLAlchemy object.
 db = SQLAlchemy()
@@ -9,17 +9,17 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer,
-                        autoincriment=True,
+                        autoincrement=True,
                         primary_key=True)
     cal_id = db.Column(db.Integer,
-                        Foreignkey('calendars.cal_id'),
-                        nullable=False)
+                       db.ForeignKey('calendars.cal_id'),
+                        nullable=True)
     name = db.Column(db.String(75),
                      nullable=False)
     username = db.Column(db.String(30),
                          nullable=False)
     password = db.Column(db.String(30),
-                         nullable-False)
+                         nullable=False)
 
     # define relationship to calendars table
     calendar = db.relationship("Calendar", backref=db.backref("users"))
@@ -35,14 +35,14 @@ class Calendar(db.Model):
     __tablename__ = 'calendars'
 
     cal_id = db.Column(db.Integer, 
-                       autoincriment=True,
+                       autoincrement=True,
                        primary_key=True)
     house_addr = db.Column(db.String(50))
 
     house_name = db.Column(db.String(50))
 
     # define relationship to users table
-    db.relationship("User", backref=db.backref("calendars"))
+    # db.relationship("User", backref=db.backref("calendars"))
 
     def __repr__(self): 
         """Returns readable info about an instance of a calendar object."""
@@ -56,13 +56,13 @@ class Event(db.Model):
     __tablename__ = 'events'
 
     event_id = db.Column(db.Integer,
-                         autoincriment=True,
+                         autoincrement=True,
                          primary_key=True)
     cal_id = db.Column(db.Integer,
-                        Foreignkey('calendars.cal_id')
-                        nullable=False)
+                       db.ForeignKey('calendars.cal_id'),
+                       nullable=False)
     user_id = db.Column(db.Integer,
-                        Foreignkey('users.user_id'),
+                        db.ForeignKey('users.user_id'),
                         nullable=False)
     event_type = db.Column(db.String(50),
                             nullable=False)
@@ -70,7 +70,7 @@ class Event(db.Model):
                            nullable=False)
     end_time = db.Column(db.DateTime,
                            nullable=False)
-    approved = db.Column(db.Boolean = False)
+    approved = db.Column(db.Boolean)
 
     # define relationship to calendars table
     calendar = db.relationship("Calendar", backref=db.backref("events"))
@@ -95,6 +95,7 @@ if __name__ == "__name__":
 
     from server import app
     connect_to_db(app)
+    print("Connected to DB")
 
 
 
