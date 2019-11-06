@@ -3,9 +3,15 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-    
+ <h1>Login:</h1>
+ <form action="/login">
+   Username: <input type=text name="username">
+   Password: <input type=text name="password">
+ </form>  
+ <div> 
  <form action="/register">
-    <button type=submit>Register</button>
+    Register<input type=submit name="register">
  </form>
+</div>
 
 {% endblock %}

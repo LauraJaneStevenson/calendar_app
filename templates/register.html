@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %}Homepage{% endblock %}
-
 {% block content %}
-    
-<form action="/add_user">
+
+<form action="/add_user" method="POST">
     Name: <input type="text" name="name">
     Username: <input type="text" name="username">
     Password: <input type="password" name="password">
