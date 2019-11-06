@@ -46,7 +46,7 @@ def register_user():
 
 
 @app.route("/login", methods=['POST'])
-def login_page():
+def login_proccess():
 
     # getting login info from form
     username = request.form["username"]
@@ -54,21 +54,50 @@ def login_page():
 
     user = User.query.filter_by(username=username).first()
 
+    
+
     if user == None:
         flash("User does not exist, click register to join Roomies!")
         return redirect("/")
     if user.password != password: 
         flash("Incorrect password.")
 
+    # add user_id to the session 
     session["user_id"] = user.user_id
     flash(f"Hello, {user.name}")
-    return render_template("calendar.html")
 
-    
+
+    # if user has a calendar  
+    if user.calendar:
+
+        # add calendar object to session
+        # create calendar var 
+        calendar = user.calendar
+        session["cal_id"] = calendar.cal_id
+        
+
+        # a variable to store all other users who can also view that calendar
+        housemates = User.query.filter_by(cal_id=calendar.cal_id).all()
+        # print("\n\n\n\n\n\n")
+        # print(housemates)
+        # print(session)
+        # print("\n\n\n\n\n\n")
+       
+        return render_template("calendar.html",housemates=housemates)
+
+   
+    return redirect("/create_or_find") 
+
+
+@app.route("/create_or_find")
+def create_or_find_cal():
+    pass
+
 
 @app.route("/calendar")
 def calendar_page(): 
-    pass 
+
+    return render_template("calendar.html")
 
 
 if __name__ == "__main__":
