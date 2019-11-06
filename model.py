@@ -20,12 +20,10 @@ class User(db.Model):
                          nullable=False)
     password = db.Column(db.String(30),
                          nullable=False)
-    # relationship to calendar object, so now when I say calendar.housemates
-    # it will return a list of housemates that belong to that calendar
-
-    # calendar = db.relationship("Calendar",
-    #                            backref="housemates",
-    #                            foreign_keys=[cal_id])
+   
+    calendar = db.relationship("Calendar")
+                               # backref="housemates",
+                               # foreign_keys=[cal_id])
 
     def __repr__(self):
         """Returns readable info about an instance of a user object."""
@@ -47,10 +45,9 @@ class Calendar(db.Model):
 
     house_name = db.Column(db.String(50), nullable=False)
 
-    # create a relationship to users
-    # this creates a phantom colum in users table called calendar
-    user = db.relationship("User",
-                            backref="calendar")
+    
+    user = db.relationship("User")
+                            # backref="calendar")
                             # foreign_keys=[user_id])
 
     def __repr__(self): 
