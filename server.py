@@ -10,6 +10,9 @@ from model import connect_to_db, db, User, Calendar, Event
 
 app = Flask(__name__)
 
+# Required to use Flask sessions and the debug toolbar
+app.secret_key = "123"
+
 @app.route("/")
 def homepage():
     """Show homepage."""
