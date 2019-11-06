@@ -49,13 +49,13 @@ class Calendar(db.Model):
     # calendar has primary user as a foreign key which represents the 
     # user who created the calendar 
     primary_user = db.relationship("User",
-                                    backref="primary_calendar",
+                                    backref="calendar",
                                     foreign_keys=[primary_user_id])
 
     def __repr__(self): 
         """Returns readable info about an instance of a calendar object."""
 
-        return f"<Calendar_id: {self.cal_id}, House_addr: {self.house_addr}, House_name: {self.house_name}>"
+        return f"<Calendar_id: {self.cal_id}, Primary_user: {self.primary_user} House_addr: {self.house_addr}, House_name: {self.house_name}>"
 
 
 class Event(db.Model):
