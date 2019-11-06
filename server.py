@@ -76,14 +76,14 @@ def login_proccess():
         session["cal_id"] = calendar.cal_id
         
 
-        # a variable to store all other users who can also view that calendar
-        housemates = User.query.filter_by(cal_id=calendar.cal_id).all()
-        # print("\n\n\n\n\n\n")
-        # print(housemates)
-        # print(session)
-        # print("\n\n\n\n\n\n")
-       
-        return render_template("calendar.html",housemates=housemates)
+        # a variable to store a list of user's housemates
+        housemates = User.query.filter(User.user_id != user.user_id, 
+                                       User.cal_id == calendar.cal_id).all()
+
+        # add instance attribute housemates
+        user.housemates = housemates
+               
+        return render_template("calendar.html",user=user)
 
    
     return redirect("/create_or_find") 

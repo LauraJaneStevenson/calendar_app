@@ -3,7 +3,19 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
- <h1>Yay you're logged in!</h1>
-
+ <h1>Hello, {{ user.name }}!</h1>
+ <p>House name: {{ user.calendar.house_name }}</p>
+ <p>Your housemates: </p>
+ <div>
+     <ul> 
+        {% for housemate in user.housemates %}
+         <li>
+            <a href="/">
+              {{ housemate.name }}
+            </a>
+        </li>  
+        {% endfor %}
+     </ul>
+</div>
 
 {% endblock %}
