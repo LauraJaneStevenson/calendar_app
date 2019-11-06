@@ -51,7 +51,19 @@ def login_page():
     # getting login info from form
     username = request.form["username"]
     password = request.form["password"]
-    pass
+
+    user = User.query.filter_by(username=username).first()
+
+    if user == None:
+        flash("User does not exist, click register to join Roomies!")
+        return redirect("/")
+    if user.password != password: 
+        flash("Incorrect password.")
+
+    session["user_id"] = user.user_id
+    flash(f"Hello, {user.name}")
+    return render_template("calendar.html")
+
     
 
 @app.route("/calendar")
