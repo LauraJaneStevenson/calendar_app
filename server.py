@@ -82,11 +82,11 @@ def login_proccess():
 
         # add instance attribute housemates
         user.housemates = housemates
-               
+
         return render_template("calendar.html",user=user)
 
    
-    return redirect("/create_or_find") 
+    return render_template("create_cal.html") 
 
 
 @app.route("/create_or_find")

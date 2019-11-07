@@ -5,6 +5,12 @@
     
 </head>
 <body>
+    {% if user %}
+       <a href="/">
+            <button type="button">Logout!</button>
+        </a>
+    {% endif %}
+   
     {% block content %}{% endblock %}
 </body>
 </html>
