@@ -30,6 +30,18 @@ class User(db.Model):
 
         return f"<Name: {self.name}, Calendar_id: {self.cal_id}, Username: {self.username}>"
 
+    def get_housemates(self):
+
+        # if instance of user has a calendar 
+        if self.cal_id:
+              
+            # a variable to store a list of user's housemates or users with the same calendar
+            housemates = db.session.query(User).filter(User.user_id != self.user_id,
+                                                       User.cal_id == self.cal_id).all()
+
+        # return list of housemates
+        return housemates
+
 
 class Calendar(db.Model):
     """Data model for Calendar."""
@@ -54,6 +66,14 @@ class Calendar(db.Model):
         """Returns readable info about an instance of a calendar object."""
 
         return f"<Calendar_id: {self.cal_id}, House_addr: {self.house_addr}, House_name: {self.house_name}>"
+
+    def get_users(self):
+
+        # a variable to store a list of user's housemates or users with the same calendar
+        cal_users = db.session.query(User).filter(User.cal_id == self.cal_id).all()
+
+        # return list of housemates
+        return cal_users
 
 
 class Event(db.Model):

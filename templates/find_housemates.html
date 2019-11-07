@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Find Roomies{% endblock %}
+
+{% block content %}
+
+<div>
+    {% if users %}
+    <ul>
+        {% for housemate in users %}
+        <li>
+             <a href="/">
+              {{ housemate.name }} ({{ housemate.username }})
+            </a>
+
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+         <p>Sorry no users with that name found!</p>
+    {% endif %}
+</div>
+{% endblock %}

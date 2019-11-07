@@ -5,8 +5,8 @@
     
 </head>
 <body>
-    {% if user %}
-    <h1>Hello, {{ user.name }}</h1>
+    {% if session['name'] %}
+    <h1>Hello, {{ session['name'] }}</h1>
        <a href="/logout_process">
             <button type="button">Logout!</button>
         </a>

@@ -42,7 +42,7 @@ def register_user():
     flash(f"Hi {name}! Welcom to roomies!")
     return redirect("/")
 
-    # return render_template("register.html")
+  
 
 
 @app.route("/login", methods=['POST'])
@@ -64,24 +64,16 @@ def login_proccess():
 
     # add user_id to the session 
     session["user_id"] = user.user_id
+    session["name"] = user.name
+    session["username"] = user.username
     flash(f"Hello, {user.name}")
-
 
     # if user has a calendar  
     if user.calendar:
 
-        # add calendar object to session
-        # create calendar var 
+        # create calendar var and add calendar id to session
         calendar = user.calendar
         session["cal_id"] = calendar.cal_id
-        
-
-        # a variable to store a list of user's housemates
-        housemates = User.query.filter(User.user_id != user.user_id, 
-                                       User.cal_id == calendar.cal_id).all()
-
-        # add instance attribute housemates
-        user.housemates = housemates
 
         return render_template("calendar.html",user=user)
 
@@ -94,6 +86,8 @@ def logout_user():
 
     # delete user and calendar from session
     del session["user_id"]
+    del session["name"]
+    del session["username"]
     del session["cal_id"]
 
     return redirect("/")
@@ -121,6 +115,18 @@ def create_cal_process():
 
     return render_template("/calendar.html",user=user)
 
+@app.route("/add_housemates", methods=['POST'])
+def add_housemates():
+    """Display list of all users and their info with name from input search bar"""
+
+    housemate = request.form['housemate_name']
+    users = User.query.filter(User.name==housemate, User.cal_id == None).all()
+    
+
+    return render_template("find_housemates.html", users=users)
+
+# def logged_in_user():
+#     return session[]
 
 if __name__ == "__main__":
     connect_to_db(app)

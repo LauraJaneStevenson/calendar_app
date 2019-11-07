@@ -8,7 +8,7 @@
  <p>Your housemates: </p>
  <div>
      <ul> 
-        {% for housemate in user.housemates %}
+        {% for housemate in user.get_housemates() %}
          <li>
             <a href="/">
               {{ housemate.name }}
@@ -16,6 +16,14 @@
         </li>  
         {% endfor %}
      </ul>
+
+    <p>Search for and add housemates: </p>
+
+    <form action="/add_housemates" method="POST">
+        Search name:<input type="text" name="housemate_name">
+        <input type="submit">
+    </form>
+    
 </div>
 
 {% endblock %}
