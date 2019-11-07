@@ -6,7 +6,8 @@
 </head>
 <body>
     {% if user %}
-       <a href="/">
+    <h1>Hello, {{ user.name }}</h1>
+       <a href="/logout_process">
             <button type="button">Logout!</button>
         </a>
     {% endif %}

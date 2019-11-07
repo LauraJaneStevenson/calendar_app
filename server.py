@@ -86,18 +86,40 @@ def login_proccess():
         return render_template("calendar.html",user=user)
 
    
-    return render_template("create_cal.html") 
+    return render_template("find_or_create_cal.html") 
 
+@app.route("/logout_process")
+def logout_user():
+    """method for logging out user redirects to homepage"""
 
-@app.route("/create_or_find")
+    # delete user and calendar from session
+    del session["user_id"]
+    del session["cal_id"]
+
+    return redirect("/")
+
+@app.route("/create_cal")
 def create_or_find_cal():
-    pass
+    """retuns the html page where user can create a new calendar object"""
+    return render_template("create_cal.html")
 
 
-@app.route("/calendar")
-def calendar_page(): 
+@app.route("/create_cal_process", methods=['POST'])
+def create_cal_process(): 
+    """Creates a calendar object, binds it to user who created it,
+        redirects to calendar.html"""
 
-    return render_template("calendar.html")
+    house_name = request.form["house_name"]
+    house_addr = request.form["house_addr"]
+    new_calendar = Calendar(house_name=house_name,house_addr=house_addr)
+
+    user = User.query.filter_by(user_id=session["user_id"]).first()
+    user.calendar = new_calendar
+    db.session.add(new_calendar)
+    db.session.commit()
+
+
+    return render_template("/calendar.html",user=user)
 
 
 if __name__ == "__main__":
