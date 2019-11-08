@@ -141,11 +141,18 @@ def invite_housemates():
 
     db.session.commit()
 
-
     return redirect("/")
 
-# def logged_in_user():
-#     return session[]
+@app.route("/find_calendar")
+def find_calendar():
+
+    #get calendar name user entered in form 
+    house_name = request.args.get("house_name")
+
+    #list of calendars with the house name user searched for
+    cal_list = Calendar.query.filter(Calendar.house_name == house_name).all()
+    pass
+    # return render_template("")
 
 if __name__ == "__main__":
     connect_to_db(app)

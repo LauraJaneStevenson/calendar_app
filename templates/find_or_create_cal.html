@@ -6,9 +6,10 @@
        <a href="/create_cal">
             <button type="button">Create New Calendar</button>
         </a>
-        <a href="/find_calendar">
-            <button type="button">Find Existing Calendar</button>
-        </a>
-
+        <p>Find House: </p>
+        <form action="find_calendar">
+            <input type="text" name="house_name">
+            <input type="submit" value="find">
+        </form>
 
 {% endblock %}
