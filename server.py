@@ -145,14 +145,28 @@ def invite_housemates():
 
 @app.route("/find_calendar")
 def find_calendar():
+    """Takes in a house_name string and finds a list of 
+    calendars with that name"""
 
-    #get calendar name user entered in form 
+    # get calendar name user entered in form 
     house_name = request.args.get("house_name")
 
-    #list of calendars with the house name user searched for
+    # list of calendars with the house name user searched for
     cal_list = Calendar.query.filter(Calendar.house_name == house_name).all()
-    pass
-    # return render_template("")
+    
+    return render_template("calendar_list.html",cal_list=cal_list)
+
+
+@app.route("/add_self_to_cal")
+def add_self_to_cal():
+    """Adds cal_id to logged in user's cal_id feild."""
+    cal_id = request.form['cal_id']
+    user = User.query.filter(User.user_id == session['user_id']).one()
+    user.cal_id = cal_id
+
+    db.session.commit()
+
+    return rendertemplate("calendar.html",user=user)
 
 if __name__ == "__main__":
     connect_to_db(app)
