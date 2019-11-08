@@ -54,8 +54,6 @@ def login_proccess():
 
     user = User.query.filter_by(username=username).first()
 
-    
-
     if user == None:
         flash("User does not exist, click register to join Roomies!")
         return redirect("/")
@@ -84,11 +82,15 @@ def login_proccess():
 def logout_user():
     """method for logging out user redirects to homepage"""
 
-    # delete user and calendar from session
+    # delete user info from session
     del session["user_id"]
     del session["name"]
     del session["username"]
-    del session["cal_id"]
+
+    # if user has a calendar delete from session
+    if "cal_id" in session:
+
+        del session["cal_id"]
 
     return redirect("/")
 
@@ -106,12 +108,14 @@ def create_cal_process():
     house_name = request.form["house_name"]
     house_addr = request.form["house_addr"]
     new_calendar = Calendar(house_name=house_name,house_addr=house_addr)
-
     user = User.query.filter_by(user_id=session["user_id"]).first()
     user.calendar = new_calendar
     db.session.add(new_calendar)
     db.session.commit()
+    user = User.query.filter_by(user_id=session["user_id"]).first()
 
+    # get cal_id of newly created calendar and add it to the session
+    session["cal_id"] = user.cal_id
 
     return render_template("/calendar.html",user=user)
 
@@ -124,6 +128,21 @@ def add_housemates():
     
 
     return render_template("find_housemates.html", users=users)
+
+
+@app.route("/invite", methods=['POST'])
+def invite_housemates():
+
+    user_id = request.form["user_id"]
+
+    user = User.query.filter_by(user_id=user_id).first()
+
+    user.cal_id = session['cal_id']
+
+    db.session.commit()
+
+
+    return redirect("/")
 
 # def logged_in_user():
 #     return session[]

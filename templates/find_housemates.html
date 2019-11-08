@@ -6,16 +6,20 @@
 
 <div>
     {% if users %}
+   
     <ul>
         {% for housemate in users %}
         <li>
-             <a href="/">
-              {{ housemate.name }} ({{ housemate.username }})
+             <a href="invite/"> 
+              {{ housemate.name }} {{ housemate.username }}, ({{ housemate.user_id }})
             </a>
-
+             <form action="/invite" method="POST">
+                <input type="submit" value="{{ housemate.user_id }}" name="user_id">
+            </form>
         </li>
         {% endfor %}
     </ul>
+    
     {% else %}
          <p>Sorry no users with that name found!</p>
     {% endif %}
