@@ -157,7 +157,7 @@ def find_calendar():
     return render_template("calendar_list.html",cal_list=cal_list)
 
 
-@app.route("/add_self_to_cal")
+@app.route("/add_self_to_cal",methods=['POST'])
 def add_self_to_cal():
     """Adds cal_id to logged in user's cal_id feild."""
     cal_id = request.form['cal_id']
@@ -166,7 +166,7 @@ def add_self_to_cal():
 
     db.session.commit()
 
-    return rendertemplate("calendar.html",user=user)
+    return render_template("calendar.html",user=user)
 
 if __name__ == "__main__":
     connect_to_db(app)
