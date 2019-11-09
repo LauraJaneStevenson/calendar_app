@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Roomies</title>
-    
+<title>Roomies</title>
+<head>
+    <meta charset='utf-8' />
+
+    <link href='/static/fullcalendar/core/main.css' rel='stylesheet' />
+    <link href='/static/fullcalendar/daygrid/main.css' rel='stylesheet' />
+
+    <script src='/static/fullcalendar/core/main.js'></script>
+    <script src='/static/fullcalendar/daygrid/main.js'></script>
+
+   
+
 </head>
 <body>
+
     {% if session['name'] %}
     <h1>Hello, {{ session['name'] }}</h1>
        <a href="/logout_process">
             <button type="button">Logout!</button>
         </a>
     {% endif %}
-   
     {% block content %}{% endblock %}
+     <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          plugins: [ 'dayGrid' ]
+        });
+
+        calendar.render();
+      });
+
+    </script>
 </body>
 </html>

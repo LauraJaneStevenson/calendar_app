@@ -17,13 +17,14 @@
         {% endfor %}
      </ul>
 
+     <div id="calendar"></div>
+
     <p>Search for and add housemates: </p>
 
     <form action="/add_housemates" method="POST">
         Search name:<input type="text" name="housemate_name">
         <input type="submit">
-    </form>
-    
+    </form>   
 </div>
 
 {% endblock %}

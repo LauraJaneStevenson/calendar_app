@@ -6,6 +6,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Calendar, Event
 
+from helper_functions import get_user
+
 
 
 app = Flask(__name__)
@@ -52,7 +54,7 @@ def login_proccess():
     username = request.form["username"]
     password = request.form["password"]
 
-    user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=username,password=password).first()
 
     if user == None:
         flash("User does not exist, click register to join Roomies!")
@@ -108,12 +110,11 @@ def create_cal_process():
     house_name = request.form["house_name"]
     house_addr = request.form["house_addr"]
     new_calendar = Calendar(house_name=house_name,house_addr=house_addr)
-    user = User.query.filter_by(user_id=session["user_id"]).first()
+    user = get_user(session["user_id"])
     user.calendar = new_calendar
     db.session.add(new_calendar)
     db.session.commit()
-    user = User.query.filter_by(user_id=session["user_id"]).first()
-
+    
     # get cal_id of newly created calendar and add it to the session
     session["cal_id"] = user.cal_id
 
