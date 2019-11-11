@@ -56,17 +56,34 @@
         ],
         dateClick: function(info) {
           alert('clicked ' + info.dateStr);
+          let dateStr = info.dateStr;
+          let startStr = info.startStr;
+          let endStr = info.endString;
+          console.log('startStr' + startStr + 'endStr' + endStr);
+          let date = new Date(dateStr + 'T00:00:00'); // will be in local time
+
         },
         select: function(info) {
           alert('selected ' + info.startStr + ' to ' + info.endStr);
+          let dateStr = info.dateStr;
+          let startStr = info.startStr;
+          let endStr = info.endStr;
+          console.log('startStr' + startStr + 'endStr' + endStr);
+
+          calendar.addEvent({
+                    title: 'test event',
+                    start: startStr
+                    
+                  });
+
         },
+
           customButtons: {
             addEventButton: {
               text: 'add event...',
               click: function() {
                 var dateStr = prompt('Enter a date in YYYY-MM-DD format');
                 var date = new Date(dateStr + 'T00:00:00'); // will be in local time
-
                 if (!isNaN(date.valueOf())) { // valid?
                   calendar.addEvent({
                     title: 'dynamic event',
