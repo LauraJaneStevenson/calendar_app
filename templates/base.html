@@ -59,7 +59,6 @@
           let dateStr = info.dateStr;
           let startStr = info.startStr;
           let endStr = info.endString;
-          console.log('startStr' + startStr + 'endStr' + endStr);
           let date = new Date(dateStr + 'T00:00:00'); // will be in local time
 
         },
@@ -68,6 +67,15 @@
           let dateStr = info.dateStr;
           let startStr = info.startStr;
           let endStr = info.endStr;
+
+          const eventDetails = {
+            'start': info.startStr,
+            'end': info.endStr
+          }
+          $.post('/add_event',eventDetails,(response) =>{
+            alert(response)
+          })
+
           console.log('startStr' + startStr + 'endStr' + endStr);
 
           calendar.addEvent({

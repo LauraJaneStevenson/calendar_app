@@ -169,6 +169,22 @@ def add_self_to_cal():
 
     return render_template("calendar.html",user=user)
 
+@app.route("/add_event", methods=['POST'])
+def add_event():
+    """Adds event to the database"""
+
+    # get event info from form 
+    start = request.form.get("start")
+    end = request.form.get("end")
+
+    event = Event(cal_id=session['cal_id'],user_id=session['user_id'],
+                  event_type='quiet hours',start_time=start,end_time=end)
+
+    db.session.add(event)
+    db.session.commit()
+
+    return f"added {event}"
+
 if __name__ == "__main__":
     connect_to_db(app)
     app.run(host="0.0.0.0", debug=True)
