@@ -35,7 +35,8 @@
 
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
-
+        const eventList = $.get('/allevents');
+        console.log("EVENT LIST!!!" + eventList);
         var calendar = new FullCalendar.Calendar(calendarEl, {
           plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
           defaultView: 'timeGridWeek',
@@ -47,13 +48,14 @@
           },
           editable: true,
           selectable: true,
-          events: [
-          { // this object will be "parsed" into an Event Object
-            title: 'The Title', // a property!
-            start: '2019-11-12T10:30:00', // a property!
-            end: '2019-11-12T11:30:00' // a property! ** see important note below about 'end' **
-          }
-        ],
+          events: eventList,
+        //   events: [
+        //   { // this object will be "parsed" into an Event Object
+        //     title: 'EVENT!', // a property!
+        //     start: '2019-11-12T10:30:00', // a property!
+        //     end: '2019-11-12T11:30:00' // a property! ** see important note below about 'end' **
+        //   }
+        // ],
         dateClick: function(info) {
           alert('clicked ' + info.dateStr);
           let dateStr = info.dateStr;
@@ -72,9 +74,10 @@
             'start': info.startStr,
             'end': info.endStr
           }
+
           $.post('/add_event',eventDetails,(response) =>{
             alert(response)
-          })
+          });
 
           console.log('startStr' + startStr + 'endStr' + endStr);
 

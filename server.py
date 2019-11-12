@@ -1,7 +1,7 @@
 
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, request, flash, redirect, session
+from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Calendar, Event
@@ -183,7 +183,32 @@ def add_event():
     db.session.add(event)
     db.session.commit()
 
+
     return f"added {event}"
+
+@app.route("/all_events")
+def display_all_events():
+    """Returns a list of events from database"""
+
+    # call helper function to get list of all event objects with this cal_id
+    db_events = get_events(session['cal_id'])
+
+    # list of objects, each represent one event, to pass to calendar on front end
+    event_list = []
+    
+    for db_event in db_events:
+        # event_list.append({'title': event.event_type,
+        #                    'start': event.start_time,
+        #                    'end': event.end_time})
+        event = {}
+        event['title'] = db_event.event_type
+        event['start'] = db_event.start_time
+        event['end'] = db_event.end_time
+
+        event_list.append(event)
+
+
+    return jsonify(event_list)
 
 if __name__ == "__main__":
     connect_to_db(app)
