@@ -6,7 +6,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Calendar, Event
 
-from helper_functions import get_user
+from helper_functions import get_user, get_events
 
 
 
@@ -186,12 +186,17 @@ def add_event():
 
     return f"added {event}"
 
-@app.route("/all_events")
+@app.route("/all_events.json")
 def display_all_events():
     """Returns a list of events from database"""
 
     # call helper function to get list of all event objects with this cal_id
     db_events = get_events(session['cal_id'])
+    print("\n\n\n\n\n\n")
+    print(session['cal_id'])
+    print("\n\n\n\n\n\n")
+
+
 
     # list of objects, each represent one event, to pass to calendar on front end
     event_list = []
@@ -201,11 +206,16 @@ def display_all_events():
         #                    'start': event.start_time,
         #                    'end': event.end_time})
         event = {}
+        event['id'] = db_event.event_id
         event['title'] = db_event.event_type
-        event['start'] = db_event.start_time
-        event['end'] = db_event.end_time
+        event['start'] = db_event.start_time.isoformat()
+        event['end'] = db_event.end_time.isoformat()
 
         event_list.append(event)
+    # print("\n\n\n\n\n\n\n\n")
+    # print(event_list)
+    # print("\n\n\n\n\n\n\n\n")
+
 
 
     return jsonify(event_list)
