@@ -206,7 +206,7 @@ def display_all_events():
         #                    'start': event.start_time,
         #                    'end': event.end_time})
         event = {}
-        event['id'] = db_event.event_id
+        # event['id'] = db_event.event_id
         event['title'] = db_event.event_type
         event['start'] = db_event.start_time.isoformat()
         event['end'] = db_event.end_time.isoformat()

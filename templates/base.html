@@ -49,28 +49,26 @@
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
           },
           editable: true,
+          eventDurationEditable: true,
+          slotDuration: '00:30',
           selectable: true,
           events: res,
-        //   events: [
-        //   { // this object will be "parsed" into an Event Object
-        //     title: 'EVENT!', // a property!
-        //     start: '2019-11-12T10:30:00', // a property!
-        //     end: '2019-11-12T11:30:00' // a property! ** see important note below about 'end' **
-        //   }
-        // ],
-        dateClick: function(info) {
-          alert('clicked ' + info.dateStr);
-          let dateStr = info.dateStr;
-          let startStr = info.startStr;
-          let endStr = info.endString;
-          let date = new Date(dateStr + 'T00:00:00'); // will be in local time
+      
+        // dateClick: function(info) {
+        //   // info is an object with info about the timeslot you clicked on 
+        //   console.log(info);
+        //   alert('clicked ' + info.dateStr);
+        //   let dateStr = info.dateStr;
+        //   let startStr = info.startStr;
+        //   let endStr = info.endString;
+        //   let date = new Date(dateStr + 'T00:00:00'); // will be in local time
 
-        },
+        // },
         select: function(info) {
+
           alert('selected ' + info.startStr + ' to ' + info.endStr);
-          let dateStr = info.dateStr;
-          let startStr = info.startStr;
-          let endStr = info.endStr;
+          let start = prompt('Edit Start Time: ');
+
 
           const eventDetails = {
             'start': info.startStr,
@@ -81,15 +79,18 @@
             alert(response)
           });
 
-          console.log('startStr' + startStr + 'endStr' + endStr);
+          // console.log('startStr sfter if' + startStr + 'endStr after if' + endStr);
 
           calendar.addEvent({
-                    title: 'test event',
-                    start: startStr
+                    title: 'Event',
+                    start: info.startStr,
+                    end: info.endStr
                     
-                  });
+          });
 
         },
+
+
 
           customButtons: {
             addEventButton: {
@@ -112,6 +113,8 @@
            }
  
          
+
+
         });
       
 
