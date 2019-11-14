@@ -6,7 +6,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Calendar, Event
 
-from helper_functions import get_user, get_events
+from helper_functions import get_user, get_events, map_event_colors
 
 
 
@@ -176,9 +176,10 @@ def add_event():
     # get event info from form 
     start = request.form.get("start")
     end = request.form.get("end")
+    event_type = request.form.get("eventType")
 
     event = Event(cal_id=session['cal_id'],user_id=session['user_id'],
-                  event_type='quiet hours',start_time=start,end_time=end)
+                  event_type=event_type,start_time=start,end_time=end)
 
     db.session.add(event)
     db.session.commit()
@@ -192,11 +193,6 @@ def display_all_events():
 
     # call helper function to get list of all event objects with this cal_id
     db_events = get_events(session['cal_id'])
-    print("\n\n\n\n\n\n")
-    print(session['cal_id'])
-    print("\n\n\n\n\n\n")
-
-
 
     # list of objects, each represent one event, to pass to calendar on front end
     event_list = []
@@ -210,11 +206,18 @@ def display_all_events():
         event['title'] = db_event.event_type
         event['start'] = db_event.start_time.isoformat()
         event['end'] = db_event.end_time.isoformat()
+        event['author'] = get_user(db_event.user_id).username
+        # if the event is in the dictionary, give event obj 'eventColor' attibute 
+        # and set it to correct color
+        # event['backgroundColor'] = '#add8e6'
+        if db_event.event_type in map_event_colors():
+            event['backgroundColor'] = map_event_colors()[db_event.event_type]
+            event['borderColor'] = map_event_colors()[db_event.event_type]
 
         event_list.append(event)
-    # print("\n\n\n\n\n\n\n\n")
-    # print(event_list)
-    # print("\n\n\n\n\n\n\n\n")
+    print("\n\n\n\n\n\n\n\n")
+    print(event_list)
+    print("\n\n\n\n\n\n\n\n")
 
 
 

@@ -48,9 +48,16 @@
             center: 'title, addEventButton',
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
           },
-          editable: true,
-          eventDurationEditable: true,
-          slotDuration: '00:30',
+          // editable: true,
+          // eventDurationEditable: true,
+          eventRender: function(info) {
+          var tooltip = new Tooltip(info.el, {
+            title: info.event.extendedProps.author,
+            placement: 'top',
+            trigger: 'hover',
+            container: 'body'
+            });
+          },
           selectable: true,
           events: res,
       
@@ -65,29 +72,33 @@
 
         // },
         select: function(info) {
+          
+          let startT = prompt('Enter Start Time: ', info.startStr);
+          let endT = prompt('Enter End Time: ', info.endStr);
+          console.log('endT: ' + endT)
+          let eventType = prompt('Enter Event Type(Quiet hours, Bathroom, Party): ');
 
-          alert('selected ' + info.startStr + ' to ' + info.endStr);
-          let start = prompt('Edit Start Time: ');
 
 
           const eventDetails = {
-            'start': info.startStr,
-            'end': info.endStr
-          }
+            'start': startT,
+            'end': endT,
+            'eventType': eventType
+          };
 
           $.post('/add_event',eventDetails,(response) =>{
-            alert(response)
+            alert(response);
           });
 
-          // console.log('startStr sfter if' + startStr + 'endStr after if' + endStr);
+            calendar.addEvent({
+                    title: eventType,
+                    start: startT,
+                    endTime: endT,
+                    backgroundColor: '#90ee90',
 
-          calendar.addEvent({
-                    title: 'Event',
-                    start: info.startStr,
-                    end: info.endStr
-                    
-          });
-
+                 
+              });         
+         
         },
 
 
