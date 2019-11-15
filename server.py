@@ -4,9 +4,9 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, User, Calendar, Event
+from model import connect_to_db, db, User, Calendar, Event, EventRequest
 
-from helper_functions import get_user, get_events, map_event_colors
+from helper_functions import get_user, get_approved_events, map_event_colors
 
 
 
@@ -171,28 +171,59 @@ def add_self_to_cal():
 
 @app.route("/add_event", methods=['POST'])
 def add_event():
-    """Adds event to the database"""
+    """Adds event to the database and send housemates event requests if applicable"""
 
     # get event info from form 
     start = request.form.get("start")
     end = request.form.get("end")
     event_type = request.form.get("eventType")
-
+    # create new event
     event = Event(cal_id=session['cal_id'],user_id=session['user_id'],
                   event_type=event_type,start_time=start,end_time=end)
-
+    # commit it to the DB
     db.session.add(event)
     db.session.commit()
 
+    if event_type == 'shower':
+        # showers are first come first serve so approved gets set to true
+        event.approved == True
+        db.session.commit()
 
-    return f"added {event}"
+    else:
+        # if event not shower, send event request to other users
+        current_user = get_user(session['user_id'])
+        # get list of current user's housemates
+        housemates = current_user.get_housemates()
+        # loop through housemates and send event request to each
+        for housemate in housemates:
+            event_request = EventRequest(event_id=event.event_id,
+                                          to_user_id=housemate.user_id)
+            db.session.add(event_request)
+            db.session.commit()
 
-@app.route("/all_events.json")
+
+    return "An event request has been sent to your housemates!"
+
+
+# @app.route("/send_event_request",methods=['POST'])
+# def send_event_request():
+#     """"""
+#     # get event id from previous route
+
+    
+
+#     return event_id
+
+
+
+    
+
+@app.route("/approved_events.json")
 def display_all_events():
     """Returns a list of events from database"""
 
     # call helper function to get list of all event objects with this cal_id
-    db_events = get_events(session['cal_id'])
+    db_events = get_approved_events(session['cal_id'])
 
     # list of objects, each represent one event, to pass to calendar on front end
     event_list = []

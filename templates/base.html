@@ -40,7 +40,7 @@
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
 
-        const eventList = $.get('/all_events.json', (res) =>{
+        const eventList = $.get('/approved_events.json', (res) =>{
 
         console.log("Event List: " + eventList);
         var calendar = new FullCalendar.Calendar(calendarEl, {
