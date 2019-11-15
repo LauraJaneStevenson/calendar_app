@@ -107,6 +107,29 @@ class Event(db.Model):
 
          return f"<Event_id: {self.event_id}, Event_type: {self.event_type}, User_id: {self.user_id}>"
 
+
+class event_request(db.Model):
+
+    __tablename__ = 'event_requests'
+
+    request_id = db.Column(db.Integer,
+                         autoincrement=True,
+                         primary_key=True)
+    event_id = db.Column(db.Integer,
+                       db.ForeignKey('events.cal_id'),
+                       nullable=False)
+    to_user_id = db.Column(db.Integer,
+                        db.ForeignKey('users.user_id'),
+                        nullable=False)
+    approved = db.Column(db.Boolean)
+
+    event = db.relationship("Event")
+    to_user = db.relationship("User")
+
+    def __repr__(self):
+    """Returns a human reable info about event_request object"""
+        return f"<request_id = {self.request_id}, to_user_id = {self.to_user_id}, approved = {self.approved} >"
+
 # Connect db to app
 def connect_to_db(app):
     """Connect the database to our Flask app."""

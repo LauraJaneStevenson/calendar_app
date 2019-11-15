@@ -209,17 +209,11 @@ def display_all_events():
         event['author'] = get_user(db_event.user_id).username
         # if the event is in the dictionary, give event obj 'eventColor' attibute 
         # and set it to correct color
-        # event['backgroundColor'] = '#add8e6'
         if db_event.event_type in map_event_colors():
             event['backgroundColor'] = map_event_colors()[db_event.event_type]
             event['borderColor'] = map_event_colors()[db_event.event_type]
 
         event_list.append(event)
-    print("\n\n\n\n\n\n\n\n")
-    print(event_list)
-    print("\n\n\n\n\n\n\n\n")
-
-
 
     return jsonify(event_list)
 
