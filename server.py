@@ -6,7 +6,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Calendar, Event, EventRequest
 
-from helper_functions import get_user, get_approved_events, map_event_colors
+from helper_functions import get_user, get_approved_events, map_event_colors, get_notifications
 
 
 
@@ -74,11 +74,30 @@ def login_proccess():
         # create calendar var and add calendar id to session
         calendar = user.calendar
         session["cal_id"] = calendar.cal_id
-
+        
         return render_template("calendar.html",user=user)
 
    
     return render_template("find_or_create_cal.html") 
+
+@app.route("/get_notifications.json")
+def user_notifications():
+    """Retruns all the notifications for loggedin user"""
+
+    notifications = get_notifications(session['user_id'])
+    # print()
+    notif_list = []
+
+    for notification in notifications:
+        notif_dict = {}
+        notif_dict['id'] = notification.request_id
+        notif_dict['event_id'] = notification.event_id
+        notif_list.append(notif_dict)
+
+    print("\n\n\n\n\n\n\n")
+    print("jsonify notification list",jsonify(notif_list))
+    print("\n\n\n\n\n\n\n")
+    return jsonify(notif_list)
 
 @app.route("/logout_process")
 def logout_user():

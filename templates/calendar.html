@@ -17,6 +17,29 @@
         {% endfor %}
      </ul>
 
+     <script>
+         $.get('/get_notifications.json',(response) => {
+            console.log(Object.values(response));
+            //Object.values(response)
+             for (const notif in Object.values(response)){
+                console.log(notif);
+                // let id = notif.id;
+                // console.log(id);
+                $('#notifications').append(`<li>'$${notif.id}'</li>`);
+            };
+                
+         });
+     </script>
+
+     <div>
+         <p>Notifications: </p>
+          <ul id='#notifications'>
+            <li></li>
+             
+          </ul>
+
+     </div>
+
      <div id="calendar"></div>
 
     <p>Search for and add housemates: </p>
