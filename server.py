@@ -95,7 +95,7 @@ def user_notifications():
         notif_list.append(notif_dict)
 
     print("\n\n\n\n\n\n\n")
-    print("jsonify notification list",jsonify(notif_list))
+    print("jsonify notification list",notif_list)
     print("\n\n\n\n\n\n\n")
     return jsonify(notif_list)
 
@@ -222,21 +222,7 @@ def add_event():
 
 
     return "An event request has been sent to your housemates!"
-
-
-# @app.route("/send_event_request",methods=['POST'])
-# def send_event_request():
-#     """"""
-#     # get event id from previous route
-
     
-
-#     return event_id
-
-
-
-    
-
 @app.route("/approved_events.json")
 def display_all_events():
     """Returns a list of events from database"""

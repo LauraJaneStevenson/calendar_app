@@ -16,16 +16,21 @@
         </li>  
         {% endfor %}
      </ul>
+     
 
      <script>
+        //Object.keys(jsonObj).length;
          $.get('/get_notifications.json',(response) => {
-            console.log(Object.values(response));
-            //Object.values(response)
-             for (const notif in Object.values(response)){
-                console.log(notif);
+            
+            jsonSize = Object.keys(response).length;
+            console.log(jsonSize);
+
+             for (let i = 0; i < jsonSize;i++){
                 // let id = notif.id;
-                // console.log(id);
-                $('#notifications').append(`<li>'$${notif.id}'</li>`);
+                
+                let id = response[i].id
+                console.log(id);
+                $('#notifications').append(`<li>'${id}'</li>`);
             };
                 
          });
@@ -34,7 +39,7 @@
      <div>
          <p>Notifications: </p>
           <ul id='#notifications'>
-            <li></li>
+            <li id='#notifications'></li>
              
           </ul>
 
