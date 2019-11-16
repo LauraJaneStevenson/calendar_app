@@ -85,7 +85,7 @@ def user_notifications():
     """Retruns all the notifications for loggedin user"""
 
     notifications = get_notifications(session['user_id'])
-    # print()
+    
     notif_list = []
 
     for notification in notifications:
