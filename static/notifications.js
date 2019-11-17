@@ -25,3 +25,20 @@ $('#invite').on('click',() => {
         alert(res);
     });
 });
+
+//list all notifications
+
+// $.get('/get_notifications.json',(response) => {
+    
+//     // get length of json object so we can loop through it
+//     jsonSize = Object.keys(response).length;
+
+//      for (let i = 0; i < jsonSize;i++){
+       
+//         let id = response[i].id;
+//         console.log(id);
+//         $('#notifications').append(`<li>$${id}</li>`);
+    
+//     };
+       
+//  });

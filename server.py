@@ -4,6 +4,10 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
+from twilio.rest import Client
+
+from twilio.twiml.messaging_response import MessagingResponse
+
 from model import connect_to_db, db, User, Calendar, Event, EventRequest, AccessRequest, Invitation, Notification
 
 from helper_functions import get_user, get_approved_events, map_event_colors, get_notifications
@@ -19,7 +23,33 @@ app.secret_key = "123"
 def homepage():
     """Show homepage."""
 
+    # Your Account Sid and Auth Token from twilio.com/console
+    # DANGER! This is insecure. See http://twil.io/secure
+    account_sid = ''
+    auth_token = ''
+    client = Client(account_sid, auth_token)
+
+    message = client.messages \
+                    .create(
+                         body="test",
+                         from_='',
+                         to=''
+                     )
+
+    print(message.sid)
+
     return render_template("homepage.html")
+
+@app.route("/sms", methods=['GET', 'POST'])
+def sms_ahoy_reply():
+    """Respond to incoming messages with a friendly SMS."""
+    # Start our response
+    resp = MessagingResponse()
+
+    # Add a message
+    resp.message("Ahoy! Thanks so much for your message.")
+
+    return str(resp)
 
 @app.route("/register")
 def register_page():
