@@ -4,7 +4,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
-from model import connect_to_db, db, User, Calendar, Event, EventRequest
+from model import connect_to_db, db, User, Calendar, Event, EventRequest, AccessRequest, Invitation, Notification
 
 from helper_functions import get_user, get_approved_events, map_event_colors, get_notifications
 
@@ -85,7 +85,7 @@ def user_notifications():
     """Retruns all the notifications for loggedin user"""
 
     notifications = get_notifications(session['user_id'])
-    
+
     notif_list = []
 
     for notification in notifications:
@@ -177,16 +177,42 @@ def find_calendar():
     return render_template("calendar_list.html",cal_list=cal_list)
 
 
-@app.route("/add_self_to_cal",methods=['POST'])
-def add_self_to_cal():
-    """Adds cal_id to logged in user's cal_id feild."""
+@app.route("/request_access_to_cal",methods=['POST'])
+def request_access_to_cal():
+    """Creates an access_request obj and many notification 
+    objs for each user of cal"""
+
     cal_id = request.form['cal_id']
-    user = User.query.filter(User.user_id == session['user_id']).one()
-    user.cal_id = cal_id
-
+    user = get_user(session['user_id'])
+    # create a new access_request and notification object
+    access_request = AccessRequest(to_cal_id=cal_id,
+                                   from_user_id=user.user_id)
+    db.session.add(access_request)
     db.session.commit()
+    
+    
+    # get list if all users currently on calendar that user is 
+    # requesting acess to
+    cal_users = get_calendar(cal_id).get_users()
 
-    return render_template("calendar.html",user=user)
+    # loop over list and create a notification for each user
+    for user in cal_users:
+        # create new notification with access_request's id 
+        notification = Notification(request_id=access_request.request_id,
+                                    notification_type='access request',
+                                    to_user_id=user.user_id)
+        db.session.add(notification)
+        db.session.commit()
+
+    # user = User.query.filter(User.user_id == session['user_id']).one()
+    # user.cal_id = cal_id
+
+    # db.session.commit()
+
+    # return render_template("calendar.html",user=user)
+
+    # this message will be flashed to user 
+    return f"You have requested access to {get_calendar(cal_id).house_name} "
 
 @app.route("/add_event", methods=['POST'])
 def add_event():

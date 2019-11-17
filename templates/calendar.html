@@ -17,7 +17,7 @@
         {% endfor %}
      </ul>
 
-
+     <script src="static/calendar.js"></script>
      <script>
        
          $.get('/get_notifications.json',(response) => {
@@ -29,7 +29,7 @@
                
                 let id = response[i].id;
                 console.log(id);
-                $('#notifications').append(`<li>${id}</li>`);
+                $('#notifications').append(`<li>$${id}</li>`);
             
             };
                
@@ -37,7 +37,7 @@
      </script>
 
      <div id='#test'>
-        
+
          <p>Notifications: </p>
           <ul id='#notifications'>
             <li id='#notifications'></li>

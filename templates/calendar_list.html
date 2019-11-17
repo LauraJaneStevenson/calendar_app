@@ -3,6 +3,7 @@
 {% block title %}Find Roomies{% endblock %}
 
 {% block content %}
+<script src='/static/notifications.js'></script>
 
 <div>
     {% if cal_list %}
@@ -11,7 +12,8 @@
         {% for cal in cal_list %}
         <li>
               {{ cal.house_name }} ({{ cal.cal_id}})
-             <form action="/add_self_to_cal" method="POST">
+             <button id="#request_access" value="{{ cal.cal_id }}">Request Access</button>
+             <form action="/request_access_to_cal" method="POST">
                 <input type="submit" value="{{ cal.cal_id }}" name="cal_id">
             </form>
         </li>
