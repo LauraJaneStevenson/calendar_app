@@ -30,16 +30,30 @@ def register_page():
 @app.route("/add_user", methods=['POST'])
 def register_user():
     """Add a user to the database."""
- 
+    
+    # get info from form
     name = request.form["name"]
     username = request.form["username"]
     password = request.form["password"]
-   
+
+    # check if that username exists 
+
+    # get all existing usernames
+    existing_usernames = db.session.query(User.username).all()
     
+    # check if username from frorm is already taken
+    for existing_username in existing_usernames:
+        
+        if username == existing_username[0]:
+
+            print("Sorry that user name is taken!")
+            return redirect("/register")
+
+    
+    # if username not taken create new user object
     new_user = User(name=name,username=username, password=password)
     db.session.add(new_user)
     db.session.commit()
-
 
     flash(f"Hi {name}! Welcom to roomies!")
     return redirect("/")
@@ -128,6 +142,17 @@ def create_cal_process():
 
     house_name = request.form["house_name"]
     house_addr = request.form["house_addr"]
+
+     # get all existing usernames
+    existing_addrs = db.session.query(Calendar.house_addr).all()
+    # check if username from frorm is already taken
+    for address in existing_addrs:
+        
+        if house_addr == address[0]:
+
+            print("Sorry there is already a calendar with that address!")
+            return redirect("/create_cal")
+
     new_calendar = Calendar(house_name=house_name,house_addr=house_addr)
     user = get_user(session["user_id"])
     user.calendar = new_calendar
@@ -155,13 +180,25 @@ def invite_housemates():
 
     user_id = request.form["user_id"]
 
-    user = User.query.filter_by(user_id=user_id).first()
+    # user = User.query.filter_by(user_id=user_id).first()
 
-    user.cal_id = session['cal_id']
+    # user.cal_id = session['cal_id']
 
+    # db.session.commit()
+
+    # create an invitation object 
+    invitation = Invitation(from_cal_id=session['cal_id'],
+                            to_user_id=user_id)
+    # create a notification object
+    notification = Notification(invite_id=invitation.invite_id,
+                                notification_type='invitation')
+
+    db.session.add(invitation,notification)
     db.session.commit()
 
-    return redirect("/")
+    invited_user = get_user[user_id].name
+
+    return f"A notification has been sent to {invited_user}"
 
 @app.route("/find_calendar")
 def find_calendar():

@@ -13,3 +13,15 @@ $('#request_access').on('click',() => {
     });
 });
 
+// invite user to calendar
+$('#invite').on('click',() => {
+    
+     // get value of invited user's user_id to pass through with ajax
+    let user_id = $('#invite').attr('value');
+    console.log(user_id)
+    // make ajax request
+    $.post('/invite',{ user_id: user_id },(res) => {
+        //alers user that they have invited user to calendar
+        alert(res);
+    });
+});

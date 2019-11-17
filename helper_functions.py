@@ -3,21 +3,19 @@
 from model import connect_to_db, db, User, Calendar, Event, EventRequest
 
 def get_user(user_id):
+    """Retuns user onject"""
 
     return User.query.filter_by(user_id=user_id).one()
 
 def get_calendar(cal_id):
+    """Returns calendar object"""
     
     return Calendar.query.filter_by(cal_id=cal_id).one()
 
 def get_notifications(user_id):
     """Returns list of notifications for specific user"""
-    # print("\n\n\n\n\n\n\n")
-    # print(EventRequest.query.filter_by(to_user_id=user_id).all())
-    # print("\n\n\n\n\n\n\n")
 
     return EventRequest.query.filter_by(to_user_id=user_id).all()
-
 
 
 def get_approved_events(cal_id):
