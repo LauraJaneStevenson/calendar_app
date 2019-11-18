@@ -10,9 +10,9 @@ from twilio.twiml.messaging_response import MessagingResponse
 
 from model import connect_to_db, db, User, Calendar, Event, EventRequest, AccessRequest, Invitation, Notification
 
-from helper_functions import get_user, get_approved_events, map_event_colors, get_notifications
+from helper_functions import get_user, get_approved_events, map_event_colors, get_notifications, send_init_sms
 
-
+import os
 
 app = Flask(__name__)
 
@@ -23,33 +23,34 @@ app.secret_key = "123"
 def homepage():
     """Show homepage."""
 
-    # Your Account Sid and Auth Token from twilio.com/console
-    # DANGER! This is insecure. See http://twil.io/secure
-    account_sid = ''
-    auth_token = ''
-    client = Client(account_sid, auth_token)
-
-    message = client.messages \
-                    .create(
-                         body="test",
-                         from_='',
-                         to=''
-                     )
-
-    print(message.sid)
+    # test
+    send_init_sms( 97,1)
 
     return render_template("homepage.html")
 
 @app.route("/sms", methods=['GET', 'POST'])
 def sms_ahoy_reply():
     """Respond to incoming messages with a friendly SMS."""
-    # Start our response
-    resp = MessagingResponse()
 
-    # Add a message
-    resp.message("Ahoy! Thanks so much for your message.")
+    # Get user's response
+    user_resp = request.values.get('Body', None)
 
-    return str(resp)
+    # create a Messaging response obj
+    app_resp = MessagingResponse()
+
+    if user_resp != 'Y' and user_resp != 'N':
+        # Add a message
+        app_resp.message("Invalid Response.")
+
+    if user_resp == 'Y':
+        # set event.approved to true 
+        app_resp.message("You have successfully approved this request!")
+    elif user_resp == 'N':
+        # set event.approved to true
+        app_resp.message("You have successfully denied this request.")
+       
+
+    return str(app_resp)
 
 @app.route("/register")
 def register_page():
@@ -310,6 +311,7 @@ def add_event():
         for housemate in housemates:
             event_request = EventRequest(event_id=event.event_id,
                                           to_user_id=housemate.user_id)
+            # send_init_sms(event.event_id,housemate.user_id)
             db.session.add(event_request)
             db.session.commit()
 
