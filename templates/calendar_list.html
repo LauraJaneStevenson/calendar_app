@@ -4,14 +4,7 @@
 
 {% block content %}
 
- <script>
 
-   $('button.request_access').on('click',(evt) => {
-    const button = $(evt.target);
-    const buttonId = nutton.attr('id');
-    alert("ID:" + buttonId);
-   });
- </script>
 <div>
     {% if cal_list %}
    
@@ -31,5 +24,14 @@
          <p>Sorry no calendars with that house name found!</p>
     {% endif %}
 </div>
+ <script>
+
+   $('button.request_access').on('click',(evt) => {
+    const button = $(evt.target);
+    const buttonId = button.attr('id');
+    alert("ID:" + buttonId);
+   });
+ </script>
 <script src='/static/notifications.js'></script>
+
 {% endblock %}

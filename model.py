@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 # Instantiate a SQLAlchemy object.
 db = SQLAlchemy()
@@ -7,6 +8,8 @@ class User(db.Model):
     """Data model for a user."""
 
     __tablename__ = "users"
+
+    phone_number = os.environ.get('SMS_TO')
 
     user_id = db.Column(db.Integer,
                         autoincrement=True,
@@ -43,6 +46,7 @@ class User(db.Model):
             return housemates
 
         return []
+
 
 
 class Calendar(db.Model):

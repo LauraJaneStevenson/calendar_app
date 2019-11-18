@@ -24,13 +24,34 @@ def homepage():
     """Show homepage."""
 
     # test
-    send_init_sms( 97,1)
+    # send_init_sms( 97,1)
 
     return render_template("homepage.html")
 
 @app.route("/sms", methods=['GET', 'POST'])
 def sms_ahoy_reply():
     """Respond to incoming messages with a friendly SMS."""
+
+    # construct client object
+    account_sid = os.environ.get('ACCOUNT_SID')
+    auth_token = os.environ.get('AUTH_TOKEN')
+    client = Client(account_sid, auth_token)
+
+    # get message containing event info
+    messages = client.messages.list(limit=2)
+    # get indexes of where the event_id begins and ends 
+    indx1 = messages[1].body.find("number") + 6
+    indx2 = messages[1].body.find(",",indx1)
+
+    # store request_id in a variable by slicing the string 
+    request_id = messages[1].body[indx1:indx2]
+
+    # get event_request object with request_id
+    # event_request = get_event_request(request_id)
+
+    print("\n\n\n\n\n\n")
+    print(request_id)
+    print("\n\n\n\n\n\n")
 
     # Get user's response
     user_resp = request.values.get('Body', None)
@@ -44,6 +65,7 @@ def sms_ahoy_reply():
 
     if user_resp == 'Y':
         # set event.approved to true 
+        # event_request.approved = True
         app_resp.message("You have successfully approved this request!")
     elif user_resp == 'N':
         # set event.approved to true
@@ -311,7 +333,7 @@ def add_event():
         for housemate in housemates:
             event_request = EventRequest(event_id=event.event_id,
                                           to_user_id=housemate.user_id)
-            # send_init_sms(event.event_id,housemate.user_id)
+            send_init_sms(event.event_id,housemate.user_id)
             db.session.add(event_request)
             db.session.commit()
 
