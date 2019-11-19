@@ -253,7 +253,7 @@ def invite_housemates():
     db.session.add(invitation,notification)
     db.session.commit()
 
-    invited_user = get_user[user_id].name
+    invited_user = get_user(user_id).name
 
     return f"A notification has been sent to {invited_user}"
 

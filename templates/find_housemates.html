@@ -13,10 +13,8 @@
              <a href="invite/"> 
               {{ housemate.name }} {{ housemate.username }}, ({{ housemate.user_id }})
             </a>
-             <form action="/invite" method="POST">
-                <input type="submit" value="{{ housemate.user_id }}" name="user_id">
-            </form>
-            <button id='#invite'value="{{ housemate.user_id }}" name="user_id">Invite</button>
+            
+            <button class='invite' id="{{ housemate.user_id }}">Invite</button>
         </li>
         {% endfor %}
     </ul>
