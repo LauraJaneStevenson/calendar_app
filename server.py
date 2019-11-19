@@ -10,7 +10,7 @@ from twilio.twiml.messaging_response import MessagingResponse
 
 from model import connect_to_db, db, User, Calendar, Event, EventRequest, AccessRequest, Invitation, Notification
 
-from helper_functions import get_user, get_approved_events, map_event_colors, get_notifications, send_init_sms
+from helper_functions import get_user, get_approved_events, map_event_colors, get_notifications, send_init_sms, get_event_request
 
 import os
 
@@ -65,7 +65,11 @@ def sms_ahoy_reply():
 
     if user_resp == 'Y':
         # set event.approved to true 
-        # event_request.approved = True
+        get_event_request(request_id).approved = True
+        db.session.commit()
+        # print("\n\n\n\n\n\n")
+        # print(get_event_request(request_id))
+        # print("\n\n\n\n\n\n")
         app_resp.message("You have successfully approved this request!")
     elif user_resp == 'N':
         # set event.approved to true
@@ -333,9 +337,9 @@ def add_event():
         for housemate in housemates:
             event_request = EventRequest(event_id=event.event_id,
                                           to_user_id=housemate.user_id)
-            send_init_sms(event.event_id,housemate.user_id)
             db.session.add(event_request)
             db.session.commit()
+            send_init_sms(event_request.request_id,housemate.user_id)
 
 
     return "An event request has been sent to your housemates!"

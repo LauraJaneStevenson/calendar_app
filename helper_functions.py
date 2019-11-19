@@ -33,6 +33,21 @@ def get_notifications(user_id):
 
     return EventRequest.query.filter_by(to_user_id=user_id).all()
 
+def check_consensus(event_id):
+    """Checks to see if all housemates approve 
+    an event and set event.approved accordingly"""
+
+    # create a list of requests for specific event
+    requests = EventRequest.query.filter_by(event_id=event_id).all()
+    event = get_event(event_id)
+
+    for request in requests: 
+        if request.approved != True:
+            return None
+
+    event.approved = True
+    db.session.commit()
+
 
 def get_approved_events(cal_id):
     """Returns a list of all approved events on given calendar"""
