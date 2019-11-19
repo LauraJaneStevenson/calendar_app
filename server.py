@@ -348,6 +348,7 @@ def add_event():
 def display_all_events():
     """Returns a list of events from database"""
 
+    
     # call helper function to get list of all event objects with this cal_id
     db_events = get_approved_events(session['cal_id'])
 

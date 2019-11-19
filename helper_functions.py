@@ -41,10 +41,12 @@ def check_consensus(event_id):
     requests = EventRequest.query.filter_by(event_id=event_id).all()
     event = get_event(event_id)
 
+    # if any of the requests .approve = false pop out of function
     for request in requests: 
         if request.approved != True:
             return None
 
+    # else set event approved to true and commit to the DB
     event.approved = True
     db.session.commit()
 
@@ -52,6 +54,14 @@ def check_consensus(event_id):
 def get_approved_events(cal_id):
     """Returns a list of all approved events on given calendar"""
 
+    # get list of all currently unapproved events for this calendar 
+    events = Event.query.filter_by(cal_id=cal_id,approved=False).all()
+
+    # loop through list and change consensus on event if need be
+    for event in events:
+        check_consensus(event.event_id)
+        
+    # return list of all approved events
     return Event.query.filter_by(cal_id=cal_id,approved=True).all()
     
 def map_event_colors():
