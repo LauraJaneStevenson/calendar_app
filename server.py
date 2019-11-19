@@ -10,7 +10,7 @@ from twilio.twiml.messaging_response import MessagingResponse
 
 from model import connect_to_db, db, User, Calendar, Event, EventRequest, AccessRequest, Invitation, Notification
 
-from helper_functions import get_user, get_approved_events, map_event_colors, get_notifications, send_init_sms, get_event_request
+from helper_functions import get_user, get_approved_events, map_event_colors, get_notifications, send_init_sms, get_event_request, get_calendar
 
 import os
 
@@ -348,7 +348,7 @@ def add_event():
 def display_all_events():
     """Returns a list of events from database"""
 
-    
+
     # call helper function to get list of all event objects with this cal_id
     db_events = get_approved_events(session['cal_id'])
 

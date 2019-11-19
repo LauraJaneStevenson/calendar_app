@@ -13,9 +13,6 @@
         <li>
               {{ cal.house_name }} ({{ cal.cal_id}})
              <button class="request_access" id="{{ cal.cal_id }}">Request Access</button>
-             <form action="/request_access_to_cal" method="POST">
-                <input type="submit" value="{{ cal.cal_id }}" name="cal_id">
-            </form>
         </li>
         {% endfor %}
     </ul>
@@ -24,14 +21,7 @@
          <p>Sorry no calendars with that house name found!</p>
     {% endif %}
 </div>
- <script>
 
-   $('button.request_access').on('click',(evt) => {
-    const button = $(evt.target);
-    const buttonId = button.attr('id');
-    alert("ID:" + buttonId);
-   });
- </script>
-<script src='/static/notifications.js'></script>
+
 
 {% endblock %}
