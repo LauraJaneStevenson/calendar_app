@@ -236,26 +236,31 @@ def add_housemates():
 def invite_housemates():
 
     user_id = request.form["user_id"]
-
-    # user = User.query.filter_by(user_id=user_id).first()
-
-    # user.cal_id = session['cal_id']
-
-    # db.session.commit()
-
-    # create an invitation object 
-    invitation = Invitation(from_cal_id=session['cal_id'],
-                            to_user_id=user_id)
-    # create a notification object
-    notification = Notification(invite_id=invitation.invite_id,
-                                notification_type='invitation')
-
-    db.session.add(invitation,notification)
-    db.session.commit()
-
     invited_user = get_user(user_id).name
 
-    return f"A notification has been sent to {invited_user}"
+    # check to see if an invitation to this person already exists
+    # first query for other invitations 
+    invitations = Invitation.query.filter_by(from_cal_id=session['cal_id'],
+                                             to_user_id=user_id).all()
+    if not invitations:
+        # create an invitation object 
+        invitation = Invitation(from_cal_id=session['cal_id'],
+                                to_user_id=user_id)
+        # create a notification object
+        notification = Notification(invite_id=invitation.invite_id,
+                                    notification_type='invitation',
+                                    to_user_id=user_id)
+
+        # add and commit notification and invitation to DB
+        db.session.add(invitation)
+        db.session.add(notification)
+        db.session.commit()
+
+        # flash a success message to user
+        return f"A notification has been sent to {invited_user}"
+
+    # flash this message if invitation to this user already been sent 
+    return f"An invitation from this calendar has already been sent to {invited_user}."
 
 @app.route("/find_calendar")
 def find_calendar():

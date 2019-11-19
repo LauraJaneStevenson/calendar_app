@@ -14,7 +14,7 @@
               {{ housemate.name }} {{ housemate.username }}, ({{ housemate.user_id }})
             </a>
             
-            <button class='invite' id="{{ housemate.user_id }}">Invite</button>
+            <button class="invite" id="{{ housemate.user_id }}">Invite</button>
         </li>
         {% endfor %}
     </ul>
@@ -23,4 +23,5 @@
          <p>Sorry no available users with that name found!</p>
     {% endif %}
 </div>
+<script src='/static/notifications.js'></script>
 {% endblock %}
