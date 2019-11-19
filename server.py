@@ -283,35 +283,39 @@ def request_access_to_cal():
 
     cal_id = request.form['cal_id']
     user = get_user(session['user_id'])
-    # create a new access_request and notification object
-    access_request = AccessRequest(to_cal_id=cal_id,
-                                   from_user_id=user.user_id)
-    db.session.add(access_request)
-    db.session.commit()
-    
-    
-    # get list if all users currently on calendar that user is 
-    # requesting acess to
-    cal_users = get_calendar(cal_id).get_users()
 
-    # loop over list and create a notification for each user
-    for user in cal_users:
-        # create new notification with access_request's id 
-        notification = Notification(request_id=access_request.request_id,
-                                    notification_type='access request',
-                                    to_user_id=user.user_id)
-        db.session.add(notification)
+    # check to see if an access_request from this user to this calendar exists
+    # first query for existing access_requests 
+    requests = AccessRequest.query.filter_by(to_cal_id=cal_id,
+                                   from_user_id=user.user_id).all()
+
+    # if there aren't any make new request and notification objects
+    if not requests:
+
+        # create a new access_request and notification object
+        access_request = AccessRequest(to_cal_id=cal_id,
+                                       from_user_id=user.user_id)
+        db.session.add(access_request)
         db.session.commit()
+        
+        # get list if all users currently on calendar that user is 
+        # requesting acess to
+        cal_users = get_calendar(cal_id).get_users()
 
-    # user = User.query.filter(User.user_id == session['user_id']).one()
-    # user.cal_id = cal_id
+        # loop over list and create a notification for each user
+        for user in cal_users:
 
-    # db.session.commit()
+            # create new notification with access_request's id 
+            notification = Notification(request_id=access_request.request_id,
+                                        notification_type='access request',
+                                        to_user_id=user.user_id)
+            db.session.add(notification)
+            db.session.commit()
 
-    # return render_template("calendar.html",user=user)
+        # this message will be flashed to user 
+        return f"You have requested access to {get_calendar(cal_id).house_name}"
 
-    # this message will be flashed to user 
-    return f"You have requested access to {get_calendar(cal_id).house_name} "
+    return f"You have already requested access to {get_calendar(cal_id).house_name}"
 
 @app.route("/add_event", methods=['POST'])
 def add_event():
