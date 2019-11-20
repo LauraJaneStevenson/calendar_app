@@ -180,14 +180,15 @@ def user_notifications():
         elif notification.notification_type == 'access request':
             notif_dict['request_id'] = notification.request_id
 
-        elif notification.notification_type == 'invitation':
+        else:
+         # notification.notification_type == 'invitation':
             notif_dict['invite_id'] = notification.invite_id
         
         notif_list.append(notif_dict)
 
-    print("\n\n\n\n\n\n\n")
-    print("jsonify notification list",notif_list)
-    print("\n\n\n\n\n\n\n")
+    # print("\n\n\n\n\n\n\n")
+    # print("jsonify notification list",notif_list)
+    # print("\n\n\n\n\n\n\n")
     return jsonify(notif_list)
 
 @app.route("/logout_process")
@@ -373,7 +374,9 @@ def add_event():
             db.session.add(event_request)
             db.session.commit()
             send_init_sms(event_request.request_id,housemate.user_id)
-            notification = Notification(notification_type='event request',event_id=event.event_id)
+            # create a notification object
+            notification = Notification(notification_type='event request',event_id=event.event_id,
+                                        to_user_id=housemate.user_id)
             db.session.add(notification)
             db.session.commit()
 
