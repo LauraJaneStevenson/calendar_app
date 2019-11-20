@@ -32,20 +32,22 @@ $('button.invite').on('click',(evt) => {
     });
 });
 
-    //list all notifications
 
+//list all notifications
  $.get('/get_notifications.json',(response) => {
         // get length of json object so we can loop through it
 
-        console.log('1')
+        // console.log('1')
         jsonSize = Object.keys(response).length;
-        console.log(jsonSize)
+        // console.log(jsonSize)
+
          for (let i = 0; i < jsonSize;i++){
-           console.log('3')
+           // console.log('3')
             let id = response[i].id;
             console.log(id);
-            $('#notifications').append(`<li>$${id}</li>`);
-            console.log('4')
+
+            $('ul.notifications').append(`<li>${id}</li>`);
+            
         };
            
      });

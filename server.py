@@ -162,9 +162,9 @@ def user_notifications():
 
     notifications = get_notifications(session['user_id'])
 
-    print("\n\n\n\n\n\n\n")
-    print(notifications)
-    print("\n\n\n\n\n\n\n")
+    # print("\n\n\n\n\n\n\n")
+    # print(notifications)
+    # print("\n\n\n\n\n\n\n")
 
     notif_list = []
 
@@ -181,14 +181,13 @@ def user_notifications():
             notif_dict['request_id'] = notification.request_id
 
         else:
-         # notification.notification_type == 'invitation':
             notif_dict['invite_id'] = notification.invite_id
         
         notif_list.append(notif_dict)
 
-    # print("\n\n\n\n\n\n\n")
-    # print("jsonify notification list",notif_list)
-    # print("\n\n\n\n\n\n\n")
+    print("\n\n\n\n\n\n\n")
+    print("jsonify notification list",notif_list)
+    print("\n\n\n\n\n\n\n")
     return jsonify(notif_list)
 
 @app.route("/logout_process")
