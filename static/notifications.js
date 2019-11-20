@@ -32,19 +32,20 @@ $('button.invite').on('click',(evt) => {
     });
 });
 
-//list all notifications
+    //list all notifications
 
-// $.get('/get_notifications.json',(response) => {
-    
-//     // get length of json object so we can loop through it
-//     jsonSize = Object.keys(response).length;
+ $.get('/get_notifications.json',(response) => {
+        // get length of json object so we can loop through it
 
-//      for (let i = 0; i < jsonSize;i++){
-       
-//         let id = response[i].id;
-//         console.log(id);
-//         $('#notifications').append(`<li>$${id}</li>`);
-    
-//     };
-       
-//  });
+        console.log('1')
+        jsonSize = Object.keys(response).length;
+        console.log(jsonSize)
+         for (let i = 0; i < jsonSize;i++){
+           console.log('3')
+            let id = response[i].id;
+            console.log(id);
+            $('#notifications').append(`<li>$${id}</li>`);
+            console.log('4')
+        };
+           
+     });

@@ -30,10 +30,12 @@ def get_calendar(cal_id):
 
 def get_notifications(user_id):
     """Returns list of notifications for specific user"""
-    # print("\n\n\n\n\n\n\n")
+    
+    print("\n\n\n\n\n\n\n")
+    print('The user is',get_user(user_id).name)
     # print(Notification.query.filter_by(to_user_id=user_id).all())
     # print("get_notifications in helper functions")
-    # print("\n\n\n\n\n\n\n")
+    print("\n\n\n\n\n\n\n")
     return Notification.query.filter_by(to_user_id=user_id).all()
 
 def check_consensus(event_id):
