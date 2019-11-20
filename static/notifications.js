@@ -36,17 +36,19 @@ $('button.invite').on('click',(evt) => {
 //list all notifications
  $.get('/get_notifications.json',(response) => {
         // get length of json object so we can loop through it
-
         // console.log('1')
+
         jsonSize = Object.keys(response).length;
         // console.log(jsonSize)
 
          for (let i = 0; i < jsonSize;i++){
            // console.log('3')
             let id = response[i].id;
+            let type = response[i].type;
+
             console.log(id);
 
-            $('ul.notifications').append(`<li>${id}</li>`);
+            $('ul.notifications').append(`<li>${type}</li>`);
             
         };
            

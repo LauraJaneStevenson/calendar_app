@@ -10,7 +10,7 @@ from twilio.twiml.messaging_response import MessagingResponse
 
 from model import connect_to_db, db, User, Calendar, Event, EventRequest, AccessRequest, Invitation, Notification
 
-from helper_functions import get_user, get_approved_events, map_event_colors, get_notifications, send_init_sms, get_event_request, get_calendar
+from helper_functions import get_user, get_event, get_invitation, get_access_request, get_approved_events, map_event_colors, get_notifications, send_init_sms, get_event_request, get_calendar
 
 import os
 
@@ -177,11 +177,22 @@ def user_notifications():
         if notification.notification_type == 'event request':
             notif_dict['event_id'] = notification.event_id
 
+            # get creator of event's username to make 'from_user' key
+            from_user_id = get_event(notification.event_id).user_id
+            notif_dict['from_user'] = get_user(from_user_id).username
+
         elif notification.notification_type == 'access request':
             notif_dict['request_id'] = notification.request_id
 
+            # get user requesting access username to make 'from_user' key
+            from_user_id = get_access_request(notification.request_id).from_user_id
+            notif_dict['from_user'] = get_user(from_user_id).username
+
         else:
             notif_dict['invite_id'] = notification.invite_id
+            # create key calue pair for house name 
+            cal_id = get_invitation(notification.invite_id).from_cal_id
+            notif_dict['from_cal'] = get_calendar(cal_id).house_name
         
         notif_list.append(notif_dict)
 

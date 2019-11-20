@@ -19,9 +19,14 @@ def get_event(event_id):
     return Event.query.filter_by(event_id=event_id).one()
 
 def get_event_request(request_id):
-    """Retuns user object"""
+    """Retuns EventRequest object"""
 
     return EventRequest.query.filter_by(request_id=request_id).one()
+
+def get_invitation(invite_id):
+    """Retuns EventRequest object"""
+
+    return Invitation.query.filter_by(invite_id=invite_id).one()
 
 def get_calendar(cal_id):
     """Returns calendar object"""
@@ -37,6 +42,11 @@ def get_notifications(user_id):
     # print("get_notifications in helper functions")
     print("\n\n\n\n\n\n\n")
     return Notification.query.filter_by(to_user_id=user_id).all()
+
+def get_access_request(request_id):
+    """Retuns AccessRequest object"""
+
+    return AccessRequest.query.filter_by(request_id=request_id).one()
 
 def check_consensus(event_id):
     """Checks to see if all housemates approve 
