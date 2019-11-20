@@ -155,14 +155,34 @@ def login_proccess():
 def user_notifications():
     """Retruns all the notifications for loggedin user"""
 
+    # print("\n\n\n\n\n\n\n")
+    # print("TESTTTT1")
+    # print(session['user_id'])
+    # print("\n\n\n\n\n\n\n")
+
     notifications = get_notifications(session['user_id'])
+
+    print("\n\n\n\n\n\n\n")
+    print(notifications)
+    print("\n\n\n\n\n\n\n")
 
     notif_list = []
 
     for notification in notifications:
         notif_dict = {}
-        notif_dict['id'] = notification.request_id
-        notif_dict['event_id'] = notification.event_id
+        notif_dict['id'] = notification.notification_id
+        notif_dict['type'] = notification.notification_type
+
+        # first get the type then depending on the type set its foreign key
+        if notification.notification_type == 'event request':
+            notif_dict['event_id'] = notification.event_id
+
+        elif notification.notification_type == 'access request':
+            notif_dict['request_id'] = notification.request_id
+
+        elif notification.notification_type == 'invitation':
+            notif_dict['invite_id'] = notification.invite_id
+        
         notif_list.append(notif_dict)
 
     print("\n\n\n\n\n\n\n")
@@ -246,13 +266,17 @@ def invite_housemates():
         # create an invitation object 
         invitation = Invitation(from_cal_id=session['cal_id'],
                                 to_user_id=user_id)
+        
+
+        # add and commit invitation to DB
+        db.session.add(invitation)
+        db.session.commit()
+
         # create a notification object
         notification = Notification(invite_id=invitation.invite_id,
                                     notification_type='invitation',
                                     to_user_id=user_id)
-
-        # add and commit notification and invitation to DB
-        db.session.add(invitation)
+        # add and commit notification to DB
         db.session.add(notification)
         db.session.commit()
 
@@ -349,6 +373,9 @@ def add_event():
             db.session.add(event_request)
             db.session.commit()
             send_init_sms(event_request.request_id,housemate.user_id)
+            notification = Notification(notification_type='event request',event_id=event.event_id)
+            db.session.add(notification)
+            db.session.commit()
 
 
     return "An event request has been sent to your housemates!"
@@ -356,7 +383,6 @@ def add_event():
 @app.route("/approved_events.json")
 def display_all_events():
     """Returns a list of events from database"""
-
 
     # call helper function to get list of all event objects with this cal_id
     db_events = get_approved_events(session['cal_id'])

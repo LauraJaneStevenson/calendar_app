@@ -18,24 +18,6 @@
      </ul>
 
      <script src="static/calendar.js"></script>
-     <script>
-       
-         $.get('/get_notifications.json',(response) => {
-            
-            // get length of json object so we can loop through it
-            jsonSize = Object.keys(response).length;
-        
-             for (let i = 0; i < jsonSize;i++){
-               
-                let id = response[i].id;
-                console.log(id);
-                $('#notifications').append(`<li>$${id}</li>`);
-            
-            };
-               
-         });
-     </script>
-
      <div id='#notifications'>
 
          <p>Notifications: </p>
@@ -55,5 +37,25 @@
         <input type="submit">
     </form>   
 </div>
+
+     <script>
+        alert("hi");
+       
+         $.get('/get_notifications.json',(response) => {
+            // get length of json object so we can loop through it
+
+            console.log('1')
+            jsonSize = Object.keys(response).length;
+            console.log(jsonSize)
+             for (let i = 0; i < jsonSize;i++){
+               console.log('3')
+                let id = response[i].id;
+                console.log(id);
+                $('#notifications').append(`<li>$${id}</li>`);
+                console.log('4')
+            };
+               
+         });
+     </script>
 
 {% endblock %}

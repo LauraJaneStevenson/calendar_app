@@ -1,6 +1,6 @@
 
 
-from model import connect_to_db, db, User, Calendar, Event, EventRequest
+from model import connect_to_db, db, User, Calendar, Event, EventRequest, AccessRequest, Invitation, Notification
 
 from twilio.rest import Client
 
@@ -30,8 +30,11 @@ def get_calendar(cal_id):
 
 def get_notifications(user_id):
     """Returns list of notifications for specific user"""
-
-    return EventRequest.query.filter_by(to_user_id=user_id).all()
+    # print("\n\n\n\n\n\n\n")
+    # print(Notification.query.filter_by(to_user_id=user_id).all())
+    # print("get_notifications in helper functions")
+    # print("\n\n\n\n\n\n\n")
+    return Notification.query.filter_by(to_user_id=user_id).all()
 
 def check_consensus(event_id):
     """Checks to see if all housemates approve 
