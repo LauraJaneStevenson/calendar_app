@@ -211,65 +211,67 @@ def handle_notif_response():
     # query for the correct notification object with notif_id passed in
     notification = Notification.query.filter_by(notification_id=request.form.get('id')).one()
 
-
     # set notif to seen
     notification.seen = True
 
 
-    # check what type of notification it is 
-    if notification.notification_type == 'access request':
 
-        # set access request to approved 
-        access_req = get_access_request(notification.request_id)
-        access_req.approved = True
+    # check if user clicked approve or deny
+    # if request.form.get('approved') == True:
+        # # check what type of notification it is 
+        # if notification.notification_type == 'access request':
 
-        # set user's calendar to 
-        get_user(access_req.from_user_id).cal_id = access_req.to_cal_id
+        #     # set access request to approved 
+        #     access_req = get_access_request(notification.request_id)
+        #     access_req.approved = True
 
-        # commit to DB
-        db.session.commit()
+        #     # set user's calendar to 
+        #     get_user(access_req.from_user_id).cal_id = access_req.to_cal_id
 
-        # flash message to user
-        return f"You've granted {access_req.from_user.name} access to {get_calendar(session['cal_id']).house_name}"
+        #     # commit to DB
+        #     db.session.commit()
 
-    elif notification.notification_type == 'invitation':
+        #     # flash message to user
+        #     return f"You've granted {access_req.from_user.name} access to {get_calendar(session['cal_id']).house_name}"
 
-        # set invitation to accepted 
-        invitation = get_invitation(notification.invite_id)
-        invitation.accepted = True
+        # elif notification.notification_type == 'invitation':
 
-        # set current users calendar to calendar that invited them
-        get_user(session['user_id']).cal_id = invitation.from_cal_id
-       
-        # commit tp DB
-        db.session.commit()
+        #     # set invitation to accepted 
+        #     invitation = get_invitation(notification.invite_id)
+        #     invitation.accepted = True
 
-        # house_naem var for reponse message
-        house_name = get_calendar(invitation.from_cal_id).house_name
+        #     # set current users calendar to calendar that invited them
+        #     get_user(session['user_id']).cal_id = invitation.from_cal_id
+           
+        #     # commit tp DB
+        #     db.session.commit()
 
-        # flash message to user
-        return f"You've accepted the invitation from the house {house_name}!"
+        #     # house_naem var for reponse message
+        #     house_name = get_calendar(invitation.from_cal_id).house_name
 
-    else: 
+        #     # flash message to user
+        #     return f"You've accepted the invitation from the house {house_name}!"
 
-        event = get_event(notification.event_id)
+        # else: 
 
-        # query for event request with event id and are intended for the current user
-        event_request = EventRequest.query.filter_by(event_id=event.event_id,to_user_id=session['user_id']).one()
+        #     event = get_event(notification.event_id)
 
-        # set event request to approved 
-        event_request.approved = True
+        #     # query for event request with event id and are intended for the current user
+        #     event_request = EventRequest.query.filter_by(event_id=event.event_id,to_user_id=session['user_id']).one()
 
-        # commit to DB
-        db.session.commit()
+        #     # set event request to approved 
+        #     event_request.approved = True
 
-        return f"You've approved the event {event.event_type}!"
+        #     # commit to DB
+        #     db.session.commit()
+
+        #     return f"You've approved the event {event.event_type}!"
 
     
+        
 
 
-
-    return "WOOOOOOOO"
+    return f"{request.args.get('notifDetails')}"
 
 
 

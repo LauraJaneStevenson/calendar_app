@@ -41,7 +41,8 @@ def get_notifications(user_id):
     # print(Notification.query.filter_by(to_user_id=user_id).all())
     # print("get_notifications in helper functions")
     print("\n\n\n\n\n\n\n")
-    return Notification.query.filter_by(to_user_id=user_id).all()
+    return Notification.query.filter_by(to_user_id=user_id,seen=False).all()
+
 
 def get_access_request(request_id):
     """Retuns AccessRequest object"""

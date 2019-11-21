@@ -35,10 +35,15 @@ $('button.invite').on('click',(evt) => {
 
 
 
-const handleApprove = (id) => {
+const handleApprove = (approved,id) => {
 
-    // alert(id);
-    $.post('/handle_notif_response',{ 'id': id },(res) => {
+    const notifDetails = {
+        'id': id,
+        'approved': approved
+
+    };
+
+    $.post('/handle_notif_response',notifDetails,(res) => {
         alert(res)
     });    
   
@@ -73,7 +78,7 @@ $.get('/get_notifications.json',(response) => {
                     type="button"
                     class="approved"
                     id="approve-${id}"
-                    onclick="handleApprove(${id})"
+                    onclick="handleApprove(${true},${id})"
                 >
                     Approve
                 </button>
@@ -81,7 +86,7 @@ $.get('/get_notifications.json',(response) => {
                     type="button" 
                     class="approved" 
                     id="deny-${id}"
-                    onclick="handleDeny(${id})"
+                    onclick="handleApprove(${false},${id})"
                 >
                     Deny
                 </button>
