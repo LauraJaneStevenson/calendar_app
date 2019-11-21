@@ -33,23 +33,64 @@ $('button.invite').on('click',(evt) => {
 });
 
 
+
+
+const handleApprove = (id) => {
+
+    alert(id);    
+  
+};
+
+const handleDeny = (id) => {
+
+    alert("DENY");    
+  
+};
+
+
 //list all notifications
- $.get('/get_notifications.json',(response) => {
-        // get length of json object so we can loop through it
-        // console.log('1')
+$.get('/get_notifications.json',(response) => {
+    // get length of json object so we can loop through it
+    // console.log('1')
 
-        jsonSize = Object.keys(response).length;
-        // console.log(jsonSize)
+    jsonSize = Object.keys(response).length;
+    // console.log(jsonSize)
 
-         for (let i = 0; i < jsonSize;i++){
-           // console.log('3')
-            let id = response[i].id;
-            let type = response[i].type;
+    for (const notification of response) {
+       // console.log('3')
+        const id = notification.id;
+        const type = notification.type;
+        const from = notification.from
+        console.log(id);
 
-            console.log(id);
+        $('ul.notifications').append(`
+            <li>
+                ${type} from ${from} 
+                <button
+                    type="button"
+                    class="approved"
+                    id="approve-${id}"
+                    onclick="handleApprove(${id})"
+                >
+                    Approve
+                </button>
+                <button 
+                    type="button" 
+                    class="approved" 
+                    id="deny-${id}"
+                    onclick="handleDeny(${id})"
+                >
+                    Deny
+                </button>
+            </li>`);
+        
+    };
+   
+});
 
-            $('ul.notifications').append(`<li>${type}</li>`);
-            
-        };
-           
-     });
+
+
+
+
+
+

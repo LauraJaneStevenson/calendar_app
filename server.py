@@ -151,20 +151,20 @@ def login_proccess():
    
     return render_template("find_or_create_cal.html") 
 
+# @app.route("/profile")
+# def user_profile():
+#     """Renders user profile page"""
+
+#     # get user to pass through to html
+#     user = get_user(request.args.get('user_id'))
+
+#     render_template("profile.html",user=user)
+
 @app.route("/get_notifications.json")
 def user_notifications():
     """Retruns all the notifications for loggedin user"""
 
-    # print("\n\n\n\n\n\n\n")
-    # print("TESTTTT1")
-    # print(session['user_id'])
-    # print("\n\n\n\n\n\n\n")
-
     notifications = get_notifications(session['user_id'])
-
-    # print("\n\n\n\n\n\n\n")
-    # print(notifications)
-    # print("\n\n\n\n\n\n\n")
 
     notif_list = []
 
@@ -179,20 +179,20 @@ def user_notifications():
 
             # get creator of event's username to make 'from_user' key
             from_user_id = get_event(notification.event_id).user_id
-            notif_dict['from_user'] = get_user(from_user_id).username
+            notif_dict['from'] = get_user(from_user_id).username
 
         elif notification.notification_type == 'access request':
             notif_dict['request_id'] = notification.request_id
 
             # get user requesting access username to make 'from_user' key
             from_user_id = get_access_request(notification.request_id).from_user_id
-            notif_dict['from_user'] = get_user(from_user_id).username
+            notif_dict['from'] = get_user(from_user_id).username
 
         else:
             notif_dict['invite_id'] = notification.invite_id
             # create key calue pair for house name 
             cal_id = get_invitation(notification.invite_id).from_cal_id
-            notif_dict['from_cal'] = get_calendar(cal_id).house_name
+            notif_dict['from'] = get_calendar(cal_id).house_name
         
         notif_list.append(notif_dict)
 
@@ -200,6 +200,50 @@ def user_notifications():
     print("jsonify notification list",notif_list)
     print("\n\n\n\n\n\n\n")
     return jsonify(notif_list)
+
+
+
+
+
+@app.route("/handle_notif_response", methods=['POST'])
+def handle_notif_response():
+    
+    # query for the correct notification object with notif_id passed in
+    notification = Notification.query.filter_by(notification_id=request.form.get('id')).one()
+
+    # check what type of notification it is 
+    if notification.notification_type == 'access request':
+
+        # set notif to seen
+        notification.seen = True
+
+        # set access request to approved 
+        get_access_request(notification.request_id).approved = True
+
+        # commit to DB
+        db.session.commit()
+
+    elif notification.notification_type == 'invitation':
+
+        # set invitation to accepted 
+        invitation = get_invitation(notification.invite_id)
+        invitation.accepted = True
+
+        # set current users calendar to calendar that invited them
+        get_user(session['user_id']).cal_id = invitation.from_cal_id
+        
+        return f"You've accepted the invitation"
+
+    
+
+
+
+    return " "
+
+
+
+
+
 
 @app.route("/logout_process")
 def logout_user():
@@ -392,6 +436,8 @@ def add_event():
 
 
     return "An event request has been sent to your housemates!"
+
+
     
 @app.route("/approved_events.json")
 def display_all_events():
@@ -399,6 +445,7 @@ def display_all_events():
 
     # call helper function to get list of all event objects with this cal_id
     db_events = get_approved_events(session['cal_id'])
+
 
     # list of objects, each represent one event, to pass to calendar on front end
     event_list = []
