@@ -215,9 +215,12 @@ def handle_notif_response():
     notification.seen = True
 
     approved = request.form.get('approved')
+    print("\n\n\n\n\n\n\n\n")
+    print(approved)
+    print("\n\n\n\n\n\n\n\n")
 
     # check if user clicked approve or deny
-    if approved:
+    if approved == 'true':
         # check what type of notification it is 
         if notification.notification_type == 'access request':
 
@@ -252,7 +255,7 @@ def handle_notif_response():
             # flash message to user
             return f"You've accepted the invitation from the house {house_name}!"
 
-        else: 
+        elif notification.notification_type == 'event request':
 
             event = get_event(notification.event_id)
 
@@ -271,7 +274,7 @@ def handle_notif_response():
         
 
 
-    return f"Deny"
+    return f"You've denied this notification"
 
 
 

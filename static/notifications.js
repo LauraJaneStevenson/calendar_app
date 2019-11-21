@@ -3,6 +3,7 @@
 const handleApprove = (approved,id) => {
 
     // object to pass to server.py
+    console.log('approved in js: ' + approved)
     const notifDetails = {
         'id': id,
         'approved': approved
