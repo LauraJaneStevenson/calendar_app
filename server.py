@@ -211,17 +211,26 @@ def handle_notif_response():
     # query for the correct notification object with notif_id passed in
     notification = Notification.query.filter_by(notification_id=request.form.get('id')).one()
 
+
+    # set notif to seen
+    notification.seen = True
+
+
     # check what type of notification it is 
     if notification.notification_type == 'access request':
 
-        # set notif to seen
-        notification.seen = True
-
         # set access request to approved 
-        get_access_request(notification.request_id).approved = True
+        access_req = get_access_request(notification.request_id)
+        access_req.approved = True
+
+        # set user's calendar to 
+        get_user(access_req.from_user_id).cal_id = access_req.to_cal_id
 
         # commit to DB
         db.session.commit()
+
+        # flash message to user
+        return f"You've granted {access_req.from_user.name} access to {get_calendar(session['cal_id']).house_name}"
 
     elif notification.notification_type == 'invitation':
 
@@ -231,14 +240,36 @@ def handle_notif_response():
 
         # set current users calendar to calendar that invited them
         get_user(session['user_id']).cal_id = invitation.from_cal_id
-        
-        return f"You've accepted the invitation"
+       
+        # commit tp DB
+        db.session.commit()
+
+        # house_naem var for reponse message
+        house_name = get_calendar(invitation.from_cal_id).house_name
+
+        # flash message to user
+        return f"You've accepted the invitation from the house {house_name}!"
+
+    else: 
+
+        event = get_event(notification.event_id)
+
+        # query for event request with event id and are intended for the current user
+        event_request = EventRequest.query.filter_by(event_id=event.event_id,to_user_id=session['user_id']).one()
+
+        # set event request to approved 
+        event_request.approved = True
+
+        # commit to DB
+        db.session.commit()
+
+        return f"You've approved the event {event.event_type}!"
 
     
 
 
 
-    return " "
+    return "WOOOOOOOO"
 
 
 

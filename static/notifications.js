@@ -37,7 +37,10 @@ $('button.invite').on('click',(evt) => {
 
 const handleApprove = (id) => {
 
-    alert(id);    
+    // alert(id);
+    $.post('/handle_notif_response',{ 'id': id },(res) => {
+        alert(res)
+    });    
   
 };
 
