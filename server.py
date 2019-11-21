@@ -214,64 +214,64 @@ def handle_notif_response():
     # set notif to seen
     notification.seen = True
 
-
+    approved = request.form.get('approved')
 
     # check if user clicked approve or deny
-    # if request.form.get('approved') == True:
-        # # check what type of notification it is 
-        # if notification.notification_type == 'access request':
+    if approved:
+        # check what type of notification it is 
+        if notification.notification_type == 'access request':
 
-        #     # set access request to approved 
-        #     access_req = get_access_request(notification.request_id)
-        #     access_req.approved = True
+            # set access request to approved 
+            access_req = get_access_request(notification.request_id)
+            access_req.approved = True
 
-        #     # set user's calendar to 
-        #     get_user(access_req.from_user_id).cal_id = access_req.to_cal_id
+            # set user's calendar to 
+            get_user(access_req.from_user_id).cal_id = access_req.to_cal_id
 
-        #     # commit to DB
-        #     db.session.commit()
+            # commit to DB
+            db.session.commit()
 
-        #     # flash message to user
-        #     return f"You've granted {access_req.from_user.name} access to {get_calendar(session['cal_id']).house_name}"
+            # flash message to user
+            return f"You've granted {access_req.from_user.name} access to {get_calendar(session['cal_id']).house_name}"
 
-        # elif notification.notification_type == 'invitation':
+        elif notification.notification_type == 'invitation':
 
-        #     # set invitation to accepted 
-        #     invitation = get_invitation(notification.invite_id)
-        #     invitation.accepted = True
+            # set invitation to accepted 
+            invitation = get_invitation(notification.invite_id)
+            invitation.accepted = True
 
-        #     # set current users calendar to calendar that invited them
-        #     get_user(session['user_id']).cal_id = invitation.from_cal_id
+            # set current users calendar to calendar that invited them
+            get_user(session['user_id']).cal_id = invitation.from_cal_id
            
-        #     # commit tp DB
-        #     db.session.commit()
+            # commit tp DB
+            db.session.commit()
 
-        #     # house_naem var for reponse message
-        #     house_name = get_calendar(invitation.from_cal_id).house_name
+            # house_naem var for reponse message
+            house_name = get_calendar(invitation.from_cal_id).house_name
 
-        #     # flash message to user
-        #     return f"You've accepted the invitation from the house {house_name}!"
+            # flash message to user
+            return f"You've accepted the invitation from the house {house_name}!"
 
-        # else: 
+        else: 
 
-        #     event = get_event(notification.event_id)
+            event = get_event(notification.event_id)
 
-        #     # query for event request with event id and are intended for the current user
-        #     event_request = EventRequest.query.filter_by(event_id=event.event_id,to_user_id=session['user_id']).one()
+            # query for event request with event id and are intended for the current user
+            event_request = EventRequest.query.filter_by(event_id=event.event_id,to_user_id=session['user_id']).one()
 
-        #     # set event request to approved 
-        #     event_request.approved = True
+            # set event request to approved 
+            event_request.approved = True
 
-        #     # commit to DB
-        #     db.session.commit()
+            # commit to DB
+            db.session.commit()
 
-        #     return f"You've approved the event {event.event_type}!"
+            return f"You've approved the event {event.event_type}!"
 
     
         
 
 
-    return f"{request.args.get('notifDetails')}"
+    return f"Deny"
 
 
 
@@ -448,24 +448,25 @@ def add_event():
         # showers are first come first serve so approved gets set to true
         event.approved == True
         db.session.commit()
+        return "Shower event has been added to calendar!"
 
-    else:
-        # if event not shower, send event request to other users
-        current_user = get_user(session['user_id'])
-        # get list of current user's housemates
-        housemates = current_user.get_housemates()
-        # loop through housemates and send event request to each
-        for housemate in housemates:
-            event_request = EventRequest(event_id=event.event_id,
-                                          to_user_id=housemate.user_id)
-            db.session.add(event_request)
-            db.session.commit()
-            send_init_sms(event_request.request_id,housemate.user_id)
-            # create a notification object
-            notification = Notification(notification_type='event request',event_id=event.event_id,
-                                        to_user_id=housemate.user_id)
-            db.session.add(notification)
-            db.session.commit()
+   
+    # if event not shower, send event request to other users
+    current_user = get_user(session['user_id'])
+    # get list of current user's housemates
+    housemates = current_user.get_housemates()
+    # loop through housemates and send event request to each
+    for housemate in housemates:
+        event_request = EventRequest(event_id=event.event_id,
+                                      to_user_id=housemate.user_id)
+        db.session.add(event_request)
+        db.session.commit()
+        send_init_sms(event_request.request_id,housemate.user_id)
+        # create a notification object
+        notification = Notification(notification_type='event request',event_id=event.event_id,
+                                    to_user_id=housemate.user_id)
+        db.session.add(notification)
+        db.session.commit()
 
 
     return "An event request has been sent to your housemates!"
