@@ -151,14 +151,26 @@ def login_proccess():
    
     return render_template("find_or_create_cal.html") 
 
-# @app.route("/profile")
-# def user_profile():
-#     """Renders user profile page"""
+@app.route("/profile/<user_id>")
+def user_profile(user_id):
+    """Renders user profile page"""
 
-#     # get user to pass through to html
-#     user = get_user(request.args.get('user_id'))
+    print('\n\n\n\n\n\n')
+    print(user_id)
+    print('\n\n\n\n\n\n')
 
-#     render_template("profile.html",user=user)
+    # get user to pass through to html
+    user = get_user(user_id)
+
+    if user.cal_id:
+
+        house_name = "In house: " + get_calendar(user.cal_id).house_name
+
+    else:
+
+        house_name = "No House"
+
+    return render_template("profile.html",user=user,house_name=house_name)
 
 @app.route("/get_notifications.json")
 def user_notifications():
@@ -202,22 +214,17 @@ def user_notifications():
     return jsonify(notif_list)
 
 
-
-
-
 @app.route("/handle_notif_response", methods=['POST'])
 def handle_notif_response():
     
     # query for the correct notification object with notif_id passed in
     notification = Notification.query.filter_by(notification_id=request.form.get('id')).one()
 
-    # set notif to seen
+    # set notif to seen commit to DB
     notification.seen = True
+    db.session.commit()
 
     approved = request.form.get('approved')
-    print("\n\n\n\n\n\n\n\n")
-    print(approved)
-    print("\n\n\n\n\n\n\n\n")
 
     # check if user clicked approve or deny
     if approved == 'true':
@@ -268,17 +275,9 @@ def handle_notif_response():
             # commit to DB
             db.session.commit()
 
-            return f"You've approved the event {event.event_type}!"
-
-    
-        
-
+            return f"You've approved the event {event.event_type}!"     
 
     return f"You've denied this notification"
-
-
-
-
 
 
 @app.route("/logout_process")

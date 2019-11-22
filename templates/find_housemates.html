@@ -10,7 +10,7 @@
     <ul>
         {% for housemate in users %}
         <li>
-             <a href="invite/"> 
+             <a href="/profile/{{ housemate.user_id }}"> 
               {{ housemate.name }} {{ housemate.username }}, ({{ housemate.user_id }})
             </a>
             

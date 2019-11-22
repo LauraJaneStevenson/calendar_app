@@ -10,7 +10,7 @@
      <ul> 
         {% for housemate in user.get_housemates() %}
          <li>
-            <a href="/" id="{{ housemate.user_id }}">
+            <a href="/profile/{{ housemate.user_id }}" id="{{ housemate.user_id }}">
               {{ housemate.name }}
             </a>
         </li>  
