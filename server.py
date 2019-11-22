@@ -117,7 +117,6 @@ def register_user():
 
   
 
-
 @app.route("/login", methods=['POST'])
 def login_proccess():
 
@@ -125,6 +124,7 @@ def login_proccess():
     username = request.form["username"]
     password = request.form["password"]
 
+    # query for user
     user = User.query.filter_by(username=username,password=password).first()
 
     if user == None:
@@ -146,22 +146,28 @@ def login_proccess():
         calendar = user.calendar
         session["cal_id"] = calendar.cal_id
         
-        return render_template("calendar.html",user=user)
+    return redirect("/calendar")
 
    
-    return render_template("find_or_create_cal.html") 
+    # return render_template("find_or_create_cal.html") 
+
+@app.route("/calendar")
+def show_calendar():
+    """Renders calendar page if user has calendar, else, Renders find-or-create-cal """
+    if get_user(session['user_id']).cal_id != None:
+      
+        return render_template("calendar.html",user=get_user(session['user_id']))
+
+    return render_template("/find_or_create_cal.html")
 
 @app.route("/profile/<user_id>")
 def user_profile(user_id):
     """Renders user profile page"""
 
-    print('\n\n\n\n\n\n')
-    print(user_id)
-    print('\n\n\n\n\n\n')
-
     # get user to pass through to html
     user = get_user(user_id)
 
+    # check if user has a calendar to determine what to send to html
     if user.cal_id:
 
         house_name = "In house: " + get_calendar(user.cal_id).house_name
