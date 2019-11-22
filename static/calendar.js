@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     eventRender: function(info) {
       var tooltip = new Tooltip(info.el, {
-        title: '<h1>hi</h1>',
+        title: 'Created by: ' + info.event.extendedProps.author,
         placement: 'top',
         trigger: 'hover',
         container: 'body'

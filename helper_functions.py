@@ -85,6 +85,7 @@ def map_event_colors():
 
     colorDict = {
         'party': '#FF0000',
+        # 'party': 'rgb(255,0,0,5)',
         'quiet hours': '#800080',
         'shower': '#add8e6'
     }

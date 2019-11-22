@@ -17,7 +17,6 @@ const handleApprove = (approved,id) => {
   
 };
 
-
 //list all notifications
 $.get('/get_notifications.json',(response) => {
     // get length of json object so we can loop through it
@@ -41,6 +40,7 @@ $.get('/get_notifications.json',(response) => {
                     class="approved"
                     id="approve-${id}"
                     onclick="handleApprove(${true},${id})"
+                    onmouseover="handleApprove(${false},${id})"
                 >
                     Approve
                 </button>
@@ -49,6 +49,7 @@ $.get('/get_notifications.json',(response) => {
                     class="approved" 
                     id="deny-${id}"
                     onclick="handleApprove(${false},${id})"
+                    onmouseover="handleApprove(${false},${id})"
                 >
                     Deny
                 </button>
