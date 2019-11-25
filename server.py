@@ -517,6 +517,59 @@ def display_all_events():
 
     return jsonify(event_list)
 
+@app.route("/event_req_notif.json")
+def display_event_request():
+    """Returns a single event object"""
+
+    notif_id = request.args.get('id')
+
+    notif = Notification.query.filter_by(notification_id=notif_id).one() 
+
+    if notif.notification_type != 'event request':
+
+        # pass
+        return None
+
+    event = get_event(notif.event_id)
+
+    evt_dict = {}
+
+    evt_dict['title'] = event.event_type
+    evt_dict['start'] = event.start_time
+    evt_dict['end'] = event.end_time
+    evt_dict['author'] = get_user(event.user_id).username
+    evt_dict['backgroundColor'] = '#71eeb8'
+
+    return jsonify(evt_dict)
+
+@app.route("/unapproved_events.json")
+def my_req_evts():
+
+    events = Event.query.filter_by(user_id=session['user_id'],approved=False).all()
+
+    event_list = []
+    
+    for event in events:
+        # event_list.append({'title': event.event_type,
+        #                    'start': event.start_time,
+        #                    'end': event.end_time})
+        event_dict = {}
+        # event['id'] = db_event.event_id
+        event_dict['title'] = event.event_type
+        event_dict['id'] = event.event_id
+        event_dict['start'] = event.start_time.isoformat()
+        event_dict['end'] = event.end_time.isoformat()
+        event_dict['author'] = get_user(event.user_id).username
+        event_dict['backgroundColor'] = '#71eeb8'
+
+        event_list.append(event_dict)
+    
+    return jsonify(event_list)
+    # return f"my requested events"
+
+
+
+
 if __name__ == "__main__":
     connect_to_db(app)
     app.run(host="0.0.0.0", debug=True)

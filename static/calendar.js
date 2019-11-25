@@ -1,3 +1,5 @@
+let evt_showing = false;
+
 document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('calendar');
 
@@ -14,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
       right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
     eventRender: function(info) {
+      //AJAX request 
       var tooltip = new Tooltip(info.el, {
         title: 'Created by: ' + info.event.extendedProps.author,
         placement: 'top',
@@ -46,23 +49,52 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     customButtons: {
       addEventButton: {
-        text: 'add event...',
+        text: 'show my requested events',
         click: function() {
-          var dateStr = prompt('Enter a date in YYYY-MM-DD format');
-          var date = new Date(dateStr + 'T00:00:00'); // will be in local time
-          if (!isNaN(date.valueOf())) { // valid?
-            calendar.addEvent({
-              title: 'dynamic event',
-              start: date,
-              allDay: true
-            });
-            alert('Great. Now, update your database...');
-          } else {
-            alert('Invalid date.');
-          }
+          // evt_showing.toggle();
+          //AJAX request to get unapproved events
+          $.get('unapproved_events.json',(res) =>{
+
+            if(evt_showing){
+
+              
+
+              for(const event of res){
+
+                // $('#calendar').fullCalendar( ‘removeEvents’);
+
+              }
+              evt_showing = false;
+
+            }else{
+
+              
+                
+                for(const event of res){
+
+                  calendar.addEvent({
+
+                    title: event.title,
+                    id: event.id,
+                    start: event.start,
+                    endTime: event.end,
+                    backgroundColor: '#90ee90', 
+
+                  });
+
+                };
+
+             
+
+              evt_showing = true;
+
+            }
+          });
+        console.log(evt_showing); 
+
         }
       }
-     }
+     },
 
    
 
@@ -75,3 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
  });
+// console.log(evt_showing);
+
+

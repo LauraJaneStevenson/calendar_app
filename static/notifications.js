@@ -17,6 +17,15 @@ const handleApprove = (approved,id) => {
   
 };
 
+const showRequested = (id) => {
+
+    $.get('/event_req_notif.json',{ 'id':id }, (res) => {
+        // calendar.addevent
+        alert(`${res.title} at ${res.start} until ${res.end}. Click approve at add to calendar.`);
+
+    });
+};
+
 //list all notifications
 $.get('/get_notifications.json',(response) => {
     // get length of json object so we can loop through it
@@ -40,7 +49,7 @@ $.get('/get_notifications.json',(response) => {
                     class="approved"
                     id="approve-${id}"
                     onclick="handleApprove(${true},${id})"
-                    onmouseover="handleApprove(${false},${id})"
+                    onmouseover="showRequested(${id})"
                 >
                     Approve
                 </button>
@@ -49,7 +58,7 @@ $.get('/get_notifications.json',(response) => {
                     class="approved" 
                     id="deny-${id}"
                     onclick="handleApprove(${false},${id})"
-                    onmouseover="handleApprove(${false},${id})"
+                    onmouseover="showRequested(${id})"
                 >
                     Deny
                 </button>
