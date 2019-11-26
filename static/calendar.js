@@ -55,21 +55,34 @@ document.addEventListener('DOMContentLoaded', function() {
           //AJAX request to get unapproved events
           $.get('unapproved_events.json',(res) =>{
 
+            // if statement to toggle between displaying user's unapproved events 
             if(evt_showing){
 
-              
+              // get all events on calendar
+              const allEvents = calendar.getEvents();
 
+              // create empty set
+              const eventIds = new Set();
+
+              // for all the events from the response
               for(const event of res){
-
-                // $('#calendar').fullCalendar( ‘removeEvents’);
+                // add event ids to set
+                eventIds.add(event.id);
 
               }
+              // loop over all events on calendar 
+              for(const event of allEvents){
+                // see if each event's id is in the id set
+                if(eventIds.has(parseInt(event.id))){
+                  // if so, remove it from the calendar
+                  event.remove();
+                }
+              }
+
               evt_showing = false;
 
             }else{
-
-              
-                
+  
                 for(const event of res){
 
                   calendar.addEvent({
@@ -78,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     id: event.id,
                     start: event.start,
                     endTime: event.end,
+                    author: event.author,
                     backgroundColor: '#90ee90', 
 
                   });
