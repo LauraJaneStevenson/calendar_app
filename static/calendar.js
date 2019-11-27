@@ -1,15 +1,19 @@
 let evt_showing = false;
 
 document.addEventListener('DOMContentLoaded', function() {
+
   var calendarEl = document.getElementById('calendar');
 
   const eventList = $.get('/approved_events.json', (res) =>{
 
   console.log("Event List: " + eventList);
-  var calendar = new FullCalendar.Calendar(calendarEl, {
+
+  window.calendar = new FullCalendar.Calendar(calendarEl, {
     plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
     defaultView: 'timeGridWeek',
-    defaultDate: '2019-11-11',
+   
+    //moment().format('YYYY MM Do')
+    // moment().format();
     header: {
       left: 'prev,next today',
       center: 'title, addEventButton',
@@ -114,14 +118,33 @@ document.addEventListener('DOMContentLoaded', function() {
       }
      },
 
-   
-
-
   });
 
 
-  calendar.render();
 
+
+  $('ul.notifications').on('click',(evt) => {
+
+    const button = $(evt.target);
+    let id = button.attr('id');
+    id = id.slice(8,id.length);
+    console.log(id);
+
+    
+    $.get('/event_req_notif.json',{ 'id':id },(res) =>{
+      
+      console.log(res);
+        
+        calendar.addEvent(
+
+          res
+
+        );
+
+    }); 
+
+  });
+    calendar.render();
 });
 
  });

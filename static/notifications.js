@@ -9,11 +9,37 @@ const handleApprove = (approved,id) => {
         'approved': approved
 
     };
+    // calendar.add
 
     // AJAX post request 
     $.post('/handle_notif_response',notifDetails,(res) => {
         alert(res)
-    });    
+    }); 
+
+
+    // $.get('/event_req_notif.json',{ 'id':notifDetails.id },(res) =>{
+    //     console.log("In handleApprove notifications.js:" + res.title);
+    //     //calendar.addevent
+    //     $('#calendar').fullCalendar('renderEvent', {
+    //         title: res.title,
+    //         id: res.id,
+    //         start: res.start,
+    //         endTime: res.end,
+    //         author: res.author,
+    //         backgroundColor: '#90ee90', 
+    //     });
+
+    //     // $('#calendar').fullCalendar.addEvent({
+
+    //     //     title: res.title,
+    //     //     id: res.id,
+    //     //     start: res.start,
+    //     //     endTime: res.end,
+    //     //     author: res.author,
+    //     //     backgroundColor: '#90ee90', 
+
+    //     // });
+    // });   
   
 };
 // gives user info about the event request

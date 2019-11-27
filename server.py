@@ -279,10 +279,10 @@ def handle_notif_response():
     return f"You've denied this notification"
 
 
-@app.route("/notif_hover/<notif_id>")
-def get_proposed():
-    """Returns a json object of a single event"""
-    get_event()
+# @app.route("/notif_hover/<notif_id>")
+# def get_proposed():
+#     """Returns a json object of a single event"""
+#     get_event()
 
 @app.route("/logout_process")
 def logout_user():
