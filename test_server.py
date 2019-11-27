@@ -52,19 +52,9 @@ class TestFlaskRoutes(unittest.TestCase):
 
 
         result = self.client.post("/login",
-                                  data={"username": "julz", "password": "123"},
+                                  data={"username": "j", "password": "s"},
                                   follow_redirects=True)
         self.assertIn(b'<p>Your housemates: </p>', result.data)
-
-    # make users without calendar in different class
-    # def test_calendar_page(self):
-    #     """Test homepage for users without a calendar"""
-
-
-    #     result = self.client.get("/calendar")
-
-    #     self.assertIn(b'Create New Calendar', result.data)
-
 
     def test_add_housemate(self):
         """Test that /add_housemate route processes form data correctly."""
@@ -85,6 +75,55 @@ class TestFlaskRoutes(unittest.TestCase):
         result = self.client.get("/logout_process",follow_redirects=True)
         self.assertIn(b'Login:',result.data)
 
+class TestUserNoCal(unittest.TestCase):
+    """Test Flask routes."""
+
+    def setUp(self):
+        """Code to run before every test."""
+
+        self.client = server.app.test_client()
+        server.app.config['TESTING'] = True
+        server.app.config['SECRET_KEY'] = "123"
+
+        # Connect to test database
+        model.connect_to_db(server.app, "postgresql:///testdb")
+
+        # Create tables and add sample data
+        model.db.create_all()
+        # example_data()
+
+        with self.client as c:
+            with c.session_transaction() as session:
+                session['user_id'] = 33
+                session['username'] = 'balloonicorn'
+                session['name'] = 'balloonicorn'
+
+    def test_login_no_cal(self):
+        """Test login page for user without calendar"""
+
+        result = self.client.post("/login",
+                                  data={"username": "balloonicorn", "password": "123"},
+                                  follow_redirects=True)
+        self.assertIn(b'Create New Calendar', result.data)
+
+    # def test_create_calendar(self):
+    #     """Test that create new calendar route works"""
+
+    #     result = self.client.post("/create_cal_process",
+    #                         data={"house_name": "Ladies", "house_addr": "Test St 123"},
+    #                         follow_redirects=True)
+    #     self.assertIn(b'Your housemates: ',result.data)
+
+    def test_find_house(self):
+        """Test if a user without a house can search for a house"""
+
+        result = self.client.get("/find_calendar",
+                                data={"house_name":"chicas"})
+
+        self.assertIn(b'Request Access', result.data)
+                
+
+# <h2>Create Your Calendar!</h2>
 
 if __name__ == '__main__':
     # If called like a script, run our tests
