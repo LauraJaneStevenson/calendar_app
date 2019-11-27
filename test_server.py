@@ -118,9 +118,9 @@ class TestUserNoCal(unittest.TestCase):
         """Test if a user without a house can search for a house"""
 
         result = self.client.get("/find_calendar",
-                                data={"house_name":"chicas"})
+                                data={"house_name":"girlz"})
 
-        self.assertIn(b'Request Access', result.data)
+        self.assertIn(b'Calendars', result.data)
                 
 
 # <h2>Create Your Calendar!</h2>
