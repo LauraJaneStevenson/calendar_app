@@ -563,6 +563,36 @@ def my_req_evts():
     return jsonify(event_list)
     # return f"my requested events"
 
+@app.route("/hm_evt_req.json")
+def hm_evt_req():
+
+    events = []
+
+    for housemate in get_user(session['user_id']).housemates:
+
+        events.extend(Event.query.filter_by(user_id=housemate.user_id,approved=False).all())
+
+    event_list = []
+    
+    for event in events:
+        # event_list.append({'title': event.event_type,
+        #                    'start': event.start_time,
+        #                    'end': event.end_time})
+        event_dict = {}
+        # event['id'] = db_event.event_id
+        event_dict['title'] = event.event_type
+        event_dict['id'] = event.event_id
+        event_dict['start'] = event.start_time.isoformat()
+        event_dict['end'] = event.end_time.isoformat()
+        event_dict['author'] = get_user(event.user_id).username
+        event_dict['backgroundColor'] = '#71eeb8'
+
+        event_list.append(event_dict)
+    
+    return jsonify(event_list)
+    # return f"my requested events"
+
+
 
 
 

@@ -1,4 +1,5 @@
 let evt_showing = false;
+let hm_evt = false;
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -117,33 +118,68 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
      },
+     // customButtons: {
+     //  addEventButton: {
+     //    text: "See hm event requests",
+     //    click: function() {
+     //      // evt_showing.toggle();
+     //      //AJAX request to get unapproved events
+     //      $.get("/hm_evt_req.json",(res) =>{
 
+     //        // if statement to toggle between displaying user's unapproved events 
+     //        if(hm_evt){
+
+     //          // get all events on calendar
+     //          const allEvents = calendar.getEvents();
+
+     //          // create empty set
+     //          const eventIds = new Set();
+
+     //          // for all the events from the response
+     //          for(const event of res){
+     //            // add event ids to set
+     //            eventIds.add(event.id);
+
+     //          }
+     //          // loop over all events on calendar 
+     //          for(const event of allEvents){
+     //            // see if each event's id is in the id set
+     //            if(eventIds.has(parseInt(event.id))){
+     //              // if so, remove it from the calendar
+     //              event.remove();
+     //            }
+     //          }
+
+     //          hm_evt = false;
+
+     //        }else{
+  
+     //            for(const event of res){
+
+     //              calendar.addEvent({
+
+     //                title: event.title,
+     //                id: event.id,
+     //                start: event.start,
+     //                endTime: event.end,
+     //                author: event.author,
+     //                backgroundColor: '#90ee90', 
+
+     //              });
+
+     //            };
+
+     //          hm_evt = true;
+
+     //        }
+     //      });
+     //    console.log(hm_evt); 
+
+     //    }
+     //  }
+     // },
   });
 
-
-
-
-  $('ul.notifications').on('click',(evt) => {
-
-    const button = $(evt.target);
-    let id = button.attr('id');
-    id = id.slice(8,id.length);
-    console.log(id);
-
-    
-    $.get('/event_req_notif.json',{ 'id':id },(res) =>{
-      
-      console.log(res);
-        
-        calendar.addEvent(
-
-          res
-
-        );
-
-    }); 
-
-  });
     calendar.render();
 });
 
