@@ -9,7 +9,13 @@ from twilio.twiml.messaging_response import MessagingResponse
 import os
 
 def get_user(user_id):
-    """Retuns user onject"""
+    """Retuns user object
+    >>>user = User(user_id=1,name='laura',username='lauras', password='123')
+
+    >>>get_user(1) 
+    <Name: 'laura', Calendar_id: '', Username: 'lauras'>
+
+    """
 
     return User.query.filter_by(user_id=user_id).one()
 

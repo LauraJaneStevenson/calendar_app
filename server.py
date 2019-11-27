@@ -46,13 +46,6 @@ def sms_ahoy_reply():
     # store request_id in a variable by slicing the string 
     request_id = messages[1].body[indx1:indx2]
 
-    # get event_request object with request_id
-    # event_request = get_event_request(request_id)
-
-    print("\n\n\n\n\n\n")
-    print(request_id)
-    print("\n\n\n\n\n\n")
-
     # Get user's response
     user_resp = request.values.get('Body', None)
 

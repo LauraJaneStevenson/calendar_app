@@ -221,10 +221,10 @@ class Notification(db.Model):
 
 
 # Connect db to app
-def connect_to_db(app):
+def connect_to_db(app,dburi="postgres:///calendars"):
     """Connect the database to our Flask app."""
     # Configure to use our database.
-    app.config["SQLALCHEMY_DATABASE_URI"] = "postgres:///calendars"
+    app.config["SQLALCHEMY_DATABASE_URI"] =dburi
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config["SQLALCHEMY_ECHO"] = True
     db.app = app
