@@ -151,7 +151,7 @@ def show_calendar():
       
         return render_template("calendar.html",user=get_user(session['user_id']))
 
-    return render_template("/find_or_create_cal.html")
+    return render_template("find_or_create_cal.html")
 
 @app.route("/profile/<user_id>")
 def user_profile(user_id):
