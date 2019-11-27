@@ -27,9 +27,13 @@ document.addEventListener('DOMContentLoaded', function() {
     selectable: true,
     events: res,
     select: function(info) {
-      let startT = prompt('Enter Start Time: ', info.startStr);
-      let endT = prompt('Enter End Time: ', info.endStr);
-      console.log('endT: ' + endT)
+      console.log('info: '+ info.startStr)
+      let startT = prompt('Enter Start Time: ', getTime(info.startStr));
+      let endT = prompt('Enter End Time: ', getTime(info.endStr));
+
+      startT = setDateTime(startT,info.startStr);
+      endT = setDateTime(endT,info.endStr);
+      
       let eventType = prompt('Enter Event Type(Quiet hours, Bathroom, Party): ');
       const eventDetails = {
         'start': startT,

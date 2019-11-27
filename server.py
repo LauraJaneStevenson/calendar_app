@@ -524,6 +524,9 @@ def display_event_request():
         return None
 
     event = get_event(notif.event_id)
+    print("\n\n\n\n\n\n\n")
+    print(event.start_time)
+    print("\n\n\n\n\n\n\n")
 
     evt_dict = {}
 

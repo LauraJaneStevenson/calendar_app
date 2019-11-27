@@ -16,12 +16,22 @@ const handleApprove = (approved,id) => {
     });    
   
 };
-
+// gives user info about the event request
 const showRequested = (id) => {
 
     $.get('/event_req_notif.json',{ 'id':id }, (res) => {
         // calendar.addevent
-        alert(`${res.title} at ${res.start} until ${res.end}. Click approve at add to calendar.`);
+        // alert(`${res.title} at ${res.start} until ${res.end}. Click approve at add to calendar.`);
+
+
+            let tooltip = new Tooltip($('li.notifications'), {
+                title: 'Event Type: ' + res.title + '\n' + 'From ' + res.start 
+                + '\n' + 'To' + res.end,
+                placement: 'top',
+                trigger: 'hover',
+                container: 'body'
+            });
+        
 
     });
 };
@@ -42,7 +52,7 @@ $.get('/get_notifications.json',(response) => {
         console.log(id);
 
         $('ul.notifications').append(`
-            <li>
+            <li class='notifications'>
                 ${type} from ${from} 
                 <button
                     type="button"
