@@ -27,7 +27,13 @@
     <form action="/add_housemates" method="POST">
         Search name:<input type="text" name="housemate_name">
         <input type="submit">
-    </form>   
+    </form> 
+
+    <p>Upload profile picture</p> 
+     <form action="/upload_file" method="post" enctype="multipart/form-data">
+      <input type=file name=file>
+      <input type=submit value=Upload>
+    </form> 
 </div>
 
 

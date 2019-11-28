@@ -43,7 +43,7 @@ const handleApprove = (approved,id) => {
   
 };
 // gives user info about the event request
-const showRequested = (id) => {
+function showRequested(id) {
 
     $.get('/event_req_notif.json',{ 'id':id }, (res) => {
         // calendar.addevent
