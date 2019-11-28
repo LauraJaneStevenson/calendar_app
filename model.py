@@ -9,7 +9,9 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    phone_number = os.environ.get('SMS_TO')
+    phone_number = db.Column(db.String(20),
+                            default=os.environ.get('SMS_TO'),
+                            nullable=True)
 
     user_id = db.Column(db.Integer,
                         autoincrement=True,
@@ -23,6 +25,8 @@ class User(db.Model):
                          nullable=False)
     password = db.Column(db.String(30),
                          nullable=False)
+    profile_pic = db.Column(db.String(200),
+                            default="/static/uploads/icon.jpg")
    
     calendar = db.relationship("Calendar")
                                # backref="housemates",
@@ -47,6 +51,19 @@ class User(db.Model):
 
         return []
 
+# class FileContents(db.Model):
+#     """Data model for Image"""
+#     __tablename__ = "file_contets"
+
+#     id = db.Column(db.Integer, 
+#                    autoincrement=True,
+#                    primary_key=True)
+#     data = db.Column(db.LargeBinary)
+#     name = db.Column(db.String(300))
+
+#     def __repr__(self):
+#         """Human readable file contents object"""
+#         return f"<Image Name:{self.name}, Image id: {self.id}>"
 
 
 class Calendar(db.Model):
