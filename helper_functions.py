@@ -90,10 +90,10 @@ def map_event_colors():
     """Returns a dictionary that links event types to colors"""
 
     colorDict = {
-        'party': '#FF0000',
+        'party': '#985E6D',
         # 'party': 'rgb(255,0,0,5)',
-        'quiet hours': '#800080',
-        'shower': '#add8e6'
+        'quiet hours': '#98878F',
+        'shower': '#494E6B'
     }
 
     return colorDict

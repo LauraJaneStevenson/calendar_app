@@ -592,7 +592,7 @@ def my_req_evts():
         event_dict['start'] = event.start_time.isoformat()
         event_dict['end'] = event.end_time.isoformat()
         event_dict['author'] = get_user(event.user_id).username
-        event_dict['backgroundColor'] = '#71eeb8'
+        event_dict['backgroundColor'] = '#DCB239'
 
         event_list.append(event_dict)
     

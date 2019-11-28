@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
               title: eventType,
               start: startT,
               endTime: endT,
-              backgroundColor: '#90ee90',    
+              backgroundColor: '#DCB239',    
       });         
     },
     customButtons: {
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     start: event.start,
                     endTime: event.end,
                     author: event.author,
-                    backgroundColor: '#90ee90', 
+                    backgroundColor: '#DCB239', 
 
                   });
 
