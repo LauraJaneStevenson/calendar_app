@@ -504,19 +504,25 @@ def add_event():
     db.session.add(event)
     db.session.commit()
 
+    # add a url to parties so users can click on events and visit party page
+    if event_type == 'party':
+        event.url = "http://localhost:5000/party/" + str(event.event_id)
+        db.session.commit()
+
     if event_type == 'shower':
         # showers are first come first serve so approved gets set to true
         event.approved == True
         db.session.commit()
         return "Shower event has been added to calendar!"
 
-   
+
     # if event not shower, send event request to other users
     current_user = get_user(session['user_id'])
     # get list of current user's housemates
     housemates = current_user.get_housemates()
     # loop through housemates and send event request to each
     for housemate in housemates:
+      
         event_request = EventRequest(event_id=event.event_id,
                                       to_user_id=housemate.user_id)
         db.session.add(event_request)
@@ -559,6 +565,8 @@ def display_all_events():
         event['start'] = db_event.start_time.isoformat()
         event['end'] = db_event.end_time.isoformat()
         event['author'] = get_user(db_event.user_id).username
+        event['url'] = db_event.url
+        # if db_event.event_type
         # if the event is in the dictionary, give event obj 'eventColor' attibute 
         # and set it to correct color
         if db_event.event_type in map_event_colors():
@@ -568,6 +576,13 @@ def display_all_events():
         event_list.append(event)
 
     return jsonify(event_list)
+
+@app.route("/single_evt_info")
+def get_event_info():
+
+    event = request.form.get("event_id")
+
+    return event
 
 @app.route("/event_req_notif.json")
 def display_event_request():

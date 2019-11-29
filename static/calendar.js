@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
       right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
     eventRender: function(info) {
-      //AJAX request 
+   
       var tooltip = new Tooltip(info.el, {
         title: 'Created by: ' + info.event.extendedProps.author,
         placement: 'top',
@@ -30,8 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     },
     eventClick: function(info){
-      alert('event-click');
-
+   
     },
     selectable: true,
     events: res,
@@ -41,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
       let endT = prompt('Enter End Time: ', getTime(info.endStr));
       let partyTitle;
       let description;
+      // let url;
       startT = setDateTime(startT,info.startStr);
       endT = setDateTime(endT,info.endStr);
       
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         partyTitle = prompt('Enter Party Name: ');
         description = prompt('Enter a description:');
 
-      }else if(eventType == 'description'){
+      }else if(eventType == 'quiet hours'){
 
         description = prompt('Enter a description:');
       }
@@ -64,11 +64,13 @@ document.addEventListener('DOMContentLoaded', function() {
       $.post('/add_event',eventDetails,(response) =>{
         alert(response);
       });
+
       calendar.addEvent({
               title: eventType,
               start: startT,
               endTime: endT,
-              backgroundColor: '#DCB239',    
+              backgroundColor: '#DCB239', 
+
       });         
     },
     customButtons: {

@@ -125,6 +125,9 @@ class Event(db.Model):
                             nullable=True)
     approved = db.Column(db.Boolean,default=False)
 
+    url = db.Column(db.String(100),
+                    default="localhost:5000/calendar")
+
     image = db.Column(db.String(200),
                       default="/static/uploads/icon.jpg")
 
