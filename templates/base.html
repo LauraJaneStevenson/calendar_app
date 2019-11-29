@@ -49,15 +49,15 @@
             <button type="button">View Profile</button>
       </a>
 
-      <div>
 
-         <p>Notifications: </p>
-
-          <ul class='notifications' id='notifications'>
-              
+      <div class="dropdown">
+      <button class="dropbtn">Notifications</button>
+        <div class="dropdown-content">
+            <ul class='notifications'>
           </ul>
+        </div>
+      </div>
 
-     </div>
      </nav>
     {% endif %}
     {% block content %}{% endblock %}

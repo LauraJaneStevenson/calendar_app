@@ -119,7 +119,14 @@ class Event(db.Model):
                            nullable=False)
     end_time = db.Column(db.DateTime,
                          nullable=False)
+    title = db.Column(db.String(150),
+                           nullable=True)
+    description = db.Column(db.Text,
+                            nullable=True)
     approved = db.Column(db.Boolean,default=False)
+
+    image = db.Column(db.String(200),
+                      default="/static/uploads/icon.jpg")
 
     # define relationship to calendars and users tables
     calendar = db.relationship("Calendar", backref=db.backref("events"))

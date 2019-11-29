@@ -198,6 +198,23 @@ def upload_file():
     # return f"Saved {file.filename} to the Database"
     return redirect(f"/profile/{session['user_id']}")
 
+@app.route('/upload_party_pic/<event_id>', methods=['POST'])
+def upload_party_img(event_id):
+
+    file = request.files['file']
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+    # print("\n\n\n\n\n\n")
+    # print(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+    # print("\n\n\n\n\n\n")
+    get_event(event_id).image = '/' + UPLOAD_FOLDER + file.filename
+    db.session.commit()
+
+    # new_file = FileContents(name=file.filename,data=file.read())
+    # db.session.add(new_file)
+    # db.session.commit()
+    # return f"Saved {file.filename} to the Database"
+    return redirect(f"/party/1")
+
 
 @app.route("/get_notifications.json")
 def user_notifications():
@@ -220,6 +237,12 @@ def user_notifications():
             from_user_id = get_event(notification.event_id).user_id
             notif_dict['from'] = get_user(from_user_id).username
 
+            # get start and end times of event
+
+            notif_dict['start'] = get_event(notification.event_id).start_time
+            notif_dict['end'] = get_event(notification.event_id).end_time
+            notif_dict['event_type'] = get_event(notification.event_id).event_type 
+
         elif notification.notification_type == 'access request':
             notif_dict['request_id'] = notification.request_id
 
@@ -235,9 +258,9 @@ def user_notifications():
         
         notif_list.append(notif_dict)
 
-    print("\n\n\n\n\n\n\n")
-    print("jsonify notification list",notif_list)
-    print("\n\n\n\n\n\n\n")
+    # print("\n\n\n\n\n\n\n")
+    # print("jsonify notification list",notif_list)
+    # print("\n\n\n\n\n\n\n")
     return jsonify(notif_list)
 
 
@@ -471,9 +494,12 @@ def add_event():
     start = request.form.get("start")
     end = request.form.get("end")
     event_type = request.form.get("eventType")
+    title = request.form.get("title")
+    description = request.form.get("description")
     # create new event
     event = Event(cal_id=session['cal_id'],user_id=session['user_id'],
-                  event_type=event_type,start_time=start,end_time=end)
+                  event_type=event_type,start_time=start,end_time=end,
+                  title=title,description=description)
     # commit it to the DB
     db.session.add(event)
     db.session.commit()
@@ -505,7 +531,12 @@ def add_event():
 
     return "An event request has been sent to your housemates!"
 
+@app.route("/party/<event_id>")
+def show_party_deets(event_id):
 
+    party = get_event(event_id)
+
+    return render_template("party.html",party=party)
     
 @app.route("/approved_events.json")
 def display_all_events():

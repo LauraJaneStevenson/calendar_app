@@ -45,18 +45,19 @@ const handleApprove = (approved,id) => {
 // gives user info about the event request
 function showRequested(id) {
 
+
     $.get('/event_req_notif.json',{ 'id':id }, (res) => {
         // calendar.addevent
         // alert(`${res.title} at ${res.start} until ${res.end}. Click approve at add to calendar.`);
+        console.log(id);
 
-
-            let tooltip = new Tooltip($('li.notifications'), {
-                title: 'Event Type: ' + res.title + '\n' + 'From ' + res.start 
-                + '\n' + 'To' + res.end,
-                placement: 'top',
-                trigger: 'hover',
-                container: 'body'
-            });
+            // let tooltip = new Tooltip($('li.notifications'), {
+            //     title: 'Event Type: ' + res.title + '\n' + 'From ' + res.start 
+            //     + '\n' + 'To' + res.end,
+            //     placement: 'top',
+            //     trigger: 'hover',
+            //     container: 'body'
+            // });
         
 
     });
@@ -73,13 +74,21 @@ $.get('/get_notifications.json',(response) => {
     for (const notification of response) {
        // console.log('3')
         const id = notification.id;
-        const type = notification.type;
+        let type = notification.type;
         const from = notification.from
+        let times = ""
         console.log(id);
 
+        // construct start time - end time string if its an event request
+        if(type == 'event request'){
+            type = notification.event_type + " request"
+            times = " starting at " + notification.start + " until " + notification.end
+        };
+    
+
         $('ul.notifications').append(`
-            <li class='notifications'>
-                ${type} from ${from} 
+            <li class=notifications>
+                ${type} from ${from} ${times}
                 <button
                     type="button"
                     class="approved"

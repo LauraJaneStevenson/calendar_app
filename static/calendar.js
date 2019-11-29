@@ -29,21 +29,36 @@ document.addEventListener('DOMContentLoaded', function() {
         container: 'body'
       });
     },
+    eventClick: function(info){
+      alert('event-click');
+
+    },
     selectable: true,
     events: res,
     select: function(info) {
       console.log('info: '+ info.startStr)
       let startT = prompt('Enter Start Time: ', getTime(info.startStr));
       let endT = prompt('Enter End Time: ', getTime(info.endStr));
-
+      let partyTitle;
+      let description;
       startT = setDateTime(startT,info.startStr);
       endT = setDateTime(endT,info.endStr);
       
       let eventType = prompt('Enter Event Type(Quiet hours, Bathroom, Party): ');
+      if(eventType == 'party'){
+        partyTitle = prompt('Enter Party Name: ');
+        description = prompt('Enter a description:');
+
+      }else if(eventType == 'description'){
+
+        description = prompt('Enter a description:');
+      }
       const eventDetails = {
         'start': startT,
         'end': endT,
-      'eventType': eventType
+        'eventType': eventType,
+        'title': partyTitle,
+        'description':description
       };
 
       $.post('/add_event',eventDetails,(response) =>{
