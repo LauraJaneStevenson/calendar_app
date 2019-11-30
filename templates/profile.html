@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+
+<div>
+    {% if user.user_id == session['user_id'] %}
+    <img src="{{ user.profile_pic }}" alt="" width="500" height="333">
+    <form action="/upload_file" method="POST" enctype="multipart/form-data">
+      <input type="file" name="file">
+      <input type="submit" value="Upload">
+    </form> 
+    {% else%}
+    <img src="{{ user.profile_pic }}" alt="" width="500" height="333">
+    {% endif %}
+    <h2>Name: {{ user.name }} Username: {{ user.username }}</h2>
+    <h3>ID: {{ user.user_id }}</h3>
+    <h3> {{ house_name }}</h3>
+
+</div>
+
+
+{% endblock %}

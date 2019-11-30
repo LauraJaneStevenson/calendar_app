@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+ <img src="{{ party.image }}" alt="" width="500" height="333">
+ {% if party.user_id == session['user_id'] %}
+<form action="/upload_party_pic/{{ party.event_id }}" method="POST" enctype="multipart/form-data">
+<input type="file" name="file">
+<input type="submit" value="Upload">
+</form>
+{% endif %}
+<h1>{{ party.title }}</h1>
+<p>{{ party.description }}</p>
+
+{% endblock %}
