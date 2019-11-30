@@ -22,11 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     eventRender: function(info) {
    
-      var tooltip = new Tooltip(info.el, {
+      let tooltip = new Tooltip(info.el, {
         title: 'Created by: ' + info.event.extendedProps.author,
         placement: 'top',
         trigger: 'hover',
         container: 'body'
+        
       });
     },
     eventClick: function(info){
@@ -116,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     title: event.title,
                     id: event.id,
                     start: event.start,
-                    endTime: event.end,
+                    end: event.end,
                     author: event.author,
                     backgroundColor: '#DCB239', 
 
