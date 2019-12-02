@@ -3,22 +3,25 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-
+<div class="container">
+<div class="row">
+<div class="col">
  <p>House name: {{ user.calendar.house_name }}</p>
  <p>Your housemates: </p>
- <div>
      <ul> 
         {% for housemate in user.get_housemates() %}
          <li>
+            <img src="{{ housemate.profile_pic }}" width="30" height="30">
             <a href="/profile/{{ housemate.user_id }}" id="{{ housemate.user_id }}">
               {{ housemate.name }}
             </a>
         </li>  
         {% endfor %}
      </ul>
+    </div>
 
      <script src="static/calendar.js"></script>
-     
+     <div class="col-6">
 
      <div id="calendar"></div>
 
@@ -29,12 +32,9 @@
         <input type="submit">
     </form> 
 
-    <p>Upload profile picture</p> 
-<!--      <form action="/upload_file" method="post" enctype="multipart/form-data">
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>  -->
-</div>
 
+</div>
+</div>
+</div>
 
 {% endblock %}
