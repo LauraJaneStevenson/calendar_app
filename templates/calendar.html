@@ -3,38 +3,139 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-<div class="container">
-<div class="row">
-<div class="col">
- <p>House name: {{ user.calendar.house_name }}</p>
- <p>Your housemates: </p>
-     <ul> 
-        {% for housemate in user.get_housemates() %}
-         <li>
-            <img src="{{ housemate.profile_pic }}" width="30" height="30">
-            <a href="/profile/{{ housemate.user_id }}" id="{{ housemate.user_id }}">
-              {{ housemate.name }}
-            </a>
-        </li>  
-        {% endfor %}
-     </ul>
+
+<section class="h-100 mx-3 full-columns">
+    <div class="row h-100">
+        <aside class="col-4 h-100 bg-light d-flex justify-content-center">
+            <div class="container my-4">
+
+             <p class="lead" >House name: {{ user.calendar.house_name }}</p>
+             <p>Your housemates: </p>
+                 <ul> 
+                    {% for housemate in user.get_housemates() %}
+                     <li>
+                        <img src="{{ housemate.profile_pic }}" width="30" height="30">
+                        <a href="/profile/{{ housemate.user_id }}" id="{{ housemate.user_id }}">
+                          {{ housemate.name }}
+                        </a>
+                    </li>  
+                    {% endfor %}
+                 </ul>
+
+                <p>Search for and add housemates: </p>
+
+                <form action="/add_housemates" method="POST">
+                    Search name:<input type="text" name="housemate_name">
+                    <input type="submit">
+                </form> 
+            </div>
+        </aside>
+
+
+        <main class="col h-100 overflow-y">
+            <div class="container py-4 content">
+                <div id="calendar"></div>
+            </div>
+        </main>
     </div>
-
-     <script src="static/calendar.js"></script>
-     <div class="col-6">
-
-     <div id="calendar"></div>
-
-    <p>Search for and add housemates: </p>
-
-    <form action="/add_housemates" method="POST">
-        Search name:<input type="text" name="housemate_name">
-        <input type="submit">
-    </form> 
-
-
-</div>
-</div>
-</div>
+</section>
 
 {% endblock %}
+
+
+ <!-- <section class="h-100 mx-3 full-columns">
+    <div class="row h-100">
+      <aside class="col-4 h-100 bg-light d-flex justify-content-center">
+        <div class="container my-4">
+          <p class="lead">
+            You can put a form or menu in here and use JavaScript to populate
+            content for the <code>main</code> column.
+          </p>
+
+          <p class="lead">
+            If you don't want this column to scroll, you can set
+            <code>overflow: hidden;</code> on it.
+          </p>
+
+          <p class="lead">
+            If you want your other columns to be scrollable, set
+            <code>overflow-y: auto;</code> on them. This is how you can
+            customize which columns scroll and which don't!
+          </p>
+        </div>
+      </aside>
+
+
+
+
+
+
+      <main class="col h-100 overflow-y">
+        <div class="container py-4 content">
+          <p>
+            Lorem ipsum dolor sit amet, dicta possit an vel, an qui ullum dolorem
+            salutatus. Mei esse definiebas dissentias in, timeam intellegebat duo
+            an. Tale corrumpit id vix, vim ne iusto nominati vituperatoribus.
+            Sea fabellas sensibus imperdiet cu, pri appetere invenire in. Eam ex
+            summo appareat dignissim.
+          </p>
+
+          <p>
+            Putant numquam referrentur no cum, mea clita ocurreret at. Repudiare
+            appellantur nec ut, at sed fierent praesent. Cu habeo commune officiis
+            mei, ad brute melius vel. Debet reprehendunt vel in. Solum congue sit ei.
+          </p>
+
+          <p>
+            Eos te clita admodum accusata, tamquam civibus eos id. Maluisset
+            deterruisset vim no. Stet errem nihil usu eu, eam nemore iriure
+            menandri ad. Legimus dolorem vix ea, option legimus hendrerit ius an.
+            Tale tation partem vix eu. Modo ludus omnes vis an, natum scripserit
+            quo te, utamur erroribus et est.
+          </p>
+
+          <p>
+            Quo id nullam saperet, ei habeo fuisset sit. At dicant mucius
+            definitiones vel, eum magna dignissim an. Iudicabit consulatu sed te,
+            vix ea alia falli consequuntur, amet delenit an qui. Case viris
+            disputationi pri te, in cum ignota sanctus forensibus, audiam
+            reprimique ei qui. Per suscipit percipit eu, homero deseruisse
+            efficiantur no vim, ne ius summo aliquip laboramus. Nisl
+            voluptatibus at est.
+          </p>
+
+          <p>
+            Lorem ipsum dolor sit amet, dicta possit an vel, an qui ullum dolorem
+            salutatus. Mei esse definiebas dissentias in, timeam intellegebat duo
+            an. Tale corrumpit id vix, vim ne iusto nominati vituperatoribus.
+            Sea fabellas sensibus imperdiet cu, pri appetere invenire in. Eam ex
+            summo appareat dignissim.
+          </p>
+
+          <p>
+            Putant numquam referrentur no cum, mea clita ocurreret at. Repudiare
+            appellantur nec ut, at sed fierent praesent. Cu habeo commune officiis
+            mei, ad brute melius vel. Debet reprehendunt vel in. Solum congue sit ei.
+          </p>
+
+          <p>
+            Eos te clita admodum accusata, tamquam civibus eos id. Maluisset
+            deterruisset vim no. Stet errem nihil usu eu, eam nemore iriure
+            menandri ad. Legimus dolorem vix ea, option legimus hendrerit ius an.
+            Tale tation partem vix eu. Modo ludus omnes vis an, natum scripserit
+            quo te, utamur erroribus et est.
+          </p>
+
+          <p>
+            Quo id nullam saperet, ei habeo fuisset sit. At dicant mucius
+            definitiones vel, eum magna dignissim an. Iudicabit consulatu sed te,
+            vix ea alia falli consequuntur, amet delenit an qui. Case viris
+            disputationi pri te, in cum ignota sanctus forensibus, audiam
+            reprimique ei qui. Per suscipit percipit eu, homero deseruisse
+            efficiantur no vim, ne ius summo aliquip laboramus. Nisl
+            voluptatibus at est.
+          </p>
+        </div>
+      </main>
+    </div>
+  </section> -->
