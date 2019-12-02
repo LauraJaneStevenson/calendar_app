@@ -12,23 +12,27 @@ const getTime = (timeStr) => {
         
     };
 
-    return timeStr.slice(11,16) + 'A.M.';   
+
+    return timeStr.slice(12,16) + 'A.M.';   
     
 };
 
 const setDateTime = (timeStr,info) => {
     //sets times back to iso format
     console.log('we inside setDateTime')
-    let hour = timeStr.slice(0,1);
+    let hour = timeStr[0];
     console.log(hour);
     if(timeStr.slice(4,9) == 'P.M.'){
         hour = parseInt(hour) + 12;
         console.log(timeStr.slice(1,4))
+        console.log(hour)
         timeStr = String(hour) + timeStr.slice(1,4);
+        console.log(timeStr)
 
     }else{
 
-        timeStr = 'O' + String(hour) + timeStr.slice(2,6);
+        timeStr = '0' + String(hour) + timeStr.slice(1,4);
+        console.log("A.M time string: " + timeStr);
     }
 
 

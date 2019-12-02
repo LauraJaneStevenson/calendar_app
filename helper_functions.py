@@ -110,8 +110,9 @@ def send_init_sms(request_id,user_id):
     # get user_id to send text to
     to_user = get_user(user_id)
 
-    message = f"""Your housemate {from_user} has requested the event number 
-    {request_id}, {event.event_type} from {event.start_time} to {event.end_time}. 
+    message = f"""Your housemate {from_user} has requested {event.event_type} number 
+    {request_id}, {event.start_time.strftime('Starting on %m/%d at %I:%M:%p')} 
+    {event.end_time.strftime(' until %m/%d at %I:%M:%p')}. 
     Reply 'Y' to accept or 'N' to deny."""
 
     account_sid = os.environ.get('ACCOUNT_SID')

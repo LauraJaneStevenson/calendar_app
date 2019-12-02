@@ -3,18 +3,28 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-<div class="login">
- <h1>Login:</h1>
- <form action="/login" method="POST">
-   Username: <input type=text name="username">
-   Password: <input type="password" name="password">
-   Login<input type=submit name="login">
- </form>  
- <div> 
- <form action="/register">
-    Register<input type=submit name="register" >
- </form>
-</div>
-</div>
+<body>
+<div class="container">
+<div class="row">
 
+<form action="/login" method="POST">
+  <div class="form-group">
+    <label for="exampleInput">Username</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1"
+    name="password">
+  </div>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Login</button>  
+  <a class="btn btn-primary" href="http://localhost:5000/register" role="button">Register</a>
+</form>
+</div>
+</div>
+</body>
 {% endblock %}

@@ -213,7 +213,7 @@ def upload_party_img(event_id):
     # db.session.add(new_file)
     # db.session.commit()
     # return f"Saved {file.filename} to the Database"
-    return redirect(f"/party/1")
+    return redirect(f"/edit_party/{event_id}")
 
 
 @app.route("/get_notifications.json")
@@ -239,8 +239,8 @@ def user_notifications():
 
             # get start and end times of event
 
-            notif_dict['start'] = get_event(notification.event_id).start_time
-            notif_dict['end'] = get_event(notification.event_id).end_time
+            notif_dict['start'] = get_event(notification.event_id).start_time.strftime('Starting on %m/%d at %I:%M:%p')
+            notif_dict['end'] = get_event(notification.event_id).end_time.strftime(' until %m/%d at %I:%M:%p')
             notif_dict['event_type'] = get_event(notification.event_id).event_type 
 
         elif notification.notification_type == 'access request':
@@ -302,6 +302,7 @@ def handle_notif_response():
 
             # set current users calendar to calendar that invited them
             get_user(session['user_id']).cal_id = invitation.from_cal_id
+            session['cal_id'] = invitation.from_cal_id
            
             # commit tp DB
             db.session.commit()
@@ -534,15 +535,29 @@ def add_event():
         db.session.add(notification)
         db.session.commit()
 
-
-    return "An event request has been sent to your housemates!"
+    
+    return event.url
 
 @app.route("/party/<event_id>")
 def show_party_deets(event_id):
+    """Renders a party event detail page"""
 
     party = get_event(event_id)
+    start = party.start_time.strftime('Starting on %m/%d at %I:%M:%p')
+    end = party.end_time.strftime(' until %m/%d at %I:%M:%p')
 
-    return render_template("party.html",party=party)
+    return render_template("party.html",party=party,start=start,end=end)
+
+@app.route("/edit_party/<event_id>")
+def edit_party_deets(event_id):
+
+    party = get_event(event_id)
+    start = party.start_time.strftime('Starting on %m/%d at %I:%M:%p')
+    end = party.end_time.strftime(' until %m/%d at %I:%M:%p')
+
+    return render_template("edit_party.html", party=party)
+
+
     
 @app.route("/approved_events.json")
 def display_all_events():
@@ -612,6 +627,20 @@ def display_event_request():
 
     return jsonify(evt_dict)
 
+@app.route("/edit_event_des/<event_id>",methods=['POST'])
+def edit_event(event_id):
+
+    print("\n\n\n\n\n\n\n\n")
+    print(request.form.get('event_des'))
+    print("\n\n\n\n\n\n")
+
+    get_event(event_id).description = request.form.get('event_des')
+    db.session.commit()
+
+    return redirect(f"/party/{event_id}")
+
+
+
 @app.route("/unapproved_events.json")
 def my_req_evts():
 
@@ -630,6 +659,7 @@ def my_req_evts():
         event_dict['start'] = event.start_time.isoformat()
         event_dict['end'] = event.end_time.isoformat()
         event_dict['author'] = get_user(event.user_id).username
+        event_dict['url'] = event.url
         event_dict['backgroundColor'] = '#DCB239'
 
         event_list.append(event_dict)

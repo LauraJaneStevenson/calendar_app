@@ -63,15 +63,19 @@ document.addEventListener('DOMContentLoaded', function() {
       };
 
       $.post('/add_event',eventDetails,(response) =>{
-        alert(response);
-      });
+        alert("An event request has been sent to your housemates!");
+        let url = response
+        
+     
 
-      calendar.addEvent({
-              title: eventType,
-              start: startT,
-              endTime: endT,
-              backgroundColor: '#DCB239', 
+        calendar.addEvent({
+                title: eventType,
+                start: startT,
+                endTime: endT,
+                backgroundColor: '#DCB239', 
+                url: url
 
+        });
       });         
     },
     customButtons: {
@@ -119,9 +123,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     start: event.start,
                     end: event.end,
                     author: event.author,
-                    backgroundColor: '#DCB239', 
+                    backgroundColor: '#DCB239',
+                    url: event.url 
 
                   });
+                  console.log(event.url);
 
                 };
 

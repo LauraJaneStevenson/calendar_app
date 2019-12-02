@@ -9,6 +9,7 @@ const handleApprove = (approved,id) => {
         'approved': approved
 
     };
+
     // calendar.add
 
     // AJAX post request 
@@ -16,6 +17,7 @@ const handleApprove = (approved,id) => {
         alert(res)
     }); 
 
+    $(`#${id}`).hide();
 
     // $.get('/event_req_notif.json',{ 'id':notifDetails.id },(res) =>{
     //     console.log("In handleApprove notifications.js:" + res.title);
@@ -82,12 +84,12 @@ $.get('/get_notifications.json',(response) => {
         // construct start time - end time string if its an event request
         if(type == 'event request'){
             type = notification.event_type + " request"
-            times = " starting at " + notification.start + " until " + notification.end
+            times = notification.start + notification.end
         };
     
 
         $('ul.notifications').append(`
-            <li class=notifications>
+            <li class=notifications id=${id}>
                 ${type} from ${from} ${times}
                 <button
                     type="button"

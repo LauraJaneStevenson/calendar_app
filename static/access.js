@@ -5,7 +5,7 @@ $('button.request_access').on('click',(evt) => {
     // get value for cal_id to pass through with ajax
     const button = $(evt.target);
     const cal_id = button.attr('id');
-    alert("ID:" + cal_id);
+
     // console.log(cal_id)
 
     // make ajax request

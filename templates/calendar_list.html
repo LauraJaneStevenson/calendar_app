@@ -13,7 +13,7 @@
         {% for cal in cal_list %}
         <li>
               {{ cal.house_name }} ({{ cal.cal_id}})
-             <button class="request_access" id="{{ cal.cal_id }}" onclick="alert('Hi')">Request Access</button>
+             <button class="request_access" id="{{ cal.cal_id }}">Request Access</button>
         </li>
         {% endfor %}
     </ul>
