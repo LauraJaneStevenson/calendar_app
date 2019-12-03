@@ -45,45 +45,60 @@
   
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-dark">
-    {% if session['name'] %}
-    <p>Hello, {{ session['name'] }}</p>
+{% if session['name'] %}
 
-       <a href="/logout_process">
-            <button type="button">Logout!</button>
-      </a>
-      <a href="/calendar">
-            <button type="button">Home!</button>
-      </a>
-      
-      <a href="/profile/{{ session.user_id }}" id="{{ session.user_id }}">
-            <button type="button">View Profile</button>
-      </a>
-
+<!-- Dark Navbar: dark bg, navbar-dark theme -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Roomies</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navExpandContent3"
+  />
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="navbar-collapse collapse" id="navExpandContent3">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link"href="/calendar">Home</a>
+      <a class="nav-item nav-link" id="{{ session.user_id }}" href="/profile/{{ session.user_id }}">Profile</a>
       <div class="dropdown">
-      <button class="dropbtn">Notifications</button>
-        <div class="dropdown-content">
+        <a class="nav-item nav-link dropbtn" id="">Notifications</a>
+          <div class="dropdown-content">
             <ul class='notifications'>
-          </ul>
+            </ul>
+          </div>
         </div>
+        <a class="nav-item nav-link"href="/logout_process">Logout</a>
       </div>
-     </nav>
+    </div>
+  </div>
+</nav>
+
+{% endif %}
 
 
+<section class="h-100 mx-3 full-columns">
+    <div class="row h-100">
+        <aside class="col-3 h-100 bg-light d-flex justify-content-center">
+            <div class="container my-4">
+
+              {% block side %}{% endblock %}
+            </div>
+        </aside>
 
 
-
-
-    {% endif %}
-    
-    {% block content %}{% endblock %}
-    
+        <main class="col h-100 overflow-y">
+            <div class="container py-4 content">
+              {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+</section>
 
 <script src='/static/event_request_hover.js'></script>
 
 </html>
-
-
 
 
 

@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       $.post('/add_event',eventDetails,(response) =>{
         alert("An event request has been sent to your housemates!");
-        let url = response
-        
+        let url = response.url
+        let author = response.author
      
 
         calendar.addEvent({
@@ -73,7 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 start: startT,
                 endTime: endT,
                 backgroundColor: '#DCB239', 
-                url: url
+                url: url,
+                author: author
 
         });
       });         

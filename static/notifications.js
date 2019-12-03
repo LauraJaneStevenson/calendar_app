@@ -94,7 +94,7 @@ $.get('/get_notifications.json',(response) => {
                     ${type} from ${from} ${times}
                     <button
                         type="button"
-                        class="approved"
+                        class="approved btn btn-primary btn-sm"
                         id="approve-${id}"
                         onclick="handleApprove(${true},${id})"
                         onmouseover="showRequested(${id})"
@@ -103,16 +103,16 @@ $.get('/get_notifications.json',(response) => {
                     </button>
                     <button 
                         type="button" 
-                        class="approved" 
+                        class="approved btn-secondary btn-sm"" 
                         id="deny-${id}"
                         onclick="handleApprove(${false},${id})"
                         onmouseover="showRequested(${id})"
                     >
                         Deny
                     </button>
-                      <a href="/party/${party_id}"><button 
+                    <a href="/party/${party_id}" id="view-party"><button 
                         type="button" 
-                        class="deets" 
+                        class="btn btn-secondary btn-sm"" 
                     >
                         View Page
                     </button></a>
@@ -125,7 +125,7 @@ $.get('/get_notifications.json',(response) => {
                     ${type} from ${from} ${times}
                     <button
                         type="button"
-                        class="approved"
+                        class="approved btn btn-primary btn-sm"
                         id="approve-${id}"
                         onclick="handleApprove(${true},${id})"
                         onmouseover="showRequested(${id})"
@@ -134,7 +134,7 @@ $.get('/get_notifications.json',(response) => {
                     </button>
                     <button 
                         type="button" 
-                        class="approved" 
+                        class="approved btn btn-secondary btn-sm" 
                         id="deny-${id}"
                         onclick="handleApprove(${false},${id})"
                         onmouseover="showRequested(${id})"

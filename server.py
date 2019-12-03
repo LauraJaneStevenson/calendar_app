@@ -29,6 +29,7 @@ app.secret_key = "123"
 def homepage():
     """Show homepage."""
 
+
     return render_template("homepage.html")
 
 
@@ -135,10 +136,13 @@ def login_proccess():
     if user.password != password: 
         flash("Incorrect password.")
 
+    
+
     # add user_id to the session 
     session["user_id"] = user.user_id
     session["name"] = user.name
     session["username"] = user.username
+    # session["housemates"] = user.get_housemates()
     flash(f"Hello, {user.name}")
 
     # if user has a calendar  
@@ -394,7 +398,6 @@ def add_housemates():
     housemate = request.form['housemate_name']
     users = User.query.filter(User.name==housemate, User.cal_id == None).all()
     
-
     return render_template("find_housemates.html", users=users)
 
 @app.route("/invite", methods=['POST'])
@@ -534,8 +537,11 @@ def add_event():
         db.session.add(notification)
         db.session.commit()
 
-    
-    return event.url
+    event_info = {}
+    event_info['url'] = event.url
+    event_info['author'] = get_user(session['user_id']).username
+   
+    return jsonify(event_info)
 
 @app.route("/party/<event_id>")
 def show_party_deets(event_id):

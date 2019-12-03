@@ -1,43 +1,31 @@
 {% extends 'base.html' %}
 
 {% block title %}Homepage{% endblock %}
+{% block side %}
+
+<p class="lead" >House name: {{ user.calendar.house_name }}</p>
+ <p>Your housemates: </p>
+ <ul> 
+    {% for housemate in user.get_housemates() %}
+     <li>
+        <img src="{{ housemate.profile_pic }}" class="rounded-circle" width="30" height="30">
+        <a href="/profile/{{ housemate.user_id }}" id="{{ housemate.user_id }}">
+          {{ housemate.name }}
+        </a>
+    </li>  
+    {% endfor %}
+ </ul>
+
+<p>Search for and add housemates: </p>
+
+<form action="/add_housemates" method="POST">
+    Search name:<input type="text" name="housemate_name">
+    <input type="submit" class="btn-secondary">
+</form> 
+{% endblock %}
 
 {% block content %}
 
-<section class="h-100 mx-3 full-columns">
-    <div class="row h-100">
-        <aside class="col-3 h-100 bg-light d-flex justify-content-center">
-            <div class="container my-4">
-
-             <p class="lead" >House name: {{ user.calendar.house_name }}</p>
-             <p>Your housemates: </p>
-                 <ul> 
-                    {% for housemate in user.get_housemates() %}
-                     <li>
-                        <img src="{{ housemate.profile_pic }}" class="rounded-circle" width="30" height="30">
-                        <a href="/profile/{{ housemate.user_id }}" id="{{ housemate.user_id }}">
-                          {{ housemate.name }}
-                        </a>
-                    </li>  
-                    {% endfor %}
-                 </ul>
-
-                <p>Search for and add housemates: </p>
-
-                <form action="/add_housemates" method="POST">
-                    Search name:<input type="text" name="housemate_name">
-                    <input type="submit">
-                </form> 
-            </div>
-        </aside>
-
-
-        <main class="col h-100 overflow-y">
-            <div class="container py-4 content">
-                <div id="calendar"></div>
-            </div>
-        </main>
-    </div>
-</section>
-
+    <div id="calendar"></div>
+    
 {% endblock %}
