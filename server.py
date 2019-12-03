@@ -397,7 +397,6 @@ def add_housemates():
 
     return render_template("find_housemates.html", users=users)
 
-
 @app.route("/invite", methods=['POST'])
 def invite_housemates():
 

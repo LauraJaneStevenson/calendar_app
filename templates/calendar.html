@@ -14,7 +14,7 @@
                  <ul> 
                     {% for housemate in user.get_housemates() %}
                      <li>
-                        <img src="{{ housemate.profile_pic }}" width="30" height="30">
+                        <img src="{{ housemate.profile_pic }}" class="rounded-circle" width="30" height="30">
                         <a href="/profile/{{ housemate.user_id }}" id="{{ housemate.user_id }}">
                           {{ housemate.name }}
                         </a>

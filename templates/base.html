@@ -47,7 +47,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark">
     {% if session['name'] %}
-    <h1>Hello, {{ session['name'] }}</h1>
+    <p>Hello, {{ session['name'] }}</p>
 
        <a href="/logout_process">
             <button type="button">Logout!</button>
@@ -68,6 +68,10 @@
         </div>
       </div>
      </nav>
+
+
+
+
 
 
     {% endif %}

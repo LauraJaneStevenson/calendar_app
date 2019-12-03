@@ -10,11 +10,11 @@
    
     <ul>
         {% for housemate in users %}
-        <li>
+        <li> 
+            <img src="{{ housemate.profile_pic }}" class="rounded-circle" width="30" height="30">
              <a href="/profile/{{ housemate.user_id }}"> 
               {{ housemate.name }} {{ housemate.username }}, ({{ housemate.user_id }})
-            </a>
-            
+            </a>  
             <button class="invite" id="{{ housemate.user_id }}">Invite</button>
         </li>
         {% endfor %}
