@@ -164,7 +164,7 @@ def show_calendar():
       
         return render_template("calendar.html",user=get_user(session['user_id']))
 
-    return render_template("find_or_create_cal.html")
+    return render_template("find_or_create_cal.html",user=get_user(session['user_id']))
 
 @app.route("/profile/<user_id>")
 def user_profile(user_id):
@@ -182,7 +182,7 @@ def user_profile(user_id):
 
         house_name = "No House"
 
-    return render_template("profile.html",user=user,house_name=house_name)
+    return render_template("profile.html",user=user,house_name=house_name,my_user=get_user(session['user_id']))
 
 
 @app.route('/upload_file', methods=['POST'])
@@ -359,7 +359,7 @@ def logout_user():
 @app.route("/create_cal")
 def create_or_find_cal():
     """retuns the html page where user can create a new calendar object"""
-    return render_template("create_cal.html")
+    return render_template("create_cal.html",user=get_user(session['user_id']))
 
 
 @app.route("/create_cal_process", methods=['POST'])
@@ -398,7 +398,7 @@ def add_housemates():
     housemate = request.form['housemate_name']
     users = User.query.filter(User.name==housemate, User.cal_id == None).all()
     
-    return render_template("find_housemates.html", users=users)
+    return render_template("find_housemates.html", users=users,user=get_user(session['user_id']))
 
 @app.route("/invite", methods=['POST'])
 def invite_housemates():
@@ -551,7 +551,7 @@ def show_party_deets(event_id):
     start = party.start_time.strftime('Starting on %m/%d at %I:%M:%p')
     end = party.end_time.strftime(' until %m/%d at %I:%M:%p')
 
-    return render_template("party.html",party=party,start=start,end=end)
+    return render_template("party.html",party=party,start=start,end=end,user=get_user(session['user_id']))
 
 @app.route("/edit_party/<event_id>")
 def edit_party_deets(event_id):
@@ -560,7 +560,7 @@ def edit_party_deets(event_id):
     start = party.start_time.strftime('Starting on %m/%d at %I:%M:%p')
     end = party.end_time.strftime(' until %m/%d at %I:%M:%p')
 
-    return render_template("edit_party.html", party=party)
+    return render_template("edit_party.html", party=party,user=get_user(session['user_id']))
 
 
     

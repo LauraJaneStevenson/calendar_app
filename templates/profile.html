@@ -2,6 +2,29 @@
 
 {% block title %}Homepage{% endblock %}
 
+{% block side %}
+
+<p class="lead" >House name: {{ my_user.calendar.house_name }}</p>
+ <p>Your housemates: </p>
+ <ul> 
+    {% for housemate in my_user.get_housemates() %}
+     <li>
+        <img src="{{ housemate.profile_pic }}" class="rounded-circle" width="30" height="30">
+        <a href="/profile/{{ housemate.user_id }}" id="{{ housemate.user_id }}">
+          {{ housemate.name }}
+        </a>
+    </li>  
+    {% endfor %}
+ </ul>
+
+<p>Search for and add housemates: </p>
+
+<form action="/add_housemates" method="POST">
+    Search name:<input type="text" name="housemate_name">
+    <input type="submit" class="btn-secondary">
+</form> 
+{% endblock %}
+
 {% block content %}
 
 <div class="row align-items-center justify-content-center static-height container-fluid">

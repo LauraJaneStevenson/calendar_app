@@ -1,15 +1,20 @@
 {% extends 'base.html' %}
 
+{% block side %}
+
+<a href="/create_cal">
+    <button class="btn-primary" type="button">Create New Calendar</button>
+</a>
+<p>Find House: </p>
+<form action="/find_calendar">
+    <input type="text" name="house_name">
+    <input type="submit" class="btn-primary" value="find">
+</form>
+
+{% endblock %}
 
 {% block content %}
 
-       <a href="/create_cal">
-            <button type="button">Create New Calendar</button>
-        </a>
-        <p>Find House: </p>
-        <form action="/find_calendar">
-            <input type="text" name="house_name">
-            <input type="submit" value="find">
-        </form>
+<p>WELCOME TO ROOMIES</p>
 
 {% endblock %}

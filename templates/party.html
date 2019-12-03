@@ -2,8 +2,31 @@
 
 {% block title %}Homepage{% endblock %}
 
+{% block side %}
+
+<p class="lead" >House name: {{ user.calendar.house_name }}</p>
+ <p>Your housemates: </p>
+ <ul> 
+    {% for housemate in user.get_housemates() %}
+     <li>
+        <img src="{{ housemate.profile_pic }}" class="rounded-circle" width="30" height="30">
+        <a href="/profile/{{ housemate.user_id }}" id="{{ housemate.user_id }}">
+          {{ housemate.name }}
+        </a>
+    </li>  
+    {% endfor %}
+ </ul>
+
+<p>Search for and add housemates: </p>
+
+<form action="/add_housemates" method="POST">
+    Search name:<input type="text" name="housemate_name">
+    <input type="submit" class="btn-secondary">
+</form> 
+{% endblock %}
+
 {% block content %}
-<div class="overflow-auto">
+<!-- <div class="overflow-auto">
 <div class="container-fluid">
     <div class="row">
         <div class="col-7 ">
@@ -15,17 +38,17 @@
             <img src="{{ party.image }}" alt="" width="700">
         </div>
     </div>            
-</div>
+</div> -->
 
-    <!--  {% if party.user_id == session['user_id'] %}
+     {% if party.user_id == session['user_id'] %}
      <a href="/edit_party/{{ party.event_id }}"><button>Edit Event Details</button></a>
      {% endif %}
- -->
+
     
 
 
 
-<!-- <div class="card mb-3 overflow-auto" style="width: 28rem">
+<div class="card mb-3 overflow-auto" style="width: 28rem">
   <img src="{{ party.image }}" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">{{ party.title }}</h5>
@@ -35,7 +58,7 @@
    {% if party.user_id == session['user_id'] %}
     <a href="/edit_party/{{ party.event_id }}"><button class="btn btn-primary">Edit Event Details</button></a>
     {% endif %}
-</div> -->
+</div>
 
 </div>
 
