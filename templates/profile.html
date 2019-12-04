@@ -4,6 +4,7 @@
 
 {% block side %}
 
+{% if session['cal_id'] %}
 <p class="lead" >House name: {{ my_user.calendar.house_name }}</p>
  <p>Your housemates: </p>
  <ul> 
@@ -23,6 +24,28 @@
     Search name:<input type="text" name="housemate_name">
     <input type="submit" class="btn-secondary">
 </form> 
+{% else %}
+<form action="/find_calendar">
+       <div class="form-group">
+              <label for="basicTextInputHelp">Search:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="basicTextInputHelp"
+                name="house_name"
+              >
+              <small class="form-text text-muted">
+                Search for existing calendar by House Name.
+              </small>
+            </div>
+        <input type="submit" class="btn-primary" value="find">
+        <a href="/create_cal">
+          <button type="button" style="margin-top:50px; margin-left:15px;" class="btn-primary">Back To Create Calendar
+          </button>
+        </a>
+</form>
+{% endif %}
+
 {% endblock %}
 
 {% block content %}

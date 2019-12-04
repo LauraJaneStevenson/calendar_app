@@ -27,25 +27,31 @@
 
 {% block content %}
 
-<h3>Users:</h3>
-<div>
-    {% if users %}
-   
-    <ul>
-        {% for housemate in users %}
-        <li> 
-            <img src="{{ housemate.profile_pic }}" class="rounded-circle" width="30" height="30">
-             <a href="/profile/{{ housemate.user_id }}"> 
-              {{ housemate.name }} {{ housemate.username }}, ({{ housemate.user_id }})
-            </a>  
-            <button class="invite" id="{{ housemate.user_id }}">Invite</button>
-        </li>
-        {% endfor %}
-    </ul>
-    
-    {% else %}
-         <p>Sorry no available users with that name found!</p>
-    {% endif %}
+{% if users %}
+{% for housemate in users %}
+<div class="row">
+    <div class="col-3" style="display: inline-block;">
+        <div class="card" style="width: 18rem;">
+          <img src="{{ housemate.profile_pic }}" style="width: 17.9rem;" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{ housemate.name }}</h5>
+            <small class="form-text text-muted" style="padding-bottom: 10px;">ID: {{user.user_id}}</small>
+            <p>{{ housemate.username }}</p>
+            <button class="invite btn-primary" id="{{ housemate.user_id }}">Invite</button>
+            <a href="/profile/{{ housemate.user_id }}">
+                <button class="btn-primary" id="{{ housemate.user_id }}">Profile</button>
+            </a>
+          </div>
+        </div>
+    </div>
 </div>
+{% endfor %}
+
+{% else %}
+
+<p>Sorry all the users with that name already belong to a house!</p>
+
+{% endif %}
+
 <script src='/static/access.js'></script>
 {% endblock %}

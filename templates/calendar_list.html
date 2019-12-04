@@ -18,8 +18,11 @@
               </small>
             </div>
         <input type="submit" class="btn-primary" value="find">
+          <a href="/create_cal">
+          <button type="button" style="margin-top:50px; margin-left:15px;" class="btn-primary">Back To Create Calendar
+          </button>
+        </a>     
 </form>
-        
 {% endblock %}
 
 {% block content %}
@@ -31,13 +34,13 @@
   <img src="../static/uploads/calendar.jpg" style="width: 17.9rem;" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title">{{ cal.house_name }}</h5>
-    <small class="form-text text-muted">ID: {{cal.cal_id}}</small>
+    <small class="form-text text-muted" style="padding-bottom: 10px;">ID: {{cal.cal_id}}</small>
     <button class="request_access btn-primary" id="{{ cal.cal_id }}">Request Access</button>
   </div>
   <p class="card-body">Housemates:</p>
   <ul class="list-group list-group-flush">
     {% for housemate  in cal.user %}
-      <li>
+      <li style="padding-left: 15px;">
         <img src="{{ housemate.profile_pic }}" class="rounded-circle" width="30" height="30">
         <a href="/profile/{{ housemate.user_id }}" id="{{ housemate.user_id }}">
           {{ housemate.name }}
@@ -51,9 +54,7 @@
  {% else %}
          <p>Sorry no calendars with that house name found!</p>
 {% endif %}
- <a href="/create_cal">
-    <button type="button" class="btn-primary">Back</button>
-</a>
+
 
 <script src='/static/access.js'></script>
 
