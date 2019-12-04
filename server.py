@@ -164,7 +164,7 @@ def show_calendar():
       
         return render_template("calendar.html",user=get_user(session['user_id']))
 
-    return render_template("find_or_create_cal.html",user=get_user(session['user_id']))
+    return render_template("create_cal.html",user=get_user(session['user_id']))
 
 @app.route("/profile/<user_id>")
 def user_profile(user_id):
@@ -457,7 +457,17 @@ def find_calendar():
 
     # list of calendars with the house name user searched for
     cal_list = Calendar.query.filter(Calendar.house_name == house_name).all()
-    
+
+    # housemates = []
+
+    # for cal in cal_list:
+
+    #     housemates.append(User.query.filter_by(cal_id=cal.cal_id).all())
+
+    # print("\n\n\n\n\n\n\n\n\n\n\n")
+    # print(housemates)
+    # print("\n\n\n\n\n\n\n\n\n\n\n")
+
     return render_template("calendar_list.html",cal_list=cal_list)
 
 

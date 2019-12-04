@@ -4,13 +4,23 @@
 
 {% block side %}
 
-<a href="/create_cal">
+<!-- <a href="/create_cal">
     <button type="button" class="btn-primary">Create New Calendar</button>
-</a>
-<p>Find House: </p>
+</a> -->
 <form action="/find_calendar">
-    <input type="text" name="house_name">
-    <input type="submit" class="btn-primary" value="find">
+       <div class="form-group">
+              <label for="basicTextInputHelp">Search:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="basicTextInputHelp"
+                name="house_name"
+              >
+              <small class="form-text text-muted">
+                Search for existing calendar by House Name.
+              </small>
+            </div>
+        <input type="submit" class="btn-primary" value="find">
 </form>
         
 {% endblock %}
