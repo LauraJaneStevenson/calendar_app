@@ -182,7 +182,16 @@ def user_profile(user_id):
 
         house_name = "No House"
 
-    return render_template("profile.html",user=user,house_name=house_name,my_user=get_user(session['user_id']))
+    # list of events to display on profile page
+    events = Event.query.filter_by(user_id=user.user_id,event_type='party').all()
+
+    if not events and user.cal_id:
+        # if user hasn't created any events, display events on calendar
+        events = Event.query.filter_by(cal_id=user.cal_id,event_type='party').all()
+
+    events.reverse()
+
+    return render_template("profile.html",user=user,house_name=house_name,my_user=get_user(session['user_id']),events=events)
 
 
 @app.route('/upload_file', methods=['POST'])

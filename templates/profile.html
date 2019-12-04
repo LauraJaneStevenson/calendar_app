@@ -27,27 +27,52 @@
 
 {% block content %}
 
-<div class="row align-items-center justify-content-center static-height container-fluid">
-        <div class="card" style="width: 28rem;">
-            {% if user.user_id == session['user_id'] %}
-                <img src="{{ user.profile_pic }}" class="card-img-top rounded" alt="...">
-                <form action="/upload_file" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="file"><input type="submit" value="Upload">
-                </form> 
-            {% else %}
-                <img src="{{ user.profile_pic }}" class="card-img-top rounded" alt="...">
-            {% endif %}
-              <div class="card-body">
-                <h5 class="card-title">{{ user.name }}</h5>
-                <p class="card-text"> Username: {{ user.username }}</p>
-                <p class="card-text">{{ house_name }}</p>
-                {% if user.cal_id == none %}
-                   <!--  <a href="#" class="btn btn-primary">Invite</a> -->
-                   <button class="invite btn btn-primary" id="{{ user.user_id }}">Invite</button>     
-                {% endif %}
-              </div>
-        </div>
+<div class="card mb-3" style="width: 800px; height: 300px">
+  <div class="row no-gutters">
+    <div class="col-md-5">
+      {% if user.user_id == session['user_id'] %}
+        <img src="{{ user.profile_pic }}" class="card-img rounded" style="height:298px; width:300px;">
+        <form action="/upload_file" method="POST" enctype="multipart/form-data">
+          <input type="file" name="file"><input type="submit" value="Upload">
+        </form> 
+      {% else %}
+        <img src="{{ user.profile_pic }}" class="card-img-top rounded" style="height:298px; width:300px;" alt="...">
+      {% endif %}
+    </div>
+    <div class="col-md-5">
+      <div class="card-body">
+        <h2 class="card-title" style="padding-top:130px;">{{ user.name }}</h2>
+        <p class="card-text">Username: {{ user.username }}</p>
+        <p class="card-text">{{ house_name }}</p>
+        {% if user.cal_id == none %}
+          <button class="invite btn btn-primary" id="{{ user.user_id }}">Invite</button>     
+        {% endif %}
+      </div>
+    </div>
+  </div>
 </div>
+
+<div class="card mb-3" style="width: 800px; height: 50px">
+<h5 class="card-title" style="padding-left:12px; padding-top: 12px;">{{ user.name }}'s Events</h5>
+</div>
+
+{% for party in events %}
+<div class="card mb-3" style="width: 800px; height: 300px">
+  <div class="row no-gutters">
+    <div class="col-md-6">
+      <img src="{{ party.image }}" class="card-img" style="height:298px;">
+    </div>
+    <div class="col-md-6">
+      <div class="card-body">
+        <h5 class="card-title">{{ party.title }}</h5>
+        <p class="card-text">{{ party.description }}</p> 
+        <a href="/party/{{ party.event_id }}"><button class="btn btn-primary">Event Page</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
 <script src='/static/access.js'></script>
 
 
