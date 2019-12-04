@@ -193,6 +193,10 @@ def user_profile(user_id):
 
     return render_template("profile.html",user=user,house_name=house_name,my_user=get_user(session['user_id']),events=events)
 
+@app.route("/edit_profile")
+def edit_profile():
+
+    return render_template("edit-profile.html",user=get_user(session['user_id']))
 
 @app.route('/upload_file', methods=['POST'])
 def upload_file():
