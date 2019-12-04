@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block side %}
+
+<p class="lead" >House name: {{ user.calendar.house_name }}</p>
+ <p>Your housemates: </p>
+ <ul> 
+    {% for housemate in user.get_housemates() %}
+     <li>
+        <img src="{{ housemate.profile_pic }}" class="rounded-circle" width="30" height="30">
+        <a href="/profile/{{ housemate.user_id }}" id="{{ housemate.user_id }}">
+          {{ housemate.name }}
+        </a>
+    </li>  
+    {% endfor %}
+ </ul>
+
+<p>Search for and add housemates: </p>
+
+<form action="/add_housemates" method="POST">
+    Search name:<input type="text" name="housemate_name">
+    <input type="submit" class="btn-secondary">
+</form> 
+{% endblock %}
+
+{% block content %}
+
+<div class="card mb-3" style="width: 800px; height: 300px">
+  <div class="row no-gutters">
+    <div class="col-md-5">
+
+        <img src="{{ user.profile_pic }}" class="card-img rounded" style="height:298px; width:300px;">
+     
+  
+    </div>
+    <div class="col-md-5">
+      <div class="card-body">
+        <h2 class="card-title" style="padding-top:130px;">{{ user.name }}</h2>
+        <p class="card-text">Username: {{ user.username }}</p>
+        <p class="card-text">{{ house_name }}</p>
+        {% if user.cal_id == none %}
+          <button class="invite btn btn-primary" id="{{ user.user_id }}">Invite</button>     
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+     
+    <div class="form-group">
+      <form action="/upload_file" method="POST" enctype="multipart/form-data">
+        <label>
+          Edit Profile Pic
+        </label>
+        <div class="custom-file" style="padding: 25px;">
+          <input type="file" class="custom-file-input" id="customFile" name="file">
+          <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+        <input type="submit" class="btn-primary" value="Upload">
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<script src='/static/access.js'></script>
+
+
+{% endblock %}
