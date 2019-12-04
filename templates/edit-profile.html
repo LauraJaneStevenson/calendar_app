@@ -40,9 +40,7 @@
         <h2 class="card-title" style="padding-top:130px;">{{ user.name }}</h2>
         <p class="card-text">Username: {{ user.username }}</p>
         <p class="card-text">{{ house_name }}</p>
-        {% if user.cal_id == none %}
-          <button class="invite btn btn-primary" id="{{ user.user_id }}">Invite</button>     
-        {% endif %}
+        <a href="/profile/{{ session['user_id'] }}"><button class="btn btn-primary">Back to Profile</button></a>  
       </div>
     </div>
   </div>
