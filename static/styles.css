@@ -169,3 +169,14 @@ derived from this CSS on this page: https://popper.js.org/tooltip-examples.html
 
 /*.dropdown:hover .dropbtn {background-color: #98878F;}*/
 
+li {
+
+  list-style-type: none;
+  padding-top:10px;
+  padding-bottom: 10px;
+}
+
+ul {
+  padding-left:0px;
+}
+

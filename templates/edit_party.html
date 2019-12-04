@@ -28,25 +28,35 @@
 
 
 {% block content %}
-<div class="container-fluid">
- <img src="{{ party.image }}" alt="" width="500" height="333">
-</div>
-<form action="/upload_party_pic/{{ party.event_id }}" method="POST" enctype="multipart/form-data">
-<input type="file" name="file">
-<input type="submit" value="Upload">
-</form>
 
-<h1>{{ party.title }}</h1>
-<h5>{{ start }}{{ end }}</h5>
-
-<form action="/edit_event_des/{{ party.event_id }}" method="POST">
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">Edit Event Description</label>
-    <textarea name="event_des" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="{{ party.description }}"
-    ></textarea>
+<div class="card mb-3" style="width: 800px; height: 300px">
+  <div class="row no-gutters">
+    <div class="col-md-6">
+      <img src="{{ party.image }}" class="card-img" style="height:298px;">
+  
+    </div>
+    <div class="col-md-6">
+      <div class="card-body">
+        <h5 class="card-title">{{ party.title }}</h5>
+        <p class="card-text"><small class="text-muted">{{ start }}{{ end }}</small></p>
+        <form action="/edit_event_des/{{ party.event_id }}" method="POST">
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Edit Event Description</label>
+            <textarea name="event_des" class="form-control" id="exampleFormControlTextarea1" rows="3" value="{{ party.description }}"
+            ></textarea>
+          </div>
+          <input type="submit" class="btn-primary" value="Submit Changes">
+        </form>        
+      </div>
+      <div class="card-footer bg-transparent">
+        <form action="/upload_party_pic/{{ party.event_id }}" method="POST" enctype="multipart/form-data" class="btn-sm">
+          <input type="file" class="btn-sm" name="file">
+          <input type="submit" class="btn-sm" value="Upload">
+        </form>
+      </div>
+    </div>
   </div>
-  <input type="submit" value="Submit Changes">
-</form>
+</div>
 
 {% endblock %}
 

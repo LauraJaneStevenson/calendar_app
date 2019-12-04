@@ -581,7 +581,10 @@ def display_all_events():
         #                    'end': event.end_time})
         event = {}
         # event['id'] = db_event.event_id
-        event['title'] = db_event.event_type
+        if db_event.event_type == 'party':
+            event['title'] = db_event.title
+        else:
+            event['title'] = db_event.event_type
         event['start'] = db_event.start_time.isoformat()
         event['end'] = db_event.end_time.isoformat()
         event['author'] = get_user(db_event.user_id).username
