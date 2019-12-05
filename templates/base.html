@@ -75,18 +75,17 @@
   </div>
 </nav>
 
-{% endif %}
-
-
 <section class="h-100 mx-3 full-columns">
     <div class="row h-100">
         <aside class="col-3 h-100 bg-light d-flex justify-content-center">
             <div class="container my-4">
+            
 
               {% block side %}{% endblock %}
             </div>
         </aside>
-
+        
+  {% endif %}
 
         <main class="col h-100 overflow-y">
             <div class="container py-4 content">

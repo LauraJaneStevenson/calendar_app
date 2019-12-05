@@ -3,28 +3,30 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-<body>
-<div class="container">
-<div class="row">
 
-<form action="/login" method="POST">
-  <div class="form-group">
-    <label for="exampleInput">Username</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1"
-    name="password">
-  </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Remember Me</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Login</button>  
-  <a class="btn btn-primary" href="http://localhost:5000/register" role="button">Register</a>
-</form>
+<div class="row align-items-center justify-content-center" style="height:500px;">
+    <div class="col-5">
+        <div class="card mb-3" style="max-width: 400px;">
+          <div class="card-header">Welcome to Roomies!</div>
+          <div class="card-body form-group">
+            <h5 class="card-title" style="margin-bottom: 25px;">Login</h5>
+            <form action="/login" method="POST">
+                <div>
+                    <input type="text" class="form-control" placeholder="Username" name="username" style="margin-bottom: 25px;">
+                </div>
+                <div>
+                    <input type="password" class="form-control" placeholder="Password" name="password">
+                    <small class="form-text text-muted" style="margin-bottom: 25px;">Passwords not yet encrypted</small>
+                </div>
+                <input class="btn-primary" type="submit">
+                <a href="/register" style="display: inline;">
+                  <button type="button" class="btn-primary" style="display: inline;">Create an Account</button>
+                </a>
+            </form>
+            
+          </div>
+        </div>
+    </div>
 </div>
-</div>
-</body>
+
 {% endblock %}

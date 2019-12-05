@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
       startT = setDateTime(startT,info.startStr);
       endT = setDateTime(endT,info.endStr);
       
-      let eventType = prompt('Enter Event Type(Quiet hours, Bathroom, Party): ');
+      let eventType = prompt('Enter Event Type(quiet hours, shower, party): ');
       if(eventType == 'party'){
         partyTitle = prompt('Enter Party Name: ');
         description = prompt('Enter a description:');
@@ -63,7 +63,9 @@ document.addEventListener('DOMContentLoaded', function() {
       };
 
       $.post('/add_event',eventDetails,(response) =>{
-        alert("An event request has been sent to your housemates!");
+        if(eventType != 'shower'){
+          alert("An event request has been sent to your housemates!");
+        };
         let url = response.url
         let author = response.author
      

@@ -29,13 +29,13 @@
 
 {% if users %}
 {% for housemate in users %}
-<div class="row">
+<div class="row" style="display: inline-block;">
     <div class="col-3" style="display: inline-block;">
-        <div class="card" style="width: 18rem;">
-          <img src="{{ housemate.profile_pic }}" style="width: 17.9rem;" class="card-img-top" alt="...">
+        <div class="card" style="width: 200px;">
+          <img src="{{ housemate.profile_pic }}" style="width: 200px; height:200px" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">{{ housemate.name }}</h5>
-            <small class="form-text text-muted" style="padding-bottom: 10px;">ID: {{user.user_id}}</small>
+            <small class="form-text text-muted" style="padding-bottom: 10px;">ID: {{housemate.user_id}}</small>
             <p>{{ housemate.username }}</p>
             <button class="invite btn-primary" id="{{ housemate.user_id }}">Invite</button>
             <a href="/profile/{{ housemate.user_id }}">

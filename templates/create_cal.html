@@ -27,21 +27,25 @@
 
 {% block content %}
 
- <div class="card mb-3" style="max-width: 400px;">
-  <div class="card-header">Welcome to Roomies!</div>
-  <div class="card-body form-group">
-    <h5 class="card-title" style="margin-bottom: 25px;">Create New Calendar</h5>
-    <form action="/create_cal_process" method="POST">
-        <div>
-            <input type="text" class="form-control" style="margin-bottom: 25px;" placeholder="House Name" name="house_name" required>
+<div class="row align-items-center justify-content-center" style="height:500px;">
+    <div class="col-5">
+        <div class="card mb-3" style="max-width: 400px;">
+          <div class="card-header">Welcome to Roomies!</div>
+          <div class="card-body form-group">
+            <h5 class="card-title" style="margin-bottom: 25px;">Create New Calendar</h5>
+            <form action="/create_cal_process" method="POST">
+                <div>
+                    <input type="text" class="form-control" style="margin-bottom: 25px;" placeholder="House Name" name="house_name" required>
+                </div>
+                <div>
+                    <input type="text" class="form-control" placeholder="House Address" name="house_addr">
+                    <small class="form-text text-muted" style="margin-bottom: 25px;">Other users will not see your address.</small>
+                </div>
+                <input class="btn-primary" type="submit">
+            </form>
+          </div>
         </div>
-        <div>
-            <input type="text" class="form-control" placeholder="House Address" name="house_addr">
-            <small class="form-text text-muted" style="margin-bottom: 25px;">Other users will not see your address.</small>
-        </div>
-        <input class="btn-primary" type="submit">
-    </form>
-  </div>
+    </div>
 </div>
 
 {% endblock %}
