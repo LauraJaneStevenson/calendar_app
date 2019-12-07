@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   window.calendar = new FullCalendar.Calendar(calendarEl, {
     plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
-    defaultView: 'timeGridWeek',
+    defaultView: 'dayGridMonth',
    
     //moment().format('YYYY MM Do')
     // moment().format();
