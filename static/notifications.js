@@ -91,31 +91,33 @@ $.get('/get_notifications.json',(response) => {
             party_id = notification.event_id
             $('ul.notifications').append(`
                 <li class=notifications id=${id}>
-                    ${type} from ${from} ${times}
-                    <button
-                        type="button"
-                        class="approved btn btn-primary btn-sm"
-                        id="approve-${id}"
-                        onclick="handleApprove(${true},${id})"
-                        onmouseover="showRequested(${id})"
-                    >
-                        Approve
-                    </button>
-                    <button 
-                        type="button" 
-                        class="approved btn-secondary btn-sm"" 
-                        id="deny-${id}"
-                        onclick="handleApprove(${false},${id})"
-                        onmouseover="showRequested(${id})"
-                    >
-                        Deny
-                    </button>
-                    <a href="/party/${party_id}" id="view-party"><button 
-                        type="button" 
-                        class="btn btn-secondary btn-sm"" 
-                    >
-                        View Page
-                    </button></a>
+                    <span class=notif-msg>${type} from ${from} </span>
+                    <span class="notif-btns">
+                        <button
+                            type="button"
+                            class="approved btn btn-primary btn-sm"
+                            id="approve-${id}"
+                            onclick="handleApprove(${true},${id})"
+                            onmouseover="showRequested(${id})"
+                        >
+                            Approve
+                        </button>
+                        <button 
+                            type="button" 
+                            class="approved btn-secondary btn-sm"" 
+                            id="deny-${id}"
+                            onclick="handleApprove(${false},${id})"
+                            onmouseover="showRequested(${id})"
+                        >
+                            Deny
+                        </button>
+                        <a href="/party/${party_id}" id="view-party"><button 
+                            type="button" 
+                            class="btn btn-secondary btn-sm" 
+                        >
+                            View Page
+                        </button></a>
+                    </span>
 
                 </li>`);
             

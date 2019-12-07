@@ -25,7 +25,7 @@
     {% for housemate in user.get_housemates() %}
      <li>
       
-        <a href="/profile/{{ housemate.user_id }}" id="{{ housemate.user_id }}">
+        <a class="housemates" href="/profile/{{ housemate.user_id }}" id="{{ housemate.user_id }}">
         <i class="fas fa-user-friends"></i>
           {{ housemate.name }}
         </a></li>

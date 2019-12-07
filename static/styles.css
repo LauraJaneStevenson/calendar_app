@@ -138,11 +138,11 @@ derived from this CSS on this page: https://popper.js.org/tooltip-examples.html
 
 .dropdown-content {
   display: none;
-  align-items: center;
+  align-items: right;
   padding-top: 20px;
   position: absolute;
   background-color: #f1f1f1;
-  width: 500px;
+  width: 415px;
   font-size: 11px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -154,12 +154,38 @@ derived from this CSS on this page: https://popper.js.org/tooltip-examples.html
   padding: 12px 16px;
   text-decoration: none;
   display: block;
-}
-.notifications {
-  color:black;
-  list-style: none;
+  align-items: right;
 
 }
+.notifications {
+  color: black;
+  list-style: none;
+  text-align: left;
+  padding-left: 10px;
+  font-weight: bold;
+
+
+}
+
+/*button .notifications{
+  
+
+}
+button.btn.btn-secondary.btn-sm.notifications{
+
+  margin-left:5px;
+}
+
+button#approve-4.btn.btn-primary.btn-sm{
+
+  margin-left:5px
+}
+button#deny-4.approved.btn-secondary.btn-sm{
+  align-self: left;
+  margin-right:0px;
+  margin-left:5px
+
+}*/
 
 #view-party {
   display: inline; 
@@ -276,8 +302,24 @@ img.rounded-circle.profile-pic{
  i{
   padding-left:10px;
 }
+a.housemates{
+  color:rgba(0,0,0,0.6);
+}
+
+#view-party{
+  padding-left: 0px;
+}
+
+li .notifications{
+  text-align: left;
+}
 
 
+.notif-btns{
+  align-items: right;
+  /*margin-right:0px;*/
+}
 
-
-
+li.notifications{
+  align-items: right;
+}

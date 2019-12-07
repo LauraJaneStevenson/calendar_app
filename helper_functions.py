@@ -123,7 +123,7 @@ def send_init_sms(request_id,user_id):
                     .create(
                          body=message,
                          from_=os.environ.get('SMS_NUMBER'),
-                         to=to_user.phone_number
+                         to=os.environ.get('SMS_TO')
                      )
 
     print(message.sid)
