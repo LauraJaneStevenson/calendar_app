@@ -8,19 +8,14 @@
         <div class="align-items-center">
     <img src={{user.profile_pic}} class="rounded-circle profile-pic" width="130" height="130">
     
-    <!--     <h5 style="text-align: center; padding-top: 30px;">{{ user.name }}</h5>
- 
-        <h7 style="text-align: center; padding-top: 30px;"> House Name: {{ user.calendar.house_name }}</h7> -->
+    
 </div>
 </div>
 
-<!-- <h5 style="text-align: center;">{{ user.name }}</h5>
-<p style="text-align: center;">House name: {{ user.calendar.house_name }}</p>
-<p></p> -->
 <p class="greeting">House: {{ user.calendar.house_name }}</p>
 
 <div class="housemate-list">
- <!-- <p class="hm-title">Your housemates: </p> -->
+
  <ul> 
     {% for housemate in user.get_housemates() %}
      <li>

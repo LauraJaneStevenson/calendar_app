@@ -463,7 +463,7 @@ def find_calendar():
     print(cal_list)
     print("\n\n\n\n\n\n\n\n\n\n\n")
 
-    return render_template("calendar_list.html",cal_list=cal_list)
+    return render_template("calendar_list.html",cal_list=cal_list,user=get_user(session['user_id']))
 
 
 @app.route("/request_access_to_cal",methods=['POST'])
