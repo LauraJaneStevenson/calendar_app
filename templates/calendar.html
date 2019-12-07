@@ -2,25 +2,54 @@
 
 {% block title %}Homepage{% endblock %}
 {% block side %}
+<!-- <div class="profile-pic container" style="align-items: center;"> -->
+    <div class="row align-items-center justify-content-center
+               static-height" style="height:200px;">
+        <div class="align-items-center">
+    <img src={{user.profile_pic}} class="rounded-circle profile-pic" width="130" height="130">
+    
+    <!--     <h5 style="text-align: center; padding-top: 30px;">{{ user.name }}</h5>
+ 
+        <h7 style="text-align: center; padding-top: 30px;"> House Name: {{ user.calendar.house_name }}</h7> -->
+</div>
+</div>
 
-<p class="lead" >House name: {{ user.calendar.house_name }}</p>
- <p>Your housemates: </p>
+<!-- <h5 style="text-align: center;">{{ user.name }}</h5>
+<p style="text-align: center;">House name: {{ user.calendar.house_name }}</p>
+<p></p> -->
+<p class="greeting">House: {{ user.calendar.house_name }}</p>
+
+<div class="housemate-list">
+ <!-- <p class="hm-title">Your housemates: </p> -->
  <ul> 
     {% for housemate in user.get_housemates() %}
      <li>
-        <img src="{{ housemate.profile_pic }}" class="rounded-circle" width="30" height="30">
+      
         <a href="/profile/{{ housemate.user_id }}" id="{{ housemate.user_id }}">
+        <i class="fas fa-user-friends"></i>
           {{ housemate.name }}
-        </a>
-    </li>  
+        </a></li>
+   </span>  
     {% endfor %}
  </ul>
+</div>
 
-<p>Search for and add housemates: </p>
 
-<form action="/add_housemates" method="POST">
-    Search name:<input type="text" name="housemate_name">
-    <input type="submit" class="btn-secondary">
+
+<form action="/add_housemates" method="POST" class="search-hm" style= "padding-top:200px;">
+<div class="form-group">
+  <input
+    type="text"
+    class="form-control"
+    id="basicTextInputHelp"
+    name="housemate_name"
+    placeholder="Search"
+  >
+  <small class="form-text text-muted">
+    Search for users by name
+  </small>
+</div>
+    <!-- <input type="submit" class="btn-secondary search-hm"> -->
 </form> 
 {% endblock %}
 

@@ -35,13 +35,15 @@
   <script src='/static/helpers.js'></script>
   <script src="static/calendar.js"></script>
 
-  <link
+
+  <script src="https://kit.fontawesome.com/27c0bc580a.js" crossorigin="anonymous"></script>
+  
+
+    <link
     href="../static/css/full-height-columns.css"
     rel="stylesheet"
-  />
-  <script src="https://kit.fontawesome.com/27c0bc580a.js" crossorigin="anonymous"></script>
-  <link href='/static/styles.css' rel='stylesheet' />
-
+    />
+    <link href='/static/styles.css' rel='stylesheet'/>
 </head>
   
   
@@ -50,7 +52,7 @@
 {% if session['name'] %}
 
 <!-- Dark Navbar: dark bg, navbar-dark theme -->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-fixed-top">
   <a class="navbar-brand" href="#">Roomies</a>
   <button
     class="navbar-toggler"
@@ -77,12 +79,11 @@
   </div>
 </nav>
 
-<section class="h-100 mx-3 full-columns">
+<section class="h-100 mx-2 full-columns">
     <div class="row h-100">
-        <aside class="col-3 h-100 bg-light d-flex justify-content-center">
-            <div class="container my-4">
+        <aside class="col-2 h-100 bg-light d-flex justify-content-center">
+            <div class="container" style="margin-color:#f1f1f1; padding-bottom: 130%; height:100%;">
             
-
               {% block side %}{% endblock %}
             </div>
         </aside>
