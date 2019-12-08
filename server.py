@@ -14,6 +14,8 @@ from helper_functions import get_user, get_event, get_invitation, get_access_req
 
 import os
 
+import random
+
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = 'static/uploads/'
@@ -458,12 +460,17 @@ def find_calendar():
     # list of calendars with the house name user searched for
     cal_list = Calendar.query.filter(Calendar.house_name == house_name).all()
 
+    # 
+
+    cal_imgs = ['cal1.jpg','cal2.jpg','cal3.jpg','cal4.jpg']
+    random.sample(cal_imgs,4)
+
 
     print("\n\n\n\n\n\n\n\n\n\n\n")
     print(cal_list)
     print("\n\n\n\n\n\n\n\n\n\n\n")
 
-    return render_template("calendar_list.html",cal_list=cal_list,user=get_user(session['user_id']))
+    return render_template("calendar_list.html",cal_list=cal_list,user=get_user(session['user_id']),cal_imgs=cal_imgs)
 
 
 @app.route("/request_access_to_cal",methods=['POST'])

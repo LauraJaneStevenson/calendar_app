@@ -10,11 +10,6 @@ html, body {
   margin: 40px auto;
 }
 
-/*
-i wish this required CSS was better documented :(
-https://github.com/FezVrasta/popper.js/issues/674
-derived from this CSS on this page: https://popper.js.org/tooltip-examples.html
-*/
 
 .popper,
 .tooltip {

@@ -49,11 +49,12 @@ document.addEventListener('DOMContentLoaded', function() {
       if(eventType == 'party'){
         partyTitle = prompt('Enter Party Name: ');
         description = prompt('Enter a description:');
-
-      }else if(eventType == 'quiet hours'){
-
-        description = prompt('Enter a description:');
       }
+
+      // }else if(eventType == 'quiet hours'){
+
+      //   description = prompt('Enter a description:');
+      // }
       const eventDetails = {
         'start': startT,
         'end': endT,
@@ -74,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 title: eventType,
                 start: startT,
                 endTime: endT,
-                backgroundColor: '#DCB239', 
+                backgroundColor: '#286DA8', 
                 url: url,
                 author: author
 
@@ -126,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     start: event.start,
                     end: event.end,
                     author: event.author,
-                    backgroundColor: '#DCB239',
+                    backgroundColor: '#286DA8',
                     url: event.url 
 
                   });

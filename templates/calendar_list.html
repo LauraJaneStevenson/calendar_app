@@ -46,7 +46,7 @@
   {% for cal in cal_list %}
   <div class="col-3" style="display: inline-block;">
     <div class="card" style="width: 18rem; display: inline-block;">
-      <img src="../static/uploads/calendar.jpg" style="width: 17.9rem;" class="card-img-top" alt="...">
+      <img src="../static/uploads/{{ cal_imgs[range(0, 4) | random] }}" style="width: 17.9rem;" class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">{{ cal.house_name }}</h5>
         <small class="form-text text-muted" style="padding-bottom: 10px;">ID: {{ cal.cal_id }}</small>
