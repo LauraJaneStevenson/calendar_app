@@ -235,7 +235,7 @@ img.rounded-circle.profile-pic{
   margin-right:0px;
   align-content: center;
   border-style: solid;
-  border-color:rgba(0,0,0,0.2);
+  border-color:rgba(46,59,85,.7);
   padding:5px;
   border-width: thin;
 
@@ -271,30 +271,31 @@ img.rounded-circle.profile-pic{
   border-color:rgba(0,0,0,0.1);
 
 */  color: rgba(0,0,0,0.2);
-    background-color: rgba(50,50,50,.1);
+    background-color: rgba(46,59,85,.3);
     border-radius: 5px;
     align-items: left;
     margin-top: 5px;
 }
 
 .housemate-list{
-  color:rgba(0,0,0,0.6);
+  color:rgba(255,255,255,0.3);
   padding-left:10px;
   text-align: left;
 
 }
 
 .housemate-list.hover {
-  color:rgba(0,0,0,0.9);
+  color:rgba(255,255,255,0.9);
 
 }
 .greeting{
+  color:rgba(255,255,255,0.6);
   text-align: center;
   padding-top: 0px;
   font-weight: bold;
-  border-bottom:solid;
+  /*border-bottom:solid;
   border-width: thin;
-  border-color:rgba(0,0,0,0.1);
+  border-color:rgba(255,255,255,0.3);*/
 }
 
 
@@ -303,7 +304,7 @@ img.rounded-circle.profile-pic{
   padding-left:10px;
 }
 a.housemates{
-  color:rgba(0,0,0,0.6);
+  color:rgba(255,255,255,0.6);
 }
 
 #view-party{
@@ -323,3 +324,45 @@ li .notifications{
 li.notifications{
   align-items: right;
 }
+
+
+aside{
+  background-color: rgba(33,42,68);
+}
+
+div.container.side{
+  background-color: rgba(33,42,68);
+  margin:rgba(33,42,68);
+
+}
+
+aside.col-2.h-100.bg-light.d-flex.justify-content-center{
+  background-color: rgba(33,42,68);
+  padding:0;
+}
+
+nav.navbar.navbar-expand-md.navbar-custom-theme{
+  background-color: rgba(27,38,56);
+  color:white;
+}
+
+a.nav-item.nav-link{
+  color:white;
+  opacity: .6;
+
+}
+
+a.navbar-brand{
+   color:white;
+   opacity: .6;
+}
+
+
+div.container.py-4.content{
+ /* background-color: rgba(214,237,239);*/
+  /*padding:0px;
+  width:100%;*/
+}
+
+
+
