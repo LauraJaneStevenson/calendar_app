@@ -15,7 +15,11 @@
 </div>
 </div>
 
-<p class="greeting">Hello, {{ my_user.name }}</p>
+{% if session['cal_id']%}
+<p class="greeting">House: {{ user.calendar.house_name }}</p>
+{% else %}
+<p class="greeting">No House</p>
+{% endif %}
 
 <div class="housemate-list">
 

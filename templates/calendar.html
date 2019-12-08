@@ -2,7 +2,7 @@
 
 {% block title %}Homepage{% endblock %}
 {% block side %}
-<!-- <div class="profile-pic container" style="align-items: center;"> -->
+
     <div class="row align-items-center justify-content-center
                static-height" style="height:200px;">
         <div class="align-items-center">
@@ -11,9 +11,11 @@
     
 </div>
 </div>
-
+{% if session['cal_id']%}
 <p class="greeting">House: {{ user.calendar.house_name }}</p>
-
+{% else %}
+<p class="greeting">No House</p>
+{% endif %}
 <div class="housemate-list">
 
  <ul> 
@@ -44,7 +46,7 @@
     Search for users by name
   </small>
 </div>
-    <!-- <input type="submit" class="btn-secondary search-hm"> -->
+
 </form> 
 {% endblock %}
 
