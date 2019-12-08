@@ -129,7 +129,7 @@ class Event(db.Model):
                     default="localhost:5000/calendar")
 
     image = db.Column(db.String(200),
-                      default="/static/uploads/icon.jpg")
+                      default="/static/uploads/event.jpg")
 
     # define relationship to calendars and users tables
     calendar = db.relationship("Calendar", backref=db.backref("events"))
