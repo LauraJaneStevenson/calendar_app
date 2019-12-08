@@ -54,7 +54,7 @@
 <!-- Dark Navbar: dark bg, navbar-dark theme -->
 <nav class="navbar navbar-expand-md navbar-custom-theme">
   {% if session['user_id'] %}
-  <a class="navbar-brand" href="">Roomies</a>
+  <a class="navbar-brand" href=""><img src="/static/uploads/noun_classroom_1218376.png" style="width:30px; height:30px;"></a>
   {% endif %}
   <button
     class="navbar-toggler"
@@ -67,16 +67,16 @@
   </button>
   <div class="navbar-collapse collapse" id="navExpandContent3">
     <div class="navbar-nav">
-      <a class="nav-item nav-link"href="/calendar">Home</a>
-      <a class="nav-item nav-link" id="{{ session.user_id }}" href="/profile/{{ session.user_id }}">Profile</a>
+      <a class="nav-item nav-link"href="/calendar"><img src="/static/uploads/noun_Calendar_1218377.png" style="width:30px; height:30px; margin-top:7px;"></a>
+      <a class="nav-item nav-link" id="{{ session.user_id }}" href="/profile/{{ session.user_id }}"><img src="/static/uploads/noun_profile_2068286.png" style="width:30px; height:30px; margin-top:7px;"></a>
       <div class="dropdown">
-        <a class="nav-item nav-link dropbtn" id="">Notifications</a>
+        <a class="nav-item nav-link dropbtn" id=""><img src="/static/uploads/noun_notification_615081.png" style="width:40px; height:40px;"></a>
           <div class="dropdown-content">
             <ul class='notifications'>
             </ul>
           </div>
         </div>
-        <a class="nav-item nav-link"href="/logout_process">Logout</a>
+        <a class="nav-item nav-link"href="/logout_process"><img src="/static/uploads/noun_sign out_1237657.png" style="width:30px; height:30px; margin-top:7px;"></a>
       </div>
     </div>
   </div>
