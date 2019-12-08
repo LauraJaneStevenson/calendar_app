@@ -20,16 +20,16 @@ derived from this CSS on this page: https://popper.js.org/tooltip-examples.html
 .tooltip {
   position: absolute;
   z-index: 9999;
-  background: #192231;
+  background: rgba(33,42,68);
   color: white;
   width: 150px;
   border-radius: 3px;
-  box-shadow: 0 0 2px rgba(0,0,0,0.5);
+  box-shadow: 0 0 2px rgba(33,42,68);
   padding: 10px;
   text-align: center;
 }
 .style5 .tooltip {
-  background:  #192231;
+  background: rgba(33,42,68,0.5);
   color: #FFFFFF;
   max-width: 200px;
   width: auto;
@@ -193,12 +193,16 @@ thead{
   text-transform: uppercase;
 }
 .fc table{
+  /*background-color: #FFFFFF;*/
+
  
 
 }
 
 .fc td {
     /*lines of calendar*/
+    /*background-color: rgba(0,0,0);*/
+    
 
 }
 
@@ -321,6 +325,9 @@ div.container.side{
 aside.col-2.h-100.bg-light.d-flex.justify-content-center{
   background-color: rgba(33,42,68);
   padding:0;
+  padding-bottom: 200%; 
+  height:100%;
+  overflow-y: hidden;
 }
 
 nav.navbar.navbar-expand-md.navbar-custom-theme{
@@ -378,5 +385,44 @@ div.container.py-4.content{
   /*background-color: #F5CE28; */
 }
 
-/*'quiet hours': '#F5CE28',
-  'shower': '#B2F1F2'*/
+div.container.py-4.content{
+  background-color: url('uploads/doodles.png');
+  background-attachment: fixed;
+  filter: alpha(opacity=50);
+
+
+
+
+}
+
+section.h-100.mx-2.full-columns{
+   background-attachment: fixed;
+  filter: alpha(opacity=50);
+  /*background-color: red;*/
+}
+
+div.row.h-100{
+  /*background-color: rgba(230,246,250);*/
+  /*background-image: url('uploads/let-there-be-sun.png');*/
+  background-attachment: fixed;
+  filter: alpha(opacity=50);
+  background-color: white;
+
+
+}
+
+
+body{
+  background-image: url('uploads/doodles.png');
+  background-attachment: fixed;
+  filter: alpha(opacity=50);
+
+
+}
+
+aside{
+  position: fixed;
+}
+
+
+

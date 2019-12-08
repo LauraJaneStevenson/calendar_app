@@ -124,7 +124,7 @@ $.get('/get_notifications.json',(response) => {
     }else{
          $('ul.notifications').append(`
                 <li class=notifications id=${id}>
-                    ${type} from ${from} ${times}
+                    ${type} from ${from}
                     <button
                         type="button"
                         class="approved btn btn-primary btn-sm"
