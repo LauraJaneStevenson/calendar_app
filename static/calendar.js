@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     customButtons: {
       addEventButton: {
-        text: 'show my requested events',
+        text: 'requested events',
         click: function() {
           // evt_showing.toggle();
           //AJAX request to get unapproved events

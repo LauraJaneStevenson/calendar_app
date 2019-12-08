@@ -113,7 +113,7 @@ $.get('/get_notifications.json',(response) => {
                         </button>
                         <a href="/party/${party_id}" id="view-party"><button 
                             type="button" 
-                            class="btn btn-secondary btn-sm" 
+                            class="btn btn-secondary btn-sm view-party" 
                         >
                             View Page
                         </button></a>

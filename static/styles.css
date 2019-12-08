@@ -141,7 +141,7 @@ derived from this CSS on this page: https://popper.js.org/tooltip-examples.html
   align-items: right;
   padding-top: 20px;
   position: absolute;
-  background-color: #f1f1f1;
+  background-color: #FFFFFF;
   width: 415px;
   font-size: 11px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -167,25 +167,7 @@ derived from this CSS on this page: https://popper.js.org/tooltip-examples.html
 
 }
 
-/*button .notifications{
-  
 
-}
-button.btn.btn-secondary.btn-sm.notifications{
-
-  margin-left:5px;
-}
-
-button#approve-4.btn.btn-primary.btn-sm{
-
-  margin-left:5px
-}
-button#deny-4.approved.btn-secondary.btn-sm{
-  align-self: left;
-  margin-right:0px;
-  margin-left:5px
-
-}*/
 
 #view-party {
   display: inline; 
@@ -224,6 +206,10 @@ thead{
     background: #f1f1f1 !important;
 }
 
+div.fc-center{
+  text-align: center;
+}
+
 /*.h-100{
   height:100%!important;
 }*/
@@ -235,7 +221,7 @@ img.rounded-circle.profile-pic{
   margin-right:0px;
   align-content: center;
   border-style: solid;
-  border-color:rgba(46,59,85,.7);
+  border-color:rgba(214,198,32,.3);
   padding:5px;
   border-width: thin;
 
@@ -307,10 +293,6 @@ a.housemates{
   color:rgba(255,255,255,0.6);
 }
 
-#view-party{
-  padding-left: 0px;
-}
-
 li .notifications{
   text-align: left;
 }
@@ -364,5 +346,37 @@ div.container.py-4.content{
   width:100%;*/
 }
 
+.btn-primary{
+  background-color:#F81884;
+  border: hidden;
+}
+
+.btn-primary:hover{
+  background-color: #8B0046;
+}
+
+.btn-secondary:hover{
+  background-color: #6C7E8E;
+}
+
+.btn-secondary.view-party:hover{
+  background-color: #E0AD59;
+}
 
 
+
+.btn-secondary{
+  background-color:#292950;
+  border: hidden;
+}
+.btn-secondary.view-party{
+  background-color: #F5CE28;
+}
+
+#view-party{
+  padding-left: 0px;
+  /*background-color: #F5CE28; */
+}
+
+/*'quiet hours': '#F5CE28',
+  'shower': '#B2F1F2'*/
