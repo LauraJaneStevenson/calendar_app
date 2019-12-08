@@ -13,7 +13,7 @@
     
 </div>
 </div>
-
+<p class="greeting">User: {{ user.name }}</p>
 <p class="greeting">House: {{ user.calendar.house_name }}</p>
 
 <div class="housemate-list">
@@ -72,15 +72,25 @@
           <input type="submit" class="btn-primary" value="Submit Changes">
         </form>        
       </div>
-      <div class="card-footer bg-transparent">
-        <form action="/upload_party_pic/{{ party.event_id }}" method="POST" enctype="multipart/form-data" class="btn-sm">
-          <input type="file" class="btn-sm" name="file">
-          <input type="submit" class="btn-sm" value="Upload">
-        </form>
       </div>
+    <div class="card-footer" style="width: 800px;">
+     
+    <div class="form-group">
+      <form action="/upload_file" method="POST" enctype="multipart/form-data">
+        <label>
+          Edit Profile Pic
+        </label>
+        <div class="custom-file" style="padding: 25px;">
+          <input type="file" class="custom-file-input" id="customFile" name="file">
+          <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+        <input type="submit" class="btn-primary" value="Upload">
+      </form>
     </div>
   </div>
-</div>
+    </div>
+  </div>
+
 
 {% endblock %}
 
