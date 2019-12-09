@@ -466,10 +466,6 @@ def find_calendar():
     random.sample(cal_imgs,4)
 
 
-    print("\n\n\n\n\n\n\n\n\n\n\n")
-    print(cal_list)
-    print("\n\n\n\n\n\n\n\n\n\n\n")
-
     return render_template("calendar_list.html",cal_list=cal_list,user=get_user(session['user_id']),cal_imgs=cal_imgs)
 
 
@@ -614,9 +610,11 @@ def display_all_events():
         event['end'] = db_event.end_time.isoformat()
         event['author'] = get_user(db_event.user_id).username
         event['url'] = db_event.url
+
         # if db_event.event_type
         # if the event is in the dictionary, give event obj 'eventColor' attibute 
         # and set it to correct color
+        
         if db_event.event_type in map_event_colors():
             event['backgroundColor'] = map_event_colors()[db_event.event_type]
             event['borderColor'] = map_event_colors()[db_event.event_type]

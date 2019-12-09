@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
   window.calendar = new FullCalendar.Calendar(calendarEl, {
     plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
     defaultView: 'dayGridMonth',
+    defaultDate: '2019-12-05',
    
     //moment().format('YYYY MM Do')
     // moment().format();
