@@ -36,19 +36,23 @@ Pages
 
 #### Creating and Editing an Event
 
-<a href="https://youtu.be/q70sTY0LH5c"></a>
+<a href="https://youtu.be/q70sTY0LH5c"><img src="static/uploads/events" 
+width="240" height="180" border="10" /></a>
 
 #### User Profiles
 
-<a href="https://youtu.be/quFOM6bYBYM"></a>
+<a href="https://youtu.be/quFOM6bYBYM"><img src="static/uploads/profile" 
+width="240" height="180" border="10" /></a>
 
 #### Search For Users
 
-<a href="https://youtu.be/AmtyXV3EGmk"></a>
+<a href="https://youtu.be/AmtyXV3EGmk"><img src="static/uploads/search-for-user" 
+width="240" height="180" border="10" /></a>
 
 #### Search For Calendars
 
-<a href="https://youtu.be/iiMeVwLuXZE"></a>
+<a href="https://youtu.be/iiMeVwLuXZE"><img src="static/uploads/search-for-cal" 
+width="240" height="180" border="10" /></a>
 
 
 
