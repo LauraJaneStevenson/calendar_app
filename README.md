@@ -40,10 +40,10 @@ Pages
 #### Event Requests
 ![Event Requests](http://g.recordit.co/7Jcn16FLPR.gif)
 
-#### User Profiles
+<!-- #### User Profiles
 
 ![Profile and event pages](https://recordit.co/fu7vnCW9m0)
-
+ -->
 #### Search For Users
 
 ![Search for Users](http://g.recordit.co/pW8UKEmGw1.gif)
