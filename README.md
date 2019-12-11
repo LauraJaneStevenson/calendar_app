@@ -35,28 +35,22 @@ Pages
 -----
 
 #### Creating and Editing an Event
+![Creating and editing events](http://g.recordit.co/CrIM2ykBvE.gif)
 
-![Log in](http://g.recordit.co/pW8UKEmGw1.gif)
-
-<a href="https://youtu.be/q70sTY0LH5c"><img src="static/uploads/events" 
-width="240" height="180" border="10" /></a>
+#### Event Requests
+![Event Requests](http://g.recordit.co/7Jcn16FLPR.gif)
 
 #### User Profiles
 
-<a href="https://youtu.be/quFOM6bYBYM"><img src="static/uploads/profile" 
-width="240" height="180" border="10" /></a>
+![Profile and event pages](http://g.recordit.co/fu7vnCW9m0.gif)
 
 #### Search For Users
 
 ![Search for Users](http://g.recordit.co/pW8UKEmGw1.gif)
 
-<a href="https://youtu.be/AmtyXV3EGmk"><img src="static/uploads/search-for-user" 
-width="240" height="180" border="10" /></a>
-
 #### Search For Calendars
 
-<a href="https://youtu.be/iiMeVwLuXZE"><img src="static/uploads/search-for-cal" 
-width="240" height="180" border="10" /></a>
+![Search for Calendars](http://g.recordit.co/uxrbYQtvIT.gif)
 
 
 
