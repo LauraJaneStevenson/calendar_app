@@ -42,7 +42,7 @@ Pages
 
 #### User Profiles
 
-![Profile and event pages](http://g.recordit.co/fu7vnCW9m0.gif)
+![Profile and event pages](https://recordit.co/fu7vnCW9m0)
 
 #### Search For Users
 
