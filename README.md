@@ -79,13 +79,13 @@ $ virtualenv env
 Activate the virtual environment: 
 
 ```
-source env/bin/activate
+$ source env/bin/activate
 ```
 
 Install dependencies:
 
 ```
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 Create your own secret keys for Twilio and save them to a secrets.sh file. Your file should look like this:
