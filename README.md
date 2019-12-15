@@ -53,6 +53,23 @@ Pages
 ![Search for Calendars](http://g.recordit.co/uxrbYQtvIT.gif)
 
 
+Setup/Installation
+-----
+
+#### Requirements:
+
+* PostgresSQL
+* Python 3.6
+* Twilio API key
+
+To run this app on your local computer, please follow these steps:
+
+Clone repository:
+
+```
+$ git clone https://github.com/LauraJaneStevenson/calendar_app.git
+
+```
 
 
 
