@@ -85,7 +85,7 @@ $ source env/bin/activate
 Install dependencies:
 
 ```
-$ pip install -r requirements.txt
+$ pip3 install -r requirements.txt
 ```
 
 Create your own secret keys for Twilio and save them to a secrets.sh file. Your file should look like this:
@@ -106,7 +106,7 @@ $ createdb calendars
 Create tables:
 
 ```
-$ python -i model.py
+$ python3 -i model.py
 
 >>> db.create_all()
 ```
