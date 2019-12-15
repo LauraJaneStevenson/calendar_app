@@ -68,11 +68,53 @@ Clone repository:
 
 ```
 $ git clone https://github.com/LauraJaneStevenson/calendar_app.git
-
 ```
 
+Create a virtual environment:
 
+```
+$ virtualenv env
+```
 
+Activate the virtual environment: 
 
+```
+source env/bin/activate
+```
+
+Install dependencies:
+
+```
+pip install -r requirements.txt
+```
+
+Create your own secret keys for Twilio and save them to a secrets.sh file. Your file should look like this:
+
+```
+export ACCOUNT_SID=''
+export AUTH_TOKEN=''
+export SMS_NUMBER=''
+export SMS_TO=''
+```
+
+Create database:
+
+```
+$ createdb calendars
+```
+
+Create tables:
+
+```
+$ python -i model.py
+
+>>> db.create_all()
+```
+
+Run app from command line:
+
+```
+$ python3 server.py
+```
 
 
