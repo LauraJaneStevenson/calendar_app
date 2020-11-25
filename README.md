@@ -25,7 +25,6 @@ Technologies
 * Javascript
 * JQuery
 * Bootstrap
-* Moment.js
 * FullCalendar.io
 * Datetime modeule in python
 * Twilio SMS API
