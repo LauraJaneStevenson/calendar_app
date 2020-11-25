@@ -25,7 +25,6 @@ Technologies
 * Javascript
 * JQuery
 * Bootstrap
-* Python unittest module
 * Moment.js
 * FullCalendar.io
 * Datetime modeule in python
